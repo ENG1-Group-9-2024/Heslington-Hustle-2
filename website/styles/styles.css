@@ -1,0 +1,160 @@
+* {
+	box-sizing: border-box;
+  }
+
+head {
+	background-color: darkgreen;
+}
+
+body {
+	/*margin: 0px 10%;*/
+	background-color: rgb(140, 178, 154);
+}
+
+.heading {
+	text-align: center;
+	margin: auto;
+}
+
+.home {
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	width: 20%;
+	text-align: center;
+}
+
+.CenterLink {
+	margin: auto;
+	text-align: center;
+}
+
+.GanttCharts {
+	margin: auto;
+	text-align: center;
+	margin-bottom: 10%;
+}
+
+.column {
+	float: left;
+	width: 50%;
+	padding: 10px;
+	margin: auto;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.footnote {
+	text-align: center;
+	margin: auto;
+	margin-top: 15%;
+}
+
+p {
+	font-size: 3vw;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: rgb(238, 253, 233);
+	text-shadow: 1px 1px 2px darkgreen;
+}
+
+h1 {
+	font-size:6vw;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: rgb(238, 253, 233);
+	text-shadow: 1px 1px 2px darkgreen;
+}
+
+h2 {
+	font-size: 4vw;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: rgb(238, 253, 233);
+	text-shadow: 1px 1px 2px darkgreen;
+}
+
+h3 {
+	font-size: 3.5vw;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: rgb(238, 253, 233);
+	text-shadow: 1px 1px 2px darkgreen;
+}
+
+h4 {
+	font-size: 1vw;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: black;
+}
+
+img {
+	width: 80%;
+	height: auto;
+}
+
+.download {
+	width: 2.75vw;
+	height: auto;
+	margin-left: 2em;
+}
+
+a:link, a:visited {
+	text-decoration: none;
+	background-color: rgb(48,176,82);
+	color: white;
+	font-size: 2.75vw;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: bold;
+	width: 60%;
+	height: auto;
+	padding: 8px 8px;
+	display: inline-block;
+	margin: 5%;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px black;
+}
+
+a:hover {
+	background-color: rgb(32,135,60);
+	box-shadow: 1px 1px 2px black;
+}
+
+a:active {
+	box-shadow: none;
+}
+
+/* Style The Dropdown Button */
+.dropbutton {
+	background-color: rgb(48,176,82);
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+	position: relative;
+	display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+	background-color: rgb(140, 178, 154);
+	display: none;
+	position: absolute;
+	min-width: 160px;
+	z-index: 1;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+	display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {
+	background-color: #3e8e41;
+  }
