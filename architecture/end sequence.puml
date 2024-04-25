@@ -1,0 +1,21 @@
+@startuml
+participant EndScreen
+participant GameState
+
+autonumber
+EndScreen -> GameState : request days\ninformation
+EndScreen <- GameState : provide days\ninformation
+EndScreen -> EndScreen : for each\nday
+
+autonumber 3.1
+EndScreen --> GameState : get study\ncount
+EndScreen <-- GameState : give study\ncount
+EndScreen --> GameState : get meal\ncount
+EndScreen <-- GameState : give meal\ncount
+EndScreen --> GameState : get recreation\ncount
+EndScreen <-- GameState : give recreation\ncount
+EndScreen --> EndScreen : calculate score\nbased on values
+
+autonumber 4
+EndScreen -> EndScreen : display score
+@enduml

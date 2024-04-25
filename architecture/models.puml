@@ -1,0 +1,39 @@
+@startuml
+
+package models {
+    class GameState {
+        - days: ArrayList<Day>
+        - currentDay: Day
+        - daysRemaining: int
+        - energyRemaining: int
+        - hoursRemaining: float
+        - interactionOverlay: InteractionOverlay
+        + advanceDay(): void
+        + doActivity(timeUsage: int, energyUsage: int, type: ActivityType, overlayText: String): boolean
+    }
+
+    class Day {
+        - activityStats: HashMap<ActivityType, Integer>
+        + statFor(type: ActivityType): int
+    }
+
+    class InteractionOverlay {
+        - text: String
+        - displayFor: float
+        + InteractionOverlay(text: String, displayFor: float)
+    }
+
+    class PhysicsPolygon {
+        - name: String
+        - type: BodyDef.BodyType
+        - position: Vector2
+        - vertices: Vector2[]
+        + PhysicsPolygon()
+        + PhysicsPolygon(name: String, type: BodyDef.BodyType, position: Vector2, vertices: Vector2...)
+        + getName(): String
+        + getType(): BodyDef.BodyType
+        + getPosition(): Vector2
+        + getVertices(): Vector2[]
+    }
+}
+@enduml
