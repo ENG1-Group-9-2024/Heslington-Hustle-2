@@ -1,0 +1,23 @@
+@startuml
+
+package constants {
+    class GameConstants {
+        {static} WORLD_WIDTH: int
+        {static} WORLD_HEIGHT: int
+    }
+
+    class MoveDirection {
+        {static} STATIONARY: int
+        {static} UP: int
+        {static} DOWN: int
+        {static} LEFT: int
+        {static} RIGHT: int
+    }
+
+    class PlayerConstants {
+        {static} HITBOX_RADIUS: float
+        {static} PLAYER_SPEED: float
+        {static} START_POSITION: Vector2
+    }
+}
+@enduml

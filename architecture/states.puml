@@ -1,0 +1,64 @@
+@startuml
+hide empty description
+
+state Movement {
+  state moving <<entryPoint>>
+  state forkMoving <<fork>>
+  state MoveUp
+  state MoveDown
+  state MoveLeft
+  state MoveRight
+  state forkNotMoving <<fork>>
+  state notMoving <<exitPoint>>
+
+  moving --> forkMoving
+
+  forkMoving --> MoveUp : Press\nUp
+  forkMoving --> MoveDown : Press\nDown
+  forkMoving --> MoveLeft : Press\nLeft
+  forkMoving --> MoveRight : Press\nRight
+
+  MoveUp --> forkNotMoving : Release\nUp
+  MoveDown --> forkNotMoving : Release\nDown
+  MoveLeft --> forkNotMoving : Release\nLeft
+  MoveRight --> forkNotMoving : Release\nRight
+
+  forkNotMoving --> notMoving
+}
+
+state Interaction {
+  state startInteraction <<entryPoint>>
+  state forkInteracting <<fork>>
+  state StudyInteraction
+  state EatInteraction
+  state RecreationInteraction
+  state SleepInteraction
+  state forkNotInteracting <<fork>>
+  state endInteraction <<exitPoint>>
+  state endDay <<exitPoint>>
+
+  startInteraction --> forkInteracting
+  forkInteracting --> StudyInteraction
+  forkInteracting --> EatInteraction
+  forkInteracting --> RecreationInteraction
+  forkInteracting --> SleepInteraction
+
+  StudyInteraction --> forkNotInteracting
+  EatInteraction--> forkNotInteracting
+  RecreationInteraction--> forkNotInteracting
+
+  SleepInteraction --> endDay
+
+  forkNotInteracting --> endInteraction
+}
+
+
+[*] -up-> Stationary
+Stationary --> moving
+Stationary --> startInteraction
+
+notMoving --> Stationary
+endInteraction --> Stationary
+
+endDay --> [*]
+@enduml

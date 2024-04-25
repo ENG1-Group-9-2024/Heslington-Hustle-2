@@ -1,0 +1,20 @@
+@startuml
+package screens
+package systems
+package models
+package utils
+package components
+package constants
+
+systems <.. components : imports
+systems <.. constants : imports
+
+screens <.. systems : imports
+screens <.. components : imports
+screens <.. constants : imports
+screens <.. models : imports
+screens <.. utils : imports
+
+
+models <.. constants : imports
+@enduml

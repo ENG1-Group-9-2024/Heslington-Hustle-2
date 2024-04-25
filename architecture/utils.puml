@@ -1,0 +1,11 @@
+@startuml
+
+package utils {
+    class ChangeListener {
+        - consumer: BiConsumer<ChangeEvent, Actor>
+        + ChangeListener(consumer: BiConsumer<ChangeEvent, Actor>)
+        + of(consumer: BiConsumer<ChangeEvent, Actor>): ChangeListener
+        + changed(event: ChangeEvent, actor: Actor): void
+    }
+}
+@enduml

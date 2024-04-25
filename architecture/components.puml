@@ -1,0 +1,67 @@
+@startuml
+
+package components {
+    class AnimationComponent {
+        - spriteScale: float
+        - animations: IntMap<Animation<Sprite>>
+        - currentAnimation: int
+        - time: float
+        + AnimationComponent(spriteScale: float)
+    }
+
+    class CounterComponent {
+        - label: Label
+        - valueResolver: CounterValueResolver
+        + CounterComponent(label: Label, valueResolver: CounterValueResolver)
+    }
+
+    interface CounterValueResolver {
+        + resolveValue(gameState: GameState): String
+    }
+
+    class FixtureComponent {
+        - fixture: Fixture
+        + FixtureComponent(fixture: Fixture)
+    }
+
+    class HitboxComponent {
+        - rects: Rectangle[]
+        - region: Rectangle
+        + HitboxComponent(rects: Rectangle...)
+    }
+
+    class InteractionComponent {
+        - interactable: Interactable
+        + InteractionComponent(interactable: Interactable)
+    }
+
+    interface Interactable {
+        + interact(state: GameState): void
+    }
+
+    class PlayerComponent {
+        - isInteracting: boolean
+    }
+
+    class PositionComponent {
+        - x: float
+        - y: float
+        + PositionComponent(x: float, y: float)
+        + PositionComponent()
+    }
+
+    class TextureComponent {
+        - region: TextureRegion
+        - scale: float
+        - visible: boolean
+        + TextureComponent(region: TextureRegion, scale: float)
+        + show(): TextureComponent
+        + hide(): TextureComponent
+    }
+
+    class TooltipComponent {
+        - tooltip: GlyphLayout
+        + TooltipComponent(font: BitmapFont, tooltip: String)
+    }
+}
+@enduml
