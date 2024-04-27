@@ -8,6 +8,8 @@ buildscript {
     }
 
     dependencies {
+        classpath 'org.wisepersist:gwt-gradle-plugin:1.1.16'
+        classpath 'org.gretty:gretty:3.0.7'
     }
 }
 
@@ -74,6 +76,8 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
+    apply plugin: "java"
+    apply plugin: "jacoco"
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -84,6 +88,22 @@ project(":core") {
         testImplementation platform("org.junit:junit-bom:5.10.2")
         testImplementation "org.junit.jupiter:junit-jupiter"
         testImplementation "org.assertj:assertj-core:3.25.1"
+        implementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+
+        implementation "junit:junit:4.+"
+        implementation "org.mockito:mockito-all:1.9.+"
+
+        implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+        testImplementation 'junit:junit:4.+'
+        testImplementation "org.mockito:mockito-all:1.9.+"
+
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+
     }
 
     test {
