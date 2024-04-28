@@ -249,11 +249,6 @@ public class Playing implements Screen {
         if (game.physicsDebug) {
             debugRenderer = new Box2DDebugRenderer();
         }
-
-        boolean test = Gdx.files.internal(game.playerAsset).exists();
-        boolean test2 = Gdx.files.internal(game.playerAsset).exists();
-
-
     }
 
     /**

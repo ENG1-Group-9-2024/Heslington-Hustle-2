@@ -33,7 +33,7 @@ public class PlayerInputSystem extends EntitySystem {
 
     private Entity playerEntity;
 
-    public Vector2 getVelocity(){
+    public Vector2 getVelocity() {
         return velocity;
     }
 
@@ -54,7 +54,6 @@ public class PlayerInputSystem extends EntitySystem {
 
         boolean leftKey, rightKey, upKey, downKey;
         leftKey = rightKey = upKey = downKey = false;
-
 
         if (gameState.interactionOverlay != null) {
             // User input is disabled as an interaction is currently happening
@@ -97,43 +96,37 @@ public class PlayerInputSystem extends EntitySystem {
         }
 
         pm.get(playerEntity).isInteracting = Gdx.input.isKeyJustPressed(Input.Keys.E);
-
     }
 
-
-    public void movementUpdated(boolean leftKey, boolean rightKey, boolean upKey, boolean downKey){
-
+    public void movementUpdated(boolean leftKey, boolean rightKey, boolean upKey, boolean downKey) {
 
         velocity.set(0, 0);
 
-        boolean left, right, up, down;
-        left = right = up = down = false;
+        boolean moveLeft, moveRight, moveUp, moveDown;
+        moveLeft = moveRight = moveUp = moveDown = false;
 
         if (leftKey) {
             velocity.x = -PlayerConstants.PLAYER_SPEED;
-            left = true;
+            moveLeft = true;
         }
         if (rightKey) {
             velocity.x = PlayerConstants.PLAYER_SPEED;
-            right = true;
+            moveRight = true;
         }
         if (upKey) {
             velocity.y = PlayerConstants.PLAYER_SPEED;
-            up = true;
+            moveUp = true;
         }
         if (downKey) {
             velocity.y = -PlayerConstants.PLAYER_SPEED;
-            down = true;
+            moveDown = true;
         }
 
-        if ((left && right) || (!left && !right)) {
+        if ((moveLeft && moveRight) || (!moveLeft && !moveRight)) {
             velocity.x = 0;
         }
-        if ((up && down) || (!up && !down)) {
+        if ((moveUp && moveDown) || (!moveUp && !moveDown)) {
             velocity.y = 0;
         }
-
-
-
     }
 }

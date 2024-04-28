@@ -59,9 +59,7 @@ public class HeslingtonHustle extends Game {
     /**
      * Texture atlas containing all images for the player's sprite.
      */
-    public  TextureAtlas playerTextureAtlas;
-
-
+    public TextureAtlas playerTextureAtlas;
 
     /**
      * Texture atlas containing all icons used to mark interaction locations on the map.

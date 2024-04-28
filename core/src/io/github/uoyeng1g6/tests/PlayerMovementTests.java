@@ -1,19 +1,18 @@
 package io.github.uoyeng1g6.tests;
 
-import com.badlogic.gdx.math.Vector2;
-import io.github.uoyeng1g6.constants.ActivityType;
+import static org.junit.Assert.assertTrue;
+
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.systems.PlayerInputSystem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertTrue;
 
 @RunWith(GdxTestRunner.class)
 public class PlayerMovementTests {
 
     GameState game = new GameState();
     PlayerInputSystem test = new PlayerInputSystem(game);
+
     @Test
     public void t_LeftMovement() {
 
@@ -24,7 +23,6 @@ public class PlayerMovementTests {
         float finalVelocity = test.getVelocity().x;
 
         assertTrue(initialVelocity > finalVelocity);
-
     }
 
     @Test
@@ -37,7 +35,6 @@ public class PlayerMovementTests {
         float finalVelocity = test.getVelocity().x;
 
         assertTrue(initialVelocity < finalVelocity);
-
     }
 
     @Test
@@ -50,7 +47,6 @@ public class PlayerMovementTests {
         float finalVelocity = test.getVelocity().y;
 
         assertTrue(initialVelocity < finalVelocity);
-
     }
 
     @Test
@@ -63,8 +59,5 @@ public class PlayerMovementTests {
         float finalVelocity = test.getVelocity().y;
 
         assertTrue(initialVelocity > finalVelocity);
-
     }
-
-
-    }
+}

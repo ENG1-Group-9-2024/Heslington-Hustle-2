@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * Copyright 2015 See AUTHORS file.
  *
@@ -14,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-
 package io.github.uoyeng1g6.tests;
+
+import static org.mockito.Mockito.mock;
+
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.headless.HeadlessApplication;
+import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
+import com.badlogic.gdx.graphics.GL20;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import static org.mockito.Mockito.mock;
-
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
-import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 
 public class GdxTestRunner extends BlockJUnit4ClassRunner implements ApplicationListener {
 
@@ -45,13 +42,10 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
     }
 
     @Override
-    public void create() {
-
-    }
+    public void create() {}
 
     @Override
-    public void resume() {
-    }
+    public void resume() {}
 
     @Override
     public void render() {
@@ -64,16 +58,13 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
     }
 
     @Override
-    public void resize(int width, int height) {
-    }
+    public void resize(int width, int height) {}
 
     @Override
-    public void pause() {
-    }
+    public void pause() {}
 
     @Override
-    public void dispose() {
-    }
+    public void dispose() {}
 
     @Override
     protected void runChild(FrameworkMethod method, RunNotifier notifier) {
@@ -90,14 +81,11 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
             while (true) {
                 Thread.sleep(10);
                 synchronized (invokeInRender) {
-                    if (invokeInRender.isEmpty())
-                        break;
+                    if (invokeInRender.isEmpty()) break;
                 }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }
-

@@ -1,15 +1,11 @@
 package io.github.uoyeng1g6.tests;
 
-import com.badlogic.gdx.Gdx;
-import io.github.uoyeng1g6.HeslingtonHustle;
-
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import static org.junit.Assert.assertNotNull;
 
-
+import com.badlogic.gdx.Gdx;
+import io.github.uoyeng1g6.HeslingtonHustle;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
 public class AssetTests {
@@ -18,6 +14,7 @@ public class AssetTests {
 
         assertNotNull("The asset for interactions exists", Gdx.files.internal(HeslingtonHustle.interactionAsset));
     }
+
     @Test
     public void t_PlayerIconExists() {
 
