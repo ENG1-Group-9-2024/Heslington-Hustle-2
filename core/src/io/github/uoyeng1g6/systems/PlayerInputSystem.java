@@ -33,6 +33,10 @@ public class PlayerInputSystem extends EntitySystem {
 
     private Entity playerEntity;
 
+    public Vector2 getVelocity(){
+        return velocity;
+    }
+
     public PlayerInputSystem(GameState gameState) {
         this.gameState = gameState;
     }
@@ -47,6 +51,11 @@ public class PlayerInputSystem extends EntitySystem {
 
     @Override
     public void update(float deltaTime) {
+
+        boolean leftKey, rightKey, upKey, downKey;
+        leftKey = rightKey = upKey = downKey = false;
+
+
         if (gameState.interactionOverlay != null) {
             // User input is disabled as an interaction is currently happening
             var fixture = fm.get(playerEntity).fixture;
@@ -56,34 +65,24 @@ public class PlayerInputSystem extends EntitySystem {
             return;
         }
 
-        velocity.set(0, 0);
-
-        boolean left, right, up, down;
-        left = right = up = down = false;
-
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
-            velocity.x = -PlayerConstants.PLAYER_SPEED;
-            left = true;
+
+            leftKey = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
-            velocity.x = PlayerConstants.PLAYER_SPEED;
-            right = true;
+
+            rightKey = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) {
-            velocity.y = PlayerConstants.PLAYER_SPEED;
-            up = true;
+
+            upKey = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) {
-            velocity.y = -PlayerConstants.PLAYER_SPEED;
-            down = true;
+
+            downKey = true;
         }
 
-        if ((left && right) || (!left && !right)) {
-            velocity.x = 0;
-        }
-        if ((up && down) || (!up && !down)) {
-            velocity.y = 0;
-        }
+        movementUpdated(leftKey, rightKey, upKey, downKey);
 
         var fixture = fm.get(playerEntity).fixture;
         fixture.getBody().setLinearVelocity(velocity);
@@ -98,5 +97,43 @@ public class PlayerInputSystem extends EntitySystem {
         }
 
         pm.get(playerEntity).isInteracting = Gdx.input.isKeyJustPressed(Input.Keys.E);
+
+    }
+
+
+    public void movementUpdated(boolean leftKey, boolean rightKey, boolean upKey, boolean downKey){
+
+
+        velocity.set(0, 0);
+
+        boolean left, right, up, down;
+        left = right = up = down = false;
+
+        if (leftKey) {
+            velocity.x = -PlayerConstants.PLAYER_SPEED;
+            left = true;
+        }
+        if (rightKey) {
+            velocity.x = PlayerConstants.PLAYER_SPEED;
+            right = true;
+        }
+        if (upKey) {
+            velocity.y = PlayerConstants.PLAYER_SPEED;
+            up = true;
+        }
+        if (downKey) {
+            velocity.y = -PlayerConstants.PLAYER_SPEED;
+            down = true;
+        }
+
+        if ((left && right) || (!left && !right)) {
+            velocity.x = 0;
+        }
+        if ((up && down) || (!up && !down)) {
+            velocity.y = 0;
+        }
+
+
+
     }
 }
