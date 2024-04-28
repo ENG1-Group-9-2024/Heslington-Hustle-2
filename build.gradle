@@ -80,6 +80,7 @@ project(":core") {
     apply plugin: "jacoco"
 
     dependencies {
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         implementation "com.badlogicgames.ashley:ashley:1.7.4"
@@ -91,13 +92,13 @@ project(":core") {
         implementation 'org.junit.jupiter:junit-jupiter:5.10.2'
 
         implementation "junit:junit:4.+"
-        implementation "org.mockito:mockito-all:1.9.+"
+        implementation 'org.mockito:mockito-core:5.11.0'
 
         implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
 
         testImplementation 'junit:junit:4.+'
-        testImplementation "org.mockito:mockito-all:1.9.+"
+        implementation 'org.mockito:mockito-core:5.11.0'
 
         testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -106,10 +107,23 @@ project(":core") {
 
     }
 
-    test {
-        useJUnitPlatform()
-        testLogging {
-            showStandardStreams = true
+    jacocoTestReport {
+        dependsOn test
+        sourceSets project(':core').sourceSets.main
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: ['**/*Tests.*', '**/GdxTestRunner.*'])
+            }))
         }
     }
+    test {
+        finalizedBy jacocoTestReport
+    }
+
+//    test {
+//        useJUnitPlatform()
+//        testLogging {
+//            showStandardStreams = true
+//        }
+//    }
 }
