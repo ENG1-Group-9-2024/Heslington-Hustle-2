@@ -120,10 +120,10 @@ project(":core") {
         finalizedBy jacocoTestReport
     }
 
-//    test {
-//        useJUnitPlatform()
-//        testLogging {
-//            showStandardStreams = true
-//        }
-//    }
+    test {
+        useJUnitPlatform()
+        testLogging {
+            showStandardStreams = true
+        }
+    }
 }
