@@ -24,6 +24,8 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.github.uoyeng1g6.HeslingtonHustle;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
@@ -42,7 +44,8 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
     }
 
     @Override
-    public void create() {}
+    public void create() {
+    }
 
     @Override
     public void resume() {}
