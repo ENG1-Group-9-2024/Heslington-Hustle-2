@@ -85,6 +85,8 @@ public class Playing implements Screen {
      */
     Box2DDebugRenderer debugRenderer = null;
 
+    public static String terrainAsset = "terrain.json";
+
     public Playing(HeslingtonHustle game) {
         this.game = game;
 
@@ -265,7 +267,7 @@ public class Playing implements Screen {
      */
     void initTerrain() {
         var json = new Json();
-        var objects = json.fromJson(PhysicsPolygon[].class, Gdx.files.internal("terrain.json"));
+        var objects = json.fromJson(PhysicsPolygon[].class, Gdx.files.internal(terrainAsset));
 
         for (var object : objects) {
             var bodyDef = new BodyDef();
