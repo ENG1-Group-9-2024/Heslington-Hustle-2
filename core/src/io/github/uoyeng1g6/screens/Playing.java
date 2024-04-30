@@ -59,8 +59,11 @@ import java.util.Map;
 public class Playing implements Screen {
     final HeslingtonHustle game;
 
-    final OrthographicCamera camera;
-    final Viewport viewport;
+    private OrthographicCamera camera;
+    private Viewport viewport;
+
+    // For testing
+    private boolean isTestMode = false;
 
     /**
      * The {@code scene2d.ui} stage used to render the ui overlay for this screen.
@@ -85,112 +88,116 @@ public class Playing implements Screen {
      */
     Box2DDebugRenderer debugRenderer = null;
 
-    public Playing(HeslingtonHustle game) {
+    public Playing(HeslingtonHustle game, GameState gameState, boolean isTestMode) {
         this.game = game;
+        this.gameState = gameState;
+        this.isTestMode = isTestMode;
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
-        viewport = new FitViewport(GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT, camera);
+        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing
+        if (!isTestMode) {
+            camera = new OrthographicCamera();
+            camera.setToOrtho(false, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
+            viewport = new FitViewport(GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT, camera);
 
-        stage = new Stage(viewport);
+            stage = new Stage(viewport);
 
-        var labelStyle = new Label.LabelStyle(game.tooltipFont, Color.BLACK);
+            var labelStyle = new Label.LabelStyle(game.tooltipFont, Color.BLACK);
 
-        var uiTop = new Table();
-        uiTop.setFillParent(true);
-        uiTop.setDebug(game.debug);
-        stage.addActor(uiTop);
-        uiTop.center().top();
+            var uiTop = new Table();
+            uiTop.setFillParent(true);
+            uiTop.setDebug(game.debug);
+            stage.addActor(uiTop);
+            uiTop.center().top();
 
-        var daysLabel = new Label("Monday", labelStyle);
-        daysLabel.setFontScale(0.17f);
-        uiTop.add(daysLabel);
-        uiTop.row();
-        var timeLabel = new Label("07:00", labelStyle);
-        timeLabel.setFontScale(0.17f);
-        uiTop.add(timeLabel);
+            var daysLabel = new Label("Monday", labelStyle);
+            daysLabel.setFontScale(0.17f);
+            uiTop.add(daysLabel);
+            uiTop.row();
+            var timeLabel = new Label("07:00", labelStyle);
+            timeLabel.setFontScale(0.17f);
+            uiTop.add(timeLabel);
 
-        var counters = new Table(game.skin);
-        counters.setFillParent(true);
-        counters.pad(1);
-        counters.setDebug(game.debug);
-        stage.addActor(counters);
+            var counters = new Table(game.skin);
+            counters.setFillParent(true);
+            counters.pad(1);
+            counters.setDebug(game.debug);
+            stage.addActor(counters);
 
-        var studyIcon = game.interactionIconsTextureAtlas.findRegion("book_icon");
-        var eatIcon = game.interactionIconsTextureAtlas.findRegion("food_icon");
-        var recreationIcon = game.interactionIconsTextureAtlas.findRegion("popcorn_icon");
-        var studyImage = new Image(studyIcon);
-        var eatImage = new Image(eatIcon);
-        var recreationImage = new Image(recreationIcon);
+            var studyIcon = game.interactionIconsTextureAtlas.findRegion("book_icon");
+            var eatIcon = game.interactionIconsTextureAtlas.findRegion("food_icon");
+            var recreationIcon = game.interactionIconsTextureAtlas.findRegion("popcorn_icon");
+            var studyImage = new Image(studyIcon);
+            var eatImage = new Image(eatIcon);
+            var recreationImage = new Image(recreationIcon);
 
-        var todayLabel = new Label("Today:", labelStyle);
-        todayLabel.setFontScale(0.08f);
-        var totalLabel = new Label("Total:", labelStyle);
-        totalLabel.setFontScale(0.08f);
+            var todayLabel = new Label("Today:", labelStyle);
+            todayLabel.setFontScale(0.08f);
+            var totalLabel = new Label("Total:", labelStyle);
+            totalLabel.setFontScale(0.08f);
 
-        var dayStudyLabel = new Label("0", labelStyle);
-        dayStudyLabel.setFontScale(0.15f);
-        var totalStudyLabel = new Label("0", labelStyle);
-        totalStudyLabel.setFontScale(0.15f);
+            var dayStudyLabel = new Label("0", labelStyle);
+            dayStudyLabel.setFontScale(0.15f);
+            var totalStudyLabel = new Label("0", labelStyle);
+            totalStudyLabel.setFontScale(0.15f);
 
-        var dayEatLabel = new Label("0", labelStyle);
-        dayEatLabel.setFontScale(0.15f);
-        var totalEatLabel = new Label("0", labelStyle);
-        totalEatLabel.setFontScale(0.15f);
+            var dayEatLabel = new Label("0", labelStyle);
+            dayEatLabel.setFontScale(0.15f);
+            var totalEatLabel = new Label("0", labelStyle);
+            totalEatLabel.setFontScale(0.15f);
 
-        var dayRecreationLabel = new Label("0", labelStyle);
-        dayRecreationLabel.setFontScale(0.15f);
-        var totalRecreationLabel = new Label("0", labelStyle);
-        totalRecreationLabel.setFontScale(0.15f);
+            var dayRecreationLabel = new Label("0", labelStyle);
+            dayRecreationLabel.setFontScale(0.15f);
+            var totalRecreationLabel = new Label("0", labelStyle);
+            totalRecreationLabel.setFontScale(0.15f);
 
-        counters.top().right();
-        counters.add();
-        counters.add(todayLabel).padRight(0.5f);
-        counters.add(totalLabel);
-        counters.row();
-        counters.add(studyImage).width(3).height(3).padRight(0.25f);
-        counters.add(dayStudyLabel);
-        counters.add(totalStudyLabel);
-        counters.row();
-        counters.add(eatImage).width(3).height(3).padRight(0.25f);
-        counters.add(dayEatLabel);
-        counters.add(totalEatLabel);
-        counters.row();
-        counters.add(recreationImage).width(3).height(3).padRight(0.25f);
-        counters.add(dayRecreationLabel);
-        counters.add(totalRecreationLabel);
+            counters.top().right();
+            counters.add();
+            counters.add(todayLabel).padRight(0.5f);
+            counters.add(totalLabel);
+            counters.row();
+            counters.add(studyImage).width(3).height(3).padRight(0.25f);
+            counters.add(dayStudyLabel);
+            counters.add(totalStudyLabel);
+            counters.row();
+            counters.add(eatImage).width(3).height(3).padRight(0.25f);
+            counters.add(dayEatLabel);
+            counters.add(totalEatLabel);
+            counters.row();
+            counters.add(recreationImage).width(3).height(3).padRight(0.25f);
+            counters.add(dayRecreationLabel);
+            counters.add(totalRecreationLabel);
 
-        var energy = new Table(game.skin);
-        energy.setFillParent(true);
-        energy.pad(1);
-        energy.setDebug(game.debug);
-        stage.addActor(energy);
+            var energy = new Table(game.skin);
+            energy.setFillParent(true);
+            energy.pad(1);
+            energy.setDebug(game.debug);
+            stage.addActor(energy);
 
-        var energyLabel = new Label("Energy Remaining:", labelStyle);
-        energyLabel.setFontScale(0.08f);
-        var energyAmount = new Label(String.valueOf(GameConstants.MAX_ENERGY), labelStyle);
-        energyAmount.setFontScale(0.15f);
+            var energyLabel = new Label("Energy Remaining:", labelStyle);
+            energyLabel.setFontScale(0.08f);
+            var energyAmount = new Label(String.valueOf(GameConstants.MAX_ENERGY), labelStyle);
+            energyAmount.setFontScale(0.15f);
 
-        energy.top().left();
-        energy.add(energyLabel);
-        energy.row();
-        energy.add(energyAmount);
+            energy.top().left();
+            energy.add(energyLabel);
+            energy.row();
+            energy.add(energyAmount);
 
-        this.engine = new PooledEngine();
-        this.gameState = new GameState();
-        this.world = new World(new Vector2(), true);
+            this.engine = new PooledEngine();
+            this.gameState = new GameState();
+            this.world = new World(new Vector2(), true);
 
-        initTerrain();
+            initTerrain();
 
-        engine.addEntity(initPlayerEntity(engine));
+            engine.addEntity(initPlayerEntity(engine));
 
-        for (var entity : initInteractionLocations(engine)) {
-            engine.addEntity(entity);
-        }
+            for (var entity : initInteractionLocations(engine)) {
+                engine.addEntity(entity);
+            }
 
-        engine.addEntity(
-                engine.createEntity().add(new CounterComponent(daysLabel, new CounterComponent.CounterValueResolver() {
-                    // spotless:off
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(daysLabel, new CounterComponent.CounterValueResolver() {
+                        // spotless:off
                     private final Map<Integer, String> dayNameMap = Map.of(
                             7, "Monday", 6, "Tuesday", 5, "Wednesday",
                             4, "Thursday", 3, "Friday", 2, "Saturday",
@@ -198,57 +205,64 @@ public class Playing implements Screen {
                     );
                     // spotless:on
 
-                    @Override
-                    public String resolveValue(GameState gameState) {
-                        return dayNameMap.get(gameState.daysRemaining);
-                    }
-                })));
-        engine.addEntity(engine.createEntity().add(new CounterComponent(timeLabel, state -> {
-            var newHour = 7 + (GameConstants.MAX_HOURS - state.hoursRemaining);
-            return String.format("%s%d:00", newHour < 10 ? "0" : "", newHour);
-        })));
+                        @Override
+                        public String resolveValue(GameState gameState) {
+                            return dayNameMap.get(gameState.daysRemaining);
+                        }
+                    })));
+            engine.addEntity(engine.createEntity().add(new CounterComponent(timeLabel, state -> {
+                var newHour = 7 + (GameConstants.MAX_HOURS - state.hoursRemaining);
+                return String.format("%s%d:00", newHour < 10 ? "0" : "", newHour);
+            })));
 
-        engine.addEntity(engine.createEntity()
-                .add(new CounterComponent(
-                        dayStudyLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.STUDY)))));
-        engine.addEntity(engine.createEntity()
-                .add(new CounterComponent(
-                        dayEatLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.MEAL)))));
-        engine.addEntity(engine.createEntity()
-                .add(new CounterComponent(
-                        dayRecreationLabel,
-                        state -> String.valueOf(state.currentDay.statFor(ActivityType.RECREATION)))));
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(
+                            dayStudyLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.STUDY)))));
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(
+                            dayEatLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.MEAL)))));
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(
+                            dayRecreationLabel,
+                            state -> String.valueOf(state.currentDay.statFor(ActivityType.RECREATION)))));
 
-        engine.addEntity(engine.createEntity()
-                .add(new CounterComponent(
-                        totalStudyLabel, state -> String.valueOf(state.getTotalActivityCount(ActivityType.STUDY)))));
-        engine.addEntity(engine.createEntity()
-                .add(new CounterComponent(
-                        totalEatLabel, state -> String.valueOf(state.getTotalActivityCount(ActivityType.MEAL)))));
-        engine.addEntity(engine.createEntity()
-                .add(new CounterComponent(
-                        totalRecreationLabel,
-                        state -> String.valueOf(state.getTotalActivityCount(ActivityType.RECREATION)))));
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(
+                            totalStudyLabel,
+                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.STUDY)))));
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(
+                            totalEatLabel, state -> String.valueOf(state.getTotalActivityCount(ActivityType.MEAL)))));
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(
+                            totalRecreationLabel,
+                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.RECREATION)))));
 
-        engine.addEntity(engine.createEntity()
-                .add(new CounterComponent(energyAmount, state -> String.valueOf(state.energyRemaining))));
+            engine.addEntity(engine.createEntity()
+                    .add(new CounterComponent(energyAmount, state -> String.valueOf(state.energyRemaining))));
 
-        engine.addSystem(new PlayerInputSystem(gameState));
-        engine.addSystem(new PlayerInteractionSystem(gameState));
-        engine.addSystem(new MapRenderingSystem(game.tiledMap, camera));
-        engine.addSystem(new StaticRenderingSystem(game.spriteBatch));
-        engine.addSystem(new AnimationSystem(game.spriteBatch, gameState));
-        engine.addSystem(new TooltipRenderingSystem(game.tooltipFont, game.shapeDrawer, game.spriteBatch, gameState));
-        engine.addSystem(new CounterUpdateSystem(gameState));
-        if (game.debug) {
-            engine.addSystem(new DebugSystem(game.shapeDrawer));
+            engine.addSystem(new PlayerInputSystem(gameState));
+            engine.addSystem(new PlayerInteractionSystem(gameState));
+            engine.addSystem(new MapRenderingSystem(game.tiledMap, camera));
+            engine.addSystem(new StaticRenderingSystem(game.spriteBatch));
+            engine.addSystem(new AnimationSystem(game.spriteBatch, gameState));
+            engine.addSystem(
+                    new TooltipRenderingSystem(game.tooltipFont, game.shapeDrawer, game.spriteBatch, gameState));
+            engine.addSystem(new CounterUpdateSystem(gameState));
+            if (game.debug) {
+                engine.addSystem(new DebugSystem(game.shapeDrawer));
+            }
+            engine.addSystem(new InteractionOverlayRenderingSystem(
+                    game.spriteBatch, game.overlayFont, game.shapeDrawer, gameState));
+
+            if (game.physicsDebug) {
+                debugRenderer = new Box2DDebugRenderer();
+            }
         }
-        engine.addSystem(
-                new InteractionOverlayRenderingSystem(game.spriteBatch, game.overlayFont, game.shapeDrawer, gameState));
+    }
 
-        if (game.physicsDebug) {
-            debugRenderer = new Box2DDebugRenderer();
-        }
+    public Playing(HeslingtonHustle game) {
+        this(game, new GameState(), false);
     }
 
     /**
@@ -405,22 +419,24 @@ public class Playing implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
 
         // This makes transpacency work properly
-        Gdx.gl.glEnable(GL30.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
+        if (!isTestMode) {
+            Gdx.gl.glEnable(GL30.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
 
-        game.spriteBatch.setProjectionMatrix(camera.combined);
-        game.spriteBatch.begin();
+            game.spriteBatch.setProjectionMatrix(camera.combined);
+            game.spriteBatch.begin();
 
-        engine.update(delta);
-        if (game.physicsDebug) {
-            debugRenderer.render(world, camera.combined);
+            engine.update(delta);
+            if (game.physicsDebug) {
+                debugRenderer.render(world, camera.combined);
+            }
+            game.spriteBatch.end();
+
+            stage.act();
+            stage.draw();
+
+            world.step(delta, 8, 3);
         }
-        game.spriteBatch.end();
-
-        stage.act();
-        stage.draw();
-
-        world.step(delta, 8, 3);
     }
 
     @Override

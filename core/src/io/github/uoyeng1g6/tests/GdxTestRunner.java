@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-
+package io.github.uoyeng1g6.tests;
 
 import static org.mockito.Mockito.mock;
 
@@ -26,7 +26,6 @@ import com.badlogic.gdx.graphics.GL20;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
@@ -41,21 +40,20 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
         super(klass);
         HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
         new HeadlessApplication(this, conf);
-        // GdxTestRunnerの初期化が完了するのを待ちます。
+
         try {
             latch.await();
         } catch (InterruptedException e) {
             throw new InitializationError("Failed to initialize the GdxTestRunner.");
         }
     }
+
     @Override
     public void create() {
         Gdx.gl = mock(GL20.class);
         Gdx.gl20 = Gdx.gl;
         Gdx.graphics = mock(Graphics.class);
-        // 必要な他のGdxコンポーネントもここでモックに設定
 
-        // カウントダウンラッチを減らして、テストを進行させる
         latch.countDown();
     }
 
