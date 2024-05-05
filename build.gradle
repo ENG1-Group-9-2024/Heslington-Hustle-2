@@ -91,13 +91,13 @@ project(":core") {
         testImplementation "org.assertj:assertj-core:3.25.1"
         implementation 'org.junit.jupiter:junit-jupiter:5.10.2'
 
-        implementation "junit:junit:4.+"
+        implementation "junit:junit:5.+"
         implementation 'org.mockito:mockito-core:5.11.0'
 
         implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-        testImplementation 'junit:junit:4.+'
+        testImplementation 'junit:junit:5.+'
         implementation 'org.mockito:mockito-core:5.11.0'
 
         testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
