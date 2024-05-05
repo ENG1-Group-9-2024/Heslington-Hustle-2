@@ -60,6 +60,7 @@ public class HeslingtonHustle extends Game {
      * Texture atlas containing all images for the player's sprite.
      */
     public TextureAtlas playerTextureAtlas;
+
     /**
      * Texture atlas containing all icons used to mark interaction locations on the map.
      */
@@ -112,6 +113,12 @@ public class HeslingtonHustle extends Game {
      */
     private State currentState = State.MAIN_MENU;
 
+    public static String playerAsset = "sprites/player.txt";
+    public static String interactionAsset = "sprites/interaction_icons.txt";
+    public static String UISkinAsset = "skins/default/uiskin.json";
+    public static String mapAsset = "maps/campus-east.tmx";
+    public static String whitePixelAsset = "white_pixel.png";
+
     public HeslingtonHustle() {
         // Properties retrieved from command-line to allow enabling of different debug modes to help with development
         debug = System.getProperty("game.debug", "false").equals("true");
@@ -158,12 +165,12 @@ public class HeslingtonHustle extends Game {
     public void create() {
         Box2D.init();
 
-        skin = new Skin(Gdx.files.internal("skins/default/uiskin.json"));
+        skin = new Skin(Gdx.files.internal(UISkinAsset));
 
-        playerTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.txt"));
-        interactionIconsTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/interaction_icons.txt"));
+        playerTextureAtlas = new TextureAtlas(Gdx.files.internal(playerAsset));
+        interactionIconsTextureAtlas = new TextureAtlas(Gdx.files.internal(interactionAsset));
 
-        tiledMap = new TmxMapLoader().load("maps/campus-east.tmx");
+        tiledMap = new TmxMapLoader().load(mapAsset);
 
         tooltipFont = new BitmapFont();
         tooltipFont.getData().setScale(0.07f);
@@ -178,7 +185,7 @@ public class HeslingtonHustle extends Game {
         overlayFont.setColor(Color.WHITE);
 
         spriteBatch = new SpriteBatch();
-        whitePixel = new Texture(Gdx.files.internal("white_pixel.png"));
+        whitePixel = new Texture(Gdx.files.internal(whitePixelAsset));
         shapeDrawer = new ShapeDrawer(spriteBatch, new TextureRegion(whitePixel, 0, 0, 1, 1));
 
         mainMenu = new MainMenu(this);
