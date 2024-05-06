@@ -401,6 +401,10 @@ public class Playing implements Screen {
         // Allow the final interaction (day transition) to complete before showing the end screen
         if (gameState.daysRemaining == 0 && gameState.interactionOverlay == null) {
             game.setState(HeslingtonHustle.State.END_SCREEN);
+
+            // Write score to file
+
+
             return;
         }
 
