@@ -48,7 +48,7 @@ public class PlayingTests {
         gameState = new GameState();
         mockCamera = mock(OrthographicCamera.class);
 
-        playing = new Playing(mockGame, gameState, true); 
+        playing = new Playing(mockGame, gameState, true);
     }
 
     @Test

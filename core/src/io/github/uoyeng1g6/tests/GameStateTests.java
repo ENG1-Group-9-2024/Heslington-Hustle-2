@@ -55,17 +55,16 @@ public class GameStateTests {
     @Test
     public void T_boundaryInputs() {
 
-    gameState.setHoursRemaining(1);
-    gameState.setEnergyRemaining(10);
+        gameState.setHoursRemaining(1);
+        gameState.setEnergyRemaining(10);
 
-    boolean result = gameState.doActivity(1, 10, ActivityType.STUDY, "Studying...");
-    assertTrue("Activity should be performed when there is exactly enough time and energy", result);
+        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY, "Studying...");
+        assertTrue("Activity should be performed when there is exactly enough time and energy", result);
 
-    assertEquals("No hours should remain after activity", 0, gameState.getHoursRemaining());
-    assertEquals("No energy should remain after activity", 0, gameState.getEnergyRemaining());
-}
+        assertEquals("No hours should remain after activity", 0, gameState.getHoursRemaining());
+        assertEquals("No energy should remain after activity", 0, gameState.getEnergyRemaining());
+    }
 
-    
     @Test
     public void T_EnergyIsUsed() {
         gameState.setHoursRemaining(8);
