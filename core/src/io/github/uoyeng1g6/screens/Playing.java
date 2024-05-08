@@ -90,8 +90,6 @@ public class Playing implements Screen {
 
     public static String terrainAsset = "terrain.json";
 
-    public static String terrainAsset = "terrain.json";
-
 
     public Playing(HeslingtonHustle game, GameState gameState, boolean isTestMode) {
         this.game = game;

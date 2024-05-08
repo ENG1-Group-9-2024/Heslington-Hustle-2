@@ -40,12 +40,6 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
         super(klass);
         HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
         new HeadlessApplication(this, conf);
-
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            throw new InitializationError("Failed to initialize the GdxTestRunner.");
-        }
     }
 
     @Override
@@ -53,8 +47,6 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
         Gdx.gl = mock(GL20.class);
         Gdx.gl20 = Gdx.gl;
         Gdx.graphics = mock(Graphics.class);
-
-        latch.countDown();
     }
 
     @Override
