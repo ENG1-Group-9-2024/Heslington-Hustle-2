@@ -25,7 +25,6 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
@@ -34,7 +33,6 @@ import org.junit.runners.model.InitializationError;
 public class GdxTestRunner extends BlockJUnit4ClassRunner implements ApplicationListener {
 
     private Map<FrameworkMethod, RunNotifier> invokeInRender = new HashMap<FrameworkMethod, RunNotifier>();
-    private CountDownLatch latch = new CountDownLatch(1);
 
     public GdxTestRunner(Class<?> klass) throws InitializationError {
         super(klass);

@@ -43,7 +43,7 @@ public class PlayingTests {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
 
         gameState = new GameState();
         mockCamera = mock(OrthographicCamera.class);
