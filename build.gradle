@@ -8,37 +8,39 @@ buildscript {
     }
 
     dependencies {
+        classpath 'org.wisepersist:gwt-gradle-plugin:1.1.16'
+        classpath 'org.gretty:gretty:3.0.7'
     }
 }
-
-plugins {
-    id "com.diffplug.spotless" version "6.25.0"
-}
-
-spotless {
-    format 'misc', {
-        target '**/*.gradle', '.gitattributes', '.gitignore'
-
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
-    }
-    java {
-        target 'core/src/**/*.java', 'desktop/src/**/*.java'
-        toggleOffOn()
-
-        importOrder()
-        removeUnusedImports()
-        palantirJavaFormat('2.40.0')
-        formatAnnotations()
-        endWithNewline()
-    }
-}
+//
+//plugins {
+//    id "com.diffplug.spotless" version "6.25.0"
+//}
+//
+//spotless {
+//    format 'misc', {
+//        target '**/*.gradle', '.gitattributes', '.gitignore'
+//
+//        trimTrailingWhitespace()
+//        indentWithSpaces()
+//        endWithNewline()
+//    }
+//    java {
+//        target 'core/src/**/*.java', 'desktop/src/**/*.java'
+//        toggleOffOn()
+//
+//        importOrder()
+//        removeUnusedImports()
+//        palantirJavaFormat('2.40.0')
+//        formatAnnotations()
+//        endWithNewline()
+//    }
+//}
 
 allprojects {
     apply plugin: "eclipse"
 
-    version = '0.0.9'
+    version = '1.0'
     ext {
         appName = "assessment1"
         gdxVersion = '1.12.1'
@@ -74,7 +76,7 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
-    apply plugin: "java"
+    apply plugin: "java" //
     apply plugin: "jacoco"
 
     dependencies {
@@ -83,9 +85,9 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        implementation "com.badlogicgames.ashley:ashley:1.7.4"
+        api "com.badlogicgames.ashley:ashley:1.7.4"
         implementation "space.earlygrey:shapedrawer:2.6.0"
-
+//
         testImplementation platform("org.junit:junit-bom:5.10.2")
         testImplementation "org.junit.jupiter:junit-jupiter"
         testImplementation "org.assertj:assertj-core:3.25.1"
@@ -93,10 +95,10 @@ project(":core") {
 
         implementation "junit:junit:5.+"
         implementation 'org.mockito:mockito-core:5.11.0'
-
+//
         implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
-
+//
         testImplementation 'junit:junit:5.+'
         implementation 'org.mockito:mockito-core:5.11.0'
 
@@ -105,6 +107,30 @@ project(":core") {
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
 
+    }
+}
+
+project(":tests") {
+    apply plugin: "java"
+    apply plugin: "jacoco"
+
+    sourceSets.test.java.srcDirs = ["src/"]
+
+    dependencies {
+        implementation project(":core")
+
+        implementation "junit:junit:4.+"
+        implementation 'org.mockito:mockito-core:5.11.0'
+
+        implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+        testImplementation 'junit:junit:4.+'
+        implementation 'org.mockito:mockito-core:5.11.0'
+
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 
     jacocoTestReport {
@@ -116,14 +142,24 @@ project(":core") {
             }))
         }
     }
-    test {
-        finalizedBy jacocoTestReport
+
+    jacocoTestReport {
+        dependsOn test
+        sourceSets project(':core').sourceSets.main
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: ['**/*Tests.*', '**/GdxTestRunner.*'])
+            }))
+        }
     }
 
+//    test {
+//        useJUnitPlatform()
+//        testLogging {
+//            showStandardStreams = true
+//        }
+//    }
     test {
-        useJUnitPlatform()
-        testLogging {
-            showStandardStreams = true
-        }
+        finalizedBy jacocoTestReport
     }
 }
