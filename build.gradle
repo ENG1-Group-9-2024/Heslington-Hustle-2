@@ -83,8 +83,13 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         implementation "com.badlogicgames.ashley:ashley:1.7.4"
         implementation "space.earlygrey:shapedrawer:2.6.0"
+        implementation "junit:junit:4.+"
+        implementation "org.junit.jupiter:junit-jupiter:5.10.2"
+        implementation "org.mockito:mockito-core:5.11.0"
 
         testImplementation platform("org.junit:junit-bom:5.10.2")
         testImplementation "org.junit.jupiter:junit-jupiter"
@@ -103,7 +108,7 @@ project(":core") {
         testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-
+        testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
 
     }
 
@@ -118,12 +123,20 @@ project(":core") {
     }
     test {
         finalizedBy jacocoTestReport
+        //testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
+        // testImplementation "org.mockito:mockito-core:5.11.0"
+        // testImplementation "org.mockito:mockito-junit-jupiter:5.11.0"
+        // testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        // testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        // testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 
     test {
         useJUnitPlatform()
         testLogging {
             showStandardStreams = true
+            events 'started', 'skipped', 'passed', 'failed'
+            exceptionFormat 'full'
         }
     }
 }
