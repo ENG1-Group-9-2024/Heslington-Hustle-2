@@ -124,4 +124,28 @@ public class GameState {
     public int getTotalActivityCount(ActivityType type) {
         return days.stream().mapToInt(day -> day.statFor(type)).sum() + currentDay.statFor(type);
     }
+
+    public int getDaysRemaining() {
+        return daysRemaining;
+    }
+
+    public int getEnergyRemaining() {
+        return energyRemaining;
+    }
+
+    public int getHoursRemaining() {
+        return hoursRemaining;
+    }
+
+    public void setDaysRemaining(int days) {
+        this.daysRemaining = days;
+    }
+
+    public void setEnergyRemaining(int energy) {
+        this.energyRemaining = energy;
+    }
+
+    public void setHoursRemaining(int hours) {
+        this.hoursRemaining = hours;
+    }
 }
