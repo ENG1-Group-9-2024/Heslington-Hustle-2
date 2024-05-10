@@ -1,5 +1,7 @@
 package io.github.uoyeng1g6.models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import java.util.ArrayList;
@@ -103,6 +105,9 @@ public class GameState {
      */
     public boolean doActivity(int timeUsage, int energyUsage, ActivityType type, String overlayText) {
         if (hoursRemaining < timeUsage || energyRemaining < energyUsage) {
+            Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("assets/audio/wrongActivity.mp3"));
+            wrongSound.play(1.0f);
+            wrongSound.dispose();
             return false;
         }
 

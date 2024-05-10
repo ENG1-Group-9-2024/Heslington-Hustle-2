@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -110,6 +111,10 @@ public class Playing implements Screen {
             uiTop.setDebug(game.debug);
             stage.addActor(uiTop);
             uiTop.center().top();
+
+            Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/gameMusic.mp3"));
+            gameMusic.setLooping(true);
+            gameMusic.play();
 
             var daysLabel = new Label("Monday", labelStyle);
             daysLabel.setFontScale(0.17f);
