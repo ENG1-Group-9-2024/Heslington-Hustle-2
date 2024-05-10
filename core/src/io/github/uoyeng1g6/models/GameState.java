@@ -105,7 +105,7 @@ public class GameState {
      */
     public boolean doActivity(int timeUsage, int energyUsage, ActivityType type, String overlayText) {
         if (hoursRemaining < timeUsage || energyRemaining < energyUsage) {
-            Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("assets/audio/wrongActivity.mp3"));
+            Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("audio/wrongActivity.mp3"));
             wrongSound.play(1.0f);
             wrongSound.dispose();
             return false;

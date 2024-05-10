@@ -112,7 +112,7 @@ public class Playing implements Screen {
             stage.addActor(uiTop);
             uiTop.center().top();
 
-            Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/gameMusic.mp3"));
+            Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/gameMusic.mp3"));
             gameMusic.setLooping(true);
             gameMusic.play();
 
