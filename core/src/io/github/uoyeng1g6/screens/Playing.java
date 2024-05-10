@@ -91,6 +91,8 @@ public class Playing implements Screen {
 
     public static String terrainAsset = "terrain.json";
 
+    public Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/gameMusic.mp3"));
+
     public Playing(HeslingtonHustle game, GameState gameState, boolean isTestMode) {
         this.game = game;
         this.gameState = gameState;
@@ -112,8 +114,8 @@ public class Playing implements Screen {
             stage.addActor(uiTop);
             uiTop.center().top();
 
-            Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/gameMusic.mp3"));
             gameMusic.setLooping(true);
+            gameMusic.setVolume(0.75f);
             gameMusic.play();
 
             var daysLabel = new Label("Monday", labelStyle);
@@ -467,5 +469,6 @@ public class Playing implements Screen {
     public void dispose() {
         stage.dispose();
         world.dispose();
+        gameMusic.dispose();
     }
 }

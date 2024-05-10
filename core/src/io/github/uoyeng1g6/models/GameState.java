@@ -77,6 +77,8 @@ public class GameState {
      */
     public InteractionOverlay interactionOverlay = null;
 
+    Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("audio/wrongSound.mp3"));
+
     /**
      * End and store the current day and advance to a new one. Resets the current energy and hours remaining.
      * Shows an overlay to indicate that the player is "sleeping".
@@ -105,9 +107,7 @@ public class GameState {
      */
     public boolean doActivity(int timeUsage, int energyUsage, ActivityType type, String overlayText) {
         if (hoursRemaining < timeUsage || energyRemaining < energyUsage) {
-            Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("assets/audio/wrongActivity.mp3"));
             wrongSound.play(1.0f);
-            wrongSound.dispose();
             return false;
         }
 
