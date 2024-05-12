@@ -27,3 +27,9 @@ jobs:
         with:
           name: test-coverage-report
           path: tests/build/reports/jacoco/test/html/
+      - if: matrix.os == 'ubuntu-latest'
+        name: Upload test results
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: test-results
+          path: tests/build/reports/tests/test/
