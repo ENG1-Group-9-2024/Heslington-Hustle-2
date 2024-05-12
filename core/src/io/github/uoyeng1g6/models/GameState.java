@@ -162,6 +162,4 @@ public class GameState {
     public void setHoursRemaining(int hours) {
         this.hoursRemaining = hours;
     }
-
-
 }
