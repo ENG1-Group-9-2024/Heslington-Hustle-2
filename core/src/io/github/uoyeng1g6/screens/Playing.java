@@ -305,9 +305,6 @@ public class Playing implements Screen {
      * @return the created entities.
      */
     Entity[] initInteractionLocations(Engine engine) {
-
-        GameState.Day current = gameState.getCurrentDay();
-
         final var iconSize = 2 / 64f;
 
         var studyIcon = game.interactionIconsTextureAtlas.findRegion("book_icon");
@@ -416,12 +413,9 @@ public class Playing implements Screen {
     @Override
     public void render(float delta) {
         // Allow the final interaction (day transition) to complete before showing the end screen
-        if (gameState.getDaysRemaining() == 0) {
-
-            if (gameState.interactionOverlay == null) {
-                game.setState(HeslingtonHustle.State.END_SCREEN);
-                return;
-            }
+        if (gameState.daysRemaining == 0 && gameState.interactionOverlay == null) {
+            game.setState(HeslingtonHustle.State.END_SCREEN);
+            return;
         }
 
         ScreenUtils.clear(0, 0, 0, 1);
