@@ -186,7 +186,7 @@ public class Playing implements Screen {
             energy.add(energyAmount);
 
             this.engine = new PooledEngine();
-            //this.gameState = gameState;
+            // this.gameState = gameState;
             this.world = new World(new Vector2(), true);
 
             initTerrain();
@@ -317,7 +317,7 @@ public class Playing implements Screen {
                 .add(new HitboxComponent(new Rectangle(
                         25, 14, studyIcon.getRegionWidth() * iconSize, studyIcon.getRegionHeight() * iconSize)))
                 .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(1, 10, ActivityType.MEAL1, "Studying...")) {
+                    if (!state.doActivity(1, 10, ActivityType.STUDY1, "Studying...")) {
                         // Notify insufficient time/energy
                     }
                 }))
@@ -416,14 +416,13 @@ public class Playing implements Screen {
     @Override
     public void render(float delta) {
         // Allow the final interaction (day transition) to complete before showing the end screen
-        System.out.println(gameState.getCurrentDay().toString());
-        if (gameState.getDaysRemaining() == 0){
+        if (gameState.getDaysRemaining() == 0) {
 
             if (gameState.interactionOverlay == null) {
                 game.setState(HeslingtonHustle.State.END_SCREEN);
                 return;
             }
-    }
+        }
 
         ScreenUtils.clear(0, 0, 0, 1);
 
