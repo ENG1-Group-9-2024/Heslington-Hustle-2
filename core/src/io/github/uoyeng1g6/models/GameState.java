@@ -27,6 +27,20 @@ public class GameState {
         public int statFor(ActivityType type) {
             return activityStats.getOrDefault(type, 0);
         }
+
+        public boolean study1Bool = true;
+        public boolean study2Bool = true;
+
+        public boolean meal1Bool = true;
+        public boolean meal2Bool = true;
+        public boolean meal3Bool = true;
+
+        public boolean recreation1Bool = true;
+        public boolean recreation2Bool = true;
+        public boolean recreation3Bool = true;
+        public boolean recreation4Bool = true;
+        public boolean recreation5Bool = true;
+        public boolean recreation6Bool = true;
     }
 
     /**
@@ -87,7 +101,7 @@ public class GameState {
         days.add(currentDay);
         currentDay = new Day();
 
-        interactionOverlay = new InteractionOverlay("Sleeping...", 5);
+        interactionOverlay = new InteractionOverlay("Sleeping...", 1);
     }
 
     /**
@@ -95,9 +109,9 @@ public class GameState {
      * an overlay. If there are not enough hours left in the day, or the player does not have enough energy
      * then returns {@code false}.
      *
-     * @param timeUsage the amount of time the activity requires.
+     * @param timeUsage   the amount of time the activity requires.
      * @param energyUsage the amount of energy the activity requires.
-     * @param type the type of activity being done.
+     * @param type        the type of activity being done.
      * @param overlayText the text to show on the overlay while doing the interaction.
      * @return boolean indicating whether the activity could be performed.
      */
@@ -106,7 +120,8 @@ public class GameState {
             return false;
         }
 
-        hoursRemaining -= timeUsage;
+
+            hoursRemaining -= timeUsage;
         energyRemaining -= energyUsage;
         currentDay.activityStats.merge(type, 1, Integer::sum);
 
@@ -148,4 +163,86 @@ public class GameState {
     public void setHoursRemaining(int hours) {
         this.hoursRemaining = hours;
     }
+
+    public Day getCurrentDay() {
+        return currentDay;
+    }
+
+
+    public boolean GetStudy1Bool() {
+        return currentDay.study1Bool;
+    }
+
+    public boolean GetStudy2Bool(){
+
+        return currentDay.study2Bool;
+    }
+
+    public boolean GetMeal1Bool(){
+        return  currentDay.meal1Bool;
+    };
+    public boolean GetMeal2Bool(){
+        return  currentDay.meal2Bool;
+    };
+    public boolean GetMeal3Bool(){
+        return  currentDay.meal3Bool;
+    };
+
+    public boolean GetRecreation1Bool(){
+        return  currentDay.recreation1Bool;
+    };
+    public boolean GetRecreation2Bool(){
+        return  currentDay.recreation2Bool;
+    };
+    public boolean GetRecreation3Bool(){
+        return  currentDay.recreation3Bool;
+    };
+    public boolean GetRecreation4Bool(){
+        return  currentDay.recreation4Bool;
+    };
+    public boolean GetRecreation5Bool(){
+        return  currentDay.recreation5Bool;
+    };
+    public boolean GetRecreation6Bool(){
+        return  currentDay.recreation6Bool;
+    };
+
+
+    public void SetStudy1Bool(boolean val) {
+        currentDay.study1Bool = val;
+    }
+
+    public void SetStudy2Bool(boolean val){
+
+        currentDay.study2Bool = val;
+    }
+
+    public void SetMeal1Bool(boolean val){
+         currentDay.meal1Bool = val;
+    };
+    public void SetMeal2Bool(boolean val){
+         currentDay.meal2Bool = val;
+    };
+    public void SetMeal3Bool(boolean val){
+         currentDay.meal3Bool = val;
+    };
+
+    public void SetRecreation1Bool(boolean val){
+         currentDay.recreation1Bool = val;
+    };
+    public void SetRecreation2Bool(boolean val){
+         currentDay.recreation2Bool = val;
+    };
+    public void SetRecreation3Bool(boolean val){
+         currentDay.recreation3Bool = val;
+    };
+    public void SetRecreation4Bool(boolean val){
+         currentDay.recreation4Bool = val;
+    };
+    public void SetRecreation5Bool(boolean val){
+         currentDay.recreation5Bool = val;
+    };
+    public void SetRecreation6Bool(boolean val){
+         currentDay.recreation6Bool = val;
+    };
 }
