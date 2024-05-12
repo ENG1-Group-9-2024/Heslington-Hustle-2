@@ -19,7 +19,6 @@ import static org.mockito.Mockito.mock;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
@@ -37,15 +36,13 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
     public GdxTestRunner(Class<?> klass) throws InitializationError {
         super(klass);
         HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
+
         new HeadlessApplication(this, conf);
+        Gdx.gl = mock(GL20.class);
     }
 
     @Override
-    public void create() {
-        Gdx.gl = mock(GL20.class);
-        Gdx.gl20 = Gdx.gl;
-        Gdx.graphics = mock(Graphics.class);
-    }
+    public void create() {}
 
     @Override
     public void resume() {}
