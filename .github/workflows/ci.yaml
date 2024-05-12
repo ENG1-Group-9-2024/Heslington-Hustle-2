@@ -21,7 +21,8 @@ jobs:
         run: ./gradlew spotlessCheck
       - name: Test
         run: ./gradlew clean build
-      - name: Upload test coverage report
+      - if: matrix.os == ubuntu-latest
+        name: Upload test coverage report
         uses: actions/upload-artifact@v4.3.3
         with:
           name: test-coverage-report
