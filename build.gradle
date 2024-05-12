@@ -144,7 +144,7 @@ project(":tests") {
         //useJUnitPlatform()
         testLogging {
             showStandardStreams = true
-            events 'started', 'skipped', 'passed', 'failed'
+            events 'skipped', 'passed', 'failed'
             exceptionFormat 'full'
         }
         finalizedBy jacocoTestReport
