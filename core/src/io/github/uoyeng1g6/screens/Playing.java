@@ -186,7 +186,6 @@ public class Playing implements Screen {
             energy.add(energyAmount);
 
             this.engine = new PooledEngine();
-            //this.gameState = new GameState();
             this.world = new World(new Vector2(), true);
 
             initTerrain();
