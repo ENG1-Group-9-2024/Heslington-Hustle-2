@@ -23,5 +23,5 @@ public class GameConstants {
     /**
      * The number of seconds to display the interaction overlay for per hour used by the interaction.
      */
-    public static final int OVERLAY_SECONDS_PER_HOUR = 1;
+    public static final int OVERLAY_SECONDS_PER_HOUR = 2;
 }

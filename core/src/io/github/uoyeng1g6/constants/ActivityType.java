@@ -13,6 +13,7 @@ public enum ActivityType {
     STUDY1,
 
     STUDY2,
+
     RECREATION1,
 
     RECREATION2,
