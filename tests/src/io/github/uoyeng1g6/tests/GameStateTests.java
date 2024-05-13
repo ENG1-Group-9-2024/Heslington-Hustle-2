@@ -26,7 +26,7 @@ public class GameStateTests {
     @Test
     public void T_16HoursInDay1() {
         // Testing when there is enough time and energy
-        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY, "Studying...");
+        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY1, "Studying...");
         assertTrue("Activity should be performed when there is enough time and energy", result);
     }
 
@@ -34,7 +34,7 @@ public class GameStateTests {
     public void T_16HoursInDay2() {
         // Testing when there is not enough time
         gameState.setHoursRemaining(0);
-        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY, "Studying...");
+        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY1, "Studying...");
         assertFalse("Activity should not be performed when there is not enough time", result);
     }
 
@@ -42,7 +42,7 @@ public class GameStateTests {
     public void T_16HoursInDay3() {
         // Testing when there is not enough energy
         gameState.setEnergyRemaining(5);
-        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY, "Studying...");
+        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY1, "Studying...");
         assertFalse("Activity should not be performed when there is not enough energy", result);
     }
 
@@ -58,7 +58,7 @@ public class GameStateTests {
         gameState.setHoursRemaining(1);
         gameState.setEnergyRemaining(10);
 
-        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY, "Studying...");
+        boolean result = gameState.doActivity(1, 10, ActivityType.STUDY1, "Studying...");
         assertTrue("Activity should be performed when there is exactly enough time and energy", result);
 
         assertEquals("No hours should remain after activity", 0, gameState.getHoursRemaining());
@@ -69,7 +69,7 @@ public class GameStateTests {
     public void T_EnergyIsUsed() {
         gameState.setHoursRemaining(8);
         gameState.setEnergyRemaining(100);
-        boolean result = gameState.doActivity(2, 30, ActivityType.STUDY, "Studying...");
+        boolean result = gameState.doActivity(2, 30, ActivityType.STUDY1, "Studying...");
         assertTrue("Activity should be performed when there is enough time and energy", result);
         assertEquals(
                 "Hours remaining should decrease by the time used for the activity", 6, gameState.getHoursRemaining());
@@ -78,11 +78,11 @@ public class GameStateTests {
 
     @Test
     public void T_activityInDayIncreased() {
-        gameState.doActivity(1, 10, ActivityType.STUDY, "Studying...");
+        gameState.doActivity(1, 10, ActivityType.STUDY1, "Studying...");
         assertEquals(
                 "The activityStats of the activity type should be incremented",
                 1,
-                gameState.currentDay.activityStats.get(ActivityType.STUDY).intValue());
+                gameState.currentDay.activityStats.get(ActivityType.STUDY1).intValue());
     }
 
     @Test
