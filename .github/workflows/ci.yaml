@@ -1,10 +1,17 @@
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -13,4 +20,16 @@ jobs:
       - name: Check format
         run: ./gradlew spotlessCheck
       - name: Test
-        run: ./gradlew clean test
+        run: ./gradlew clean build
+      - if: matrix.os == 'ubuntu-latest'
+        name: Upload test coverage report
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: test-coverage-report
+          path: tests/build/reports/jacoco/test/html/
+      - if: matrix.os == 'ubuntu-latest'
+        name: Upload test results
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: test-results
+          path: tests/build/reports/tests/test/

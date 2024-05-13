@@ -36,6 +36,8 @@ public class EndScreen implements Screen {
      */
     Stage stage;
 
+    int bonus;
+
     public EndScreen(HeslingtonHustle game, GameState endGameState) {
         camera = new OrthographicCamera();
         var viewport = new FitViewport(GameConstants.WORLD_WIDTH * 10, GameConstants.WORLD_HEIGHT * 10, camera);
@@ -58,11 +60,84 @@ public class EndScreen implements Screen {
         inner.add(String.format("Exam Score: %.2f / 100", calculateExamScore(endGameState.days)))
                 .padBottom(50);
         inner.row();
-        inner.add("Times Studied: " + endGameState.getTotalActivityCount(ActivityType.STUDY));
+
+        // Bonus is displayed here
+        inner.add("Bonus: " + bonus);
         inner.row();
-        inner.add("Meals Eaten: " + endGameState.getTotalActivityCount(ActivityType.MEAL));
+
+        // The achievements are displayed if they were activated
+
+        if (study2Bool) {
+            inner.add("Bookworm: Studied in the Piazza every day");
+            inner.row();
+        }
+
+        if (study1Bool) {
+            inner.add("Overclocked CPU: Studied in the C.S Building every day");
+            inner.row();
+        }
+
+        if (meal1Bool) {
+            inner.add("Money Saver: Ate at home every day");
+            inner.row();
+        }
+
+        if (meal2Bool) {
+            inner.add("Eat out to help out: Ate in the Piazza every day");
+            inner.row();
+        }
+
+        if (meal3Bool) {
+            inner.add("People Watcher: Ate a picnic every day");
+            inner.row();
+        }
+
+        if (recreation1Bool) {
+            inner.add("Secret crush: Watched the builders every day");
+            inner.row();
+        }
+
+        if (recreation2Bool) {
+            inner.add("What the duck!: Fed the ducks every day");
+            inner.row();
+        }
+
+        if (recreation3Bool) {
+            inner.add("Cold one: Went to the pub every day");
+            inner.row();
+        }
+
+        if (recreation4Bool) {
+            inner.add("Unlucky: Played (and lost) at football every day");
+            inner.row();
+        }
+
+        if (recreation5Bool) {
+            inner.add("Escapism: Went to town every day");
+            inner.row();
+        }
+
+        if (recreation6Bool) {
+            inner.add("Active lifestyle: Played sports every day");
+            inner.row();
+        }
+
+        inner.add("Times Studied: "
+                + (endGameState.getTotalActivityCount(ActivityType.STUDY1)
+                        + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
         inner.row();
-        inner.add("Recreational Activities Done: " + endGameState.getTotalActivityCount(ActivityType.RECREATION));
+        inner.add("Meals Eaten: "
+                + (endGameState.getTotalActivityCount(ActivityType.MEAL1)
+                        + endGameState.getTotalActivityCount(ActivityType.MEAL2)
+                        + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
+        inner.row();
+        inner.add("Recreational Activities Done: "
+                + (endGameState.getTotalActivityCount(ActivityType.RECREATION1)
+                        + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
+                        + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
+                        + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
+                        + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
+                        + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
         inner.row();
 
         var mainMenuButton = new TextButton("Main Menu", game.skin);
@@ -109,6 +184,24 @@ public class EndScreen implements Screen {
         return studyPoints * mealMultiplier * recreationMultiplier;
     }
 
+    // booleans used to keep track on if the activity has been performed daily
+    boolean study1Bool = true;
+    boolean study2Bool = true;
+
+    boolean meal1Bool = true;
+    boolean meal2Bool = true;
+    boolean meal3Bool = true;
+
+    boolean recreation1Bool = true;
+    boolean recreation2Bool = true;
+    boolean recreation3Bool = true;
+    boolean recreation4Bool = true;
+    boolean recreation5Bool = true;
+    boolean recreation6Bool = true;
+
+    int studyCount;
+    int mealCount;
+    int recreationCount;
     /**
      * Calculate the aggregate score of all the days.
      *
@@ -119,9 +212,74 @@ public class EndScreen implements Screen {
         float totalScore = 0;
 
         for (var day : days) {
-            int studyCount = day.statFor(ActivityType.STUDY);
-            int mealCount = day.statFor(ActivityType.MEAL);
-            int recreationCount = day.statFor(ActivityType.RECREATION);
+
+            // Finds if the activity has been performed for this day
+            int study1Count = day.statFor(ActivityType.STUDY1);
+            int study2Count = day.statFor(ActivityType.STUDY2);
+
+            int meal1Count = day.statFor(ActivityType.MEAL1);
+            int meal2Count = day.statFor(ActivityType.MEAL2);
+            int meal3Count = day.statFor(ActivityType.MEAL3);
+
+            int recreation1Count = day.statFor(ActivityType.RECREATION1);
+            int recreation2Count = day.statFor(ActivityType.RECREATION2);
+            int recreation3Count = day.statFor(ActivityType.RECREATION3);
+            int recreation4Count = day.statFor(ActivityType.RECREATION4);
+            int recreation5Count = day.statFor(ActivityType.RECREATION5);
+            int recreation6Count = day.statFor(ActivityType.RECREATION6);
+
+            if (study1Count == 0) {
+                study1Bool = false;
+            }
+
+            if (study2Count == 0) {
+                study2Bool = false;
+            }
+
+            if (meal1Count == 0) {
+                meal1Bool = false;
+            }
+
+            if (meal2Count == 0) {
+                meal2Bool = false;
+            }
+
+            if (meal3Count == 0) {
+                meal3Bool = false;
+            }
+
+            if (recreation1Count == 0) {
+                recreation1Bool = false;
+            }
+
+            if (recreation2Count == 0) {
+                recreation2Bool = false;
+            }
+
+            if (recreation3Count == 0) {
+                recreation3Bool = false;
+            }
+
+            if (recreation4Count == 0) {
+                recreation4Bool = false;
+            }
+
+            if (recreation5Count == 0) {
+                recreation5Bool = false;
+            }
+
+            if (recreation6Count == 0) {
+                recreation6Bool = false;
+            }
+
+            studyCount = study1Count + study2Count;
+            mealCount = meal1Count + meal2Count + meal3Count;
+            recreationCount = recreation1Count
+                    + recreation2Count
+                    + recreation3Count
+                    + recreation4Count
+                    + recreation5Count
+                    + recreation6Count;
 
             var dayScore = getDayScore(studyCount, mealCount, recreationCount);
             // Normalise day score between 0 and 100, round up to nearest whole number
@@ -131,8 +289,53 @@ public class EndScreen implements Screen {
             totalScore += (float) (normalisedDayScore * (1 / 7f));
         }
 
-        // Clamp total score from 0-100
-        return Math.min(100, Math.max(0, totalScore));
+        // calculates bonus
+        if (study1Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (study2Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (meal1Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (meal2Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (meal3Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (recreation1Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (recreation2Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (recreation3Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (recreation4Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (recreation5Bool) {
+            bonus = bonus + 5;
+        }
+
+        if (recreation6Bool) {
+            bonus = bonus + 5;
+        }
+
+        // Clamp total score from 0-100, adds bonus
+        return Math.min(100, Math.max(0, (totalScore + bonus)));
     }
 
     @Override

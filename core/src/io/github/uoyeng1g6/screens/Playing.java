@@ -191,7 +191,6 @@ public class Playing implements Screen {
             energy.add(energyAmount);
 
             this.engine = new PooledEngine();
-            this.gameState = new GameState();
             this.world = new World(new Vector2(), true);
 
             initTerrain();
@@ -224,26 +223,26 @@ public class Playing implements Screen {
 
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
-                            dayStudyLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.STUDY)))));
+                            dayStudyLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.STUDY1)))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
-                            dayEatLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.MEAL)))));
+                            dayEatLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.MEAL1)))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
                             dayRecreationLabel,
-                            state -> String.valueOf(state.currentDay.statFor(ActivityType.RECREATION)))));
+                            state -> String.valueOf(state.currentDay.statFor(ActivityType.RECREATION1)))));
 
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
                             totalStudyLabel,
-                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.STUDY)))));
+                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.STUDY1)))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
-                            totalEatLabel, state -> String.valueOf(state.getTotalActivityCount(ActivityType.MEAL)))));
+                            totalEatLabel, state -> String.valueOf(state.getTotalActivityCount(ActivityType.MEAL1)))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
                             totalRecreationLabel,
-                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.RECREATION)))));
+                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.RECREATION1)))));
 
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(energyAmount, state -> String.valueOf(state.energyRemaining))));
@@ -319,7 +318,7 @@ public class Playing implements Screen {
                 .add(new HitboxComponent(new Rectangle(
                         25, 14, studyIcon.getRegionWidth() * iconSize, studyIcon.getRegionHeight() * iconSize)))
                 .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(1, 10, ActivityType.STUDY, "Studying...")) {
+                    if (!state.doActivity(1, 10, ActivityType.STUDY1, "Studying...")) {
                         // Notify insufficient time/energy
                     }
                 }))
@@ -332,7 +331,7 @@ public class Playing implements Screen {
                 .add(new HitboxComponent(new Rectangle(
                         54, 2.5f, foodIcon.getRegionWidth() * iconSize, foodIcon.getRegionHeight() * iconSize)))
                 .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(1, 5, ActivityType.MEAL, "Eating...")) {
+                    if (!state.doActivity(1, 5, ActivityType.MEAL1, "Eating...")) {
                         // Notify insufficient time/energy
                     }
                 }))
@@ -348,7 +347,7 @@ public class Playing implements Screen {
                         popcornIcon.getRegionWidth() * iconSize,
                         popcornIcon.getRegionHeight() * iconSize)))
                 .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(1, 10, ActivityType.RECREATION, "Watching films...")) {
+                    if (!state.doActivity(1, 10, ActivityType.RECREATION1, "Watching films...")) {
                         // Notify insufficient time/energy
                     }
                 }))
