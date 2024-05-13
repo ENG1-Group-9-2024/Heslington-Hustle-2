@@ -54,6 +54,8 @@ import io.github.uoyeng1g6.utils.LeaderboardManager;
 import io.github.uoyeng1g6.utils.PlayerScore;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 /**
  * The gameplay screen for the game. Causes a transition to the end screen once all the in-game
  * days have been completed.
@@ -418,8 +420,9 @@ public class Playing implements Screen {
             game.setState(HeslingtonHustle.State.END_SCREEN);
 
             // Write score to file
-            String playerName = getPlayerName();
-            int finalScore = getFinalScore();
+            EndScreen endScreen = new EndScreen(game, gameState);
+            String playerName = JOptionPane.showInputDialog("Please enter your name:");
+            float finalScore = endScreen.calculateExamScore(gameState.days);
 
             PlayerScore playerScore = new PlayerScore(playerName, finalScore);
             LeaderboardManager.getInstance().addScore(playerScore);
@@ -452,15 +455,7 @@ public class Playing implements Screen {
         }
     }
 
-    private String getPlayerName() {
-        // 実際のプレイヤー名取得ロジックを実装
-        return "PlayerName";
-    }
 
-    private int getFinalScore() {
-        // 実際のスコア取得ロジックを実装
-        return 100;
-    }
 
     @Override
     public void resize(int width, int height) {
