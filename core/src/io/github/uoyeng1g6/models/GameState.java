@@ -29,6 +29,20 @@ public class GameState {
         public int statFor(ActivityType type) {
             return activityStats.getOrDefault(type, 0);
         }
+
+        public boolean study1Bool = true;
+        public boolean study2Bool = true;
+
+        public boolean meal1Bool = true;
+        public boolean meal2Bool = true;
+        public boolean meal3Bool = true;
+
+        public boolean recreation1Bool = true;
+        public boolean recreation2Bool = true;
+        public boolean recreation3Bool = true;
+        public boolean recreation4Bool = true;
+        public boolean recreation5Bool = true;
+        public boolean recreation6Bool = true;
     }
 
     /**
@@ -99,9 +113,9 @@ public class GameState {
      * an overlay. If there are not enough hours left in the day, or the player does not have enough energy
      * then returns {@code false}.
      *
-     * @param timeUsage the amount of time the activity requires.
+     * @param timeUsage   the amount of time the activity requires.
      * @param energyUsage the amount of energy the activity requires.
-     * @param type the type of activity being done.
+     * @param type        the type of activity being done.
      * @param overlayText the text to show on the overlay while doing the interaction.
      * @return boolean indicating whether the activity could be performed.
      */
