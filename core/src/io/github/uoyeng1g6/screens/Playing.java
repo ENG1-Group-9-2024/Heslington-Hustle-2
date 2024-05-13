@@ -50,6 +50,8 @@ import io.github.uoyeng1g6.systems.PlayerInputSystem;
 import io.github.uoyeng1g6.systems.PlayerInteractionSystem;
 import io.github.uoyeng1g6.systems.StaticRenderingSystem;
 import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
+import io.github.uoyeng1g6.utils.LeaderboardManager;
+import io.github.uoyeng1g6.utils.PlayerScore;
 import java.util.Map;
 
 /**
@@ -417,7 +419,13 @@ public class Playing implements Screen {
             game.setState(HeslingtonHustle.State.END_SCREEN);
 
             // Write score to file
+            String playerName = getPlayerName();
+            int finalScore = getFinalScore();
 
+            PlayerScore playerScore = new PlayerScore(playerName, finalScore);
+            LeaderboardManager.getInstance().addScore(playerScore);
+
+            LeaderboardManager.getInstance().saveScoresToFile();
 
             return;
         }
@@ -443,6 +451,16 @@ public class Playing implements Screen {
 
             world.step(delta, 8, 3);
         }
+    }
+
+    private String getPlayerName() {
+        // 実際のプレイヤー名取得ロジックを実装
+        return "PlayerName";
+    }
+
+    private int getFinalScore() {
+        // 実際のスコア取得ロジックを実装
+        return 100;
     }
 
     @Override

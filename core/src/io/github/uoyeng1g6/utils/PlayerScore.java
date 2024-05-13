@@ -17,5 +17,4 @@ public class PlayerScore {
         this.name = name;
         this.score = score;
     }
-
 }

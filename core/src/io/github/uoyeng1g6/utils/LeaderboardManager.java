@@ -1,25 +1,39 @@
 package io.github.uoyeng1g6.utils;
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class LeaderboardManager {
 
     private static LeaderboardManager instance;
 
     private final String FILEPATH = "leaderboard.csv";
-
+    private List<PlayerScore> scores;
 
     public LeaderboardManager() {
+        scores = new ArrayList<>();
+        loadScores();
+    }
 
+    public static LeaderboardManager getInstance() {
+        if (instance == null) {
+            instance = new LeaderboardManager();
+        }
+        return instance;
     }
 
     public boolean addScore(String name, int score) {
-        return true;
+        return addScore(new PlayerScore(name, score));
     }
 
     public boolean addScore(PlayerScore playerScore) {
+        scores.add(playerScore);
+        scores.sort((s1, s2) -> s2.getScore() - s1.getScore());
+        if (scores.size() > 10) {
+            scores = scores.subList(0, 10);
+        }
         return true;
     }
 
@@ -27,7 +41,29 @@ public class LeaderboardManager {
      * Returns a list of player scores in descending order
      */
     public List<PlayerScore> getTopTenScores() {
-        return new ArrayList<PlayerScore>();
+        return new ArrayList<>(scores);
     }
 
+    public void saveScoresToFile() {
+        try (PrintWriter out = new PrintWriter(new FileWriter(FILEPATH))) {
+            for (PlayerScore score : scores) {
+                out.println(score.getName() + "," + score.getScore());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadScores() {
+        try (Scanner scanner = new Scanner(new File(FILEPATH))) {
+            while (scanner.hasNextLine()) {
+                String[] data = scanner.nextLine().split(",");
+                if (data.length == 2) {
+                    addScore(data[0], Integer.parseInt(data[1]));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("No existing score file fould.");
+        }
+    }
 }
