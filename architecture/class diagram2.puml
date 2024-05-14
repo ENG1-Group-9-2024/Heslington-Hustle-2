@@ -1,0 +1,165 @@
+@startuml
+scale 0.5
+
+package game{
+    class HeslingtonHustle{}
+    }
+
+
+package screens{
+    class EndScreen{}
+
+    class Playing{}
+
+    class MainMenu{}
+}
+
+
+package models{
+    class GameState{}
+
+    class PhysicsPolygon{}
+}
+
+'package components{
+'    class AnimationComponent{}
+'
+'    class CounterComponent{}
+'
+'    class FixtureComponent{}
+'
+'    class HitboxComponent{}
+'
+'    class InteractionComponent{}
+'
+'    class PlayerComponent{}
+'
+'    class PositionComponent{}
+'
+'    class TextureComponent{}
+'
+'    class TooltipComponent{}
+'}
+
+package constants{
+    class ActivityType{}
+
+    class GameConstants{}
+
+    class MoveDirection{}
+
+    class PlayerConstants{}
+}
+
+
+package systems{
+    class AnimationSystem{}
+
+    class CounterUpdateSystem{}
+
+    class DebugSystem{}
+
+    class InteractionOverlayRenderingSystem{}
+
+    class MapRenderingSystem{}
+
+    class PlayerInputSystem{}
+
+    class PlayerInteractionSystem{}
+
+    class StaticRenderingSystem{}
+
+    class TooltipRenderingSystem{}
+}
+
+
+
+
+
+
+
+
+HeslingtonHustle *---- EndScreen
+HeslingtonHustle *---- Playing
+HeslingtonHustle *- MainMenu
+
+'AnimationSystem *---- AnimationComponent
+'AnimationSystem *---- FixtureComponent
+'AnimationSystem *---- PositionComponent
+'
+'CounterUpdateSystem *---- CounterComponent
+'
+'DebugSystem *---- AnimationComponent
+'DebugSystem *---- FixtureComponent
+'DebugSystem *---- HitboxComponent
+'DebugSystem *---- InteractionComponent
+'DebugSystem *---- PlayerComponent
+'DebugSystem *---- PlayerConstants
+'
+'InteractionOverlayRenderingSystem *---- GameConstants
+
+
+
+'PlayerInputSystem *----AnimationComponent
+'PlayerInputSystem *----FixtureComponent
+'PlayerInputSystem *----PlayerComponent
+'PlayerInputSystem *----MoveDirection
+'PlayerInputSystem *----PlayerConstants
+'
+'PlayerInteractionSystem *----FixtureComponent
+'PlayerInteractionSystem *----HitboxComponent
+'PlayerInteractionSystem *----InteractionComponent
+'PlayerInteractionSystem *----PlayerComponent
+'PlayerInteractionSystem *----PlayerConstants
+'
+'StaticRenderingSystem *---- PositionComponent
+'StaticRenderingSystem *---- TextureComponent
+'
+'TooltipRenderingSystem *---- FixtureComponent
+'TooltipRenderingSystem *---- HitboxComponent
+'TooltipRenderingSystem *---- PlayerComponent
+'TooltipRenderingSystem *---- TooltipComponent
+'TooltipRenderingSystem *---- PlayerConstants
+
+
+GameState *---- ActivityType
+GameState *---- GameConstants
+
+
+
+
+
+'Playing *---- AnimationComponent
+'Playing *---- CounterComponent
+'Playing *---- FixtureComponent
+'Playing *---- HitboxComponent
+'Playing *---- InteractionComponent
+'Playing *---- PlayerComponent
+'Playing *---- PositionComponent
+'Playing *---- TextureComponent
+'Playing *---- TooltipComponent
+
+
+
+
+Playing *---- GameState
+Playing *---- PhysicsPolygon
+
+
+Playing *---- AnimationSystem
+Playing *---- CounterUpdateSystem
+Playing *---- DebugSystem
+Playing *---- InteractionOverlayRenderingSystem
+Playing *---- MapRenderingSystem
+Playing *---- PlayerInputSystem
+Playing *---- PlayerInteractionSystem
+Playing *---- StaticRenderingSystem
+Playing *---- TooltipRenderingSystem
+
+EndScreen *---- GameState
+
+
+
+
+
+@enduml
