@@ -1,6 +1,9 @@
 @startuml
 scale 2.0
 
+
+
+
 'package game{
 '    class HeslingtonHustle{}
 '    }
@@ -241,16 +244,16 @@ package systems{
     }
 
     class PlayerInputSystem {
-        - gameState: GameState
-        - playerEntity: Entity
-        - velocity: Vector2
-        - pm: ComponentMapper<PlayerComponent>
-        - fm: ComponentMapper<FixtureComponent>
-        - am: ComponentMapper<AnimationComponent>
-        + PlayerInputSystem(gameState: GameState)
-        + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
-    }
+            - gameState: GameState
+            - playerEntity: Entity
+            - velocity: Vector2
+            - pm: ComponentMapper<PlayerComponent>
+            - fm: ComponentMapper<FixtureComponent>
+            - am: ComponentMapper<AnimationComponent>
+            + PlayerInputSystem(gameState: GameState)
+            + addedToEngine(engine: Engine): void
+            + update(deltaTime: float): void
+            }
 
     class PlayerInteractionSystem {
         - gameState: GameState
@@ -364,20 +367,22 @@ TooltipRenderingSystem *------- PlayerConstants
 'Playing *------- PhysicsPolygon
 
 
-Playing *--- AnimationSystem
-Playing *--- CounterUpdateSystem
-Playing *--- DebugSystem
-Playing *--- InteractionOverlayRenderingSystem
-Playing *--- MapRenderingSystem
-Playing *--- PlayerInputSystem
-Playing *--- PlayerInteractionSystem
-Playing *--- StaticRenderingSystem
-Playing *--- TooltipRenderingSystem
+'Playing *--- AnimationSystem
+'Playing *--- CounterUpdateSystem
+'Playing *--- DebugSystem
+'Playing *--- InteractionOverlayRenderingSystem
+'Playing *--- MapRenderingSystem
+'Playing *--- PlayerInputSystem
+'Playing *--- PlayerInteractionSystem
+'Playing *--- StaticRenderingSystem
+'Playing *--- TooltipRenderingSystem
 
 'EndScreen *------- GameState
 
 
 
+skinparam defaultFontSize 40
+skinparam activityDiamondFontSize 30
 
 
 @enduml
