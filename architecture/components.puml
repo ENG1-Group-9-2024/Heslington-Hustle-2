@@ -1,5 +1,7 @@
 @startuml
 
+
+
 package components {
     class AnimationComponent {
         - spriteScale: float
