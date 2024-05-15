@@ -16,10 +16,7 @@ import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.utils.ChangeListener;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The end screen of the game. Displays the player's score and the total number done of each activity.
