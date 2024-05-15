@@ -3,7 +3,6 @@ name: Build and Test
 on:
   push:
     branches: [ "main" ]
-    tags: [ "v*" ]
   pull_request:
     branches: [ "main" ]
 
@@ -38,15 +37,3 @@ jobs:
         with:
           name: test-results
           path: tests/build/reports/tests/test/
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    steps:
-      - uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            desktop/build/libs/*.jar
-
-
