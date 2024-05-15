@@ -15,7 +15,11 @@ import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.utils.ChangeListener;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The end screen of the game. Displays the player's score and the total number done of each activity.
@@ -124,21 +128,41 @@ public class EndScreen implements Screen {
 
         inner.add("Times Studied: "
                 + (endGameState.getTotalActivityCount(ActivityType.STUDY1)
-                        + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
+                + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
         inner.row();
         inner.add("Meals Eaten: "
                 + (endGameState.getTotalActivityCount(ActivityType.MEAL1)
-                        + endGameState.getTotalActivityCount(ActivityType.MEAL2)
-                        + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
+                + endGameState.getTotalActivityCount(ActivityType.MEAL2)
+                + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
         inner.row();
         inner.add("Recreational Activities Done: "
                 + (endGameState.getTotalActivityCount(ActivityType.RECREATION1)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
+                + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
+                + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
+                + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
+                + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
+                + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
         inner.row();
+
+        // create a dict for the leaderboard
+        // List<List<String>> leaderBoardEntries = new ArrayList<>();
+        String[][] leaderBoardEntries = {{"Bob", "Alice", "John", "Goon", "idk", "fhuqiui", "Me", "You", "Him", "Reese"}
+                , {"90", "82", "74", "63", "58", "49", "40", "28", "10", "1"}};
+
+
+        // add the dict to the leaderboard
+        var leaderBoard = new Table(game.skin);
+        leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
+        leaderBoard.row();
+        for (int i=0; i < leaderBoardEntries[0].length; i++){
+            leaderBoard.add(leaderBoardEntries[0][i] + ": " + leaderBoardEntries[1][i]).padBottom(10).row();
+        }
+
+        // Position the leaderboard on the right side of the screen
+        leaderBoard.setFillParent(true);
+        leaderBoard.pad(0.15f);
+        leaderBoard.right();
+        stage.addActor(leaderBoard);
 
         var mainMenuButton = new TextButton("Main Menu", game.skin);
         mainMenuButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.MAIN_MENU)));
@@ -148,6 +172,7 @@ public class EndScreen implements Screen {
                 .height(Value.percentHeight(0.1f, inner));
 
         root.add(inner).grow();
+
     }
 
     /**
