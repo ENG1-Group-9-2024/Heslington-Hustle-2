@@ -1,4 +1,4 @@
-player.png
+player2.png
 size: 832, 2944
 format: RGBA8888
 filter: Linear,Linear
