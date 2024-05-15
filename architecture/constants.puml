@@ -19,5 +19,7 @@ package constants {
         {static} PLAYER_SPEED: float
         {static} START_POSITION: Vector2
     }
+
+    class ActivityType{}
 }
 @enduml

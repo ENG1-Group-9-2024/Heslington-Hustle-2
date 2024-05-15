@@ -8,7 +8,6 @@ package systems {
         - fm: ComponentMapper<FixtureComponent>
         - pm: ComponentMapper<PositionComponent>
         + AnimationSystem(batch: SpriteBatch, gameState: GameState)
-        + update(deltaTime: float): void
         - processEntity(entity: Entity, deltaTime: float): void
     }
 
@@ -27,7 +26,6 @@ package systems {
         - playerEntity: Entity
         + DebugSystem(shapeDrawer: ShapeDrawer)
         + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
     }
 
     class InteractionOverlayRenderingSystem {
@@ -37,14 +35,11 @@ package systems {
         - gameState: GameState
         - elapsed: float
         + InteractionOverlayRenderingSystem(batch: SpriteBatch, font: BitmapFont, shapeDrawer: ShapeDrawer, gameState: GameState)
-        + update(deltaTime: float): void
     }
 
     class MapRenderingSystem {
-        - camera: OrthographicCamera
-        - renderer: OrthogonalTiledMapRenderer
+
         + MapRenderingSystem(tiledMap: TiledMap, camera: OrthographicCamera)
-        + update(deltaTime: float): void
     }
 
     class PlayerInputSystem {
@@ -56,13 +51,12 @@ package systems {
         - am: ComponentMapper<AnimationComponent>
         + PlayerInputSystem(gameState: GameState)
         + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
+
     }
 
     class PlayerInteractionSystem {
         - gameState: GameState
         - playerEntity: Entity
-        - interactables: ImmutableArray<Entity>
         - plm: ComponentMapper<PlayerComponent>
         - am: ComponentMapper<AnimationComponent>
         - im: ComponentMapper<InteractionComponent>
@@ -70,7 +64,6 @@ package systems {
         - fm: ComponentMapper<FixtureComponent>
         + PlayerInteractionSystem(gameState: GameState)
         + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
     }
 
     class StaticRenderingSystem {
@@ -91,7 +84,7 @@ package systems {
         - fm: ComponentMapper<FixtureComponent>
         + TooltipRenderingSystem(font: BitmapFont, shapeDrawer: ShapeDrawer, batch: SpriteBatch, gameState: GameState)
         + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
+
     }
 }
 @enduml

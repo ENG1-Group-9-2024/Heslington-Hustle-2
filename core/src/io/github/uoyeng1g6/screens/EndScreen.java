@@ -185,7 +185,7 @@ public class EndScreen implements Screen {
     }
 
     // booleans used to keep track on if the activity has been performed daily
-    boolean study1Bool = true;
+    public static boolean study1Bool = true;
     boolean study2Bool = true;
 
     boolean meal1Bool = true;
@@ -208,7 +208,7 @@ public class EndScreen implements Screen {
      * @param days the days to calculate the score for.
      * @return the computed game score.
      */
-    float calculateExamScore(List<GameState.Day> days) {
+    public float calculateExamScore(List<GameState.Day> days) {
         float totalScore = 0;
 
         for (var day : days) {

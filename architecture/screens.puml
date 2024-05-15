@@ -3,38 +3,17 @@
 package screens {
     class MainMenu {
         - game: HeslingtonHustle
-        - camera: Camera
-        - stage: Stage
-        - root: Table
+
         + MainMenu(game: HeslingtonHustle)
-        + render(v: float): void
-        + show(): void
-        + resize(width: int, height: int): void
-        + pause(): void
-        + resume(): void
-        + hide(): void
-        + dispose(): void
+
     }
 
     class Playing {
         - game: HeslingtonHustle
-        - camera: OrthographicCamera
-        - viewport: Viewport
-        - stage: Stage
-        - counters: Table
-        - days: Container<Label>
-        - engine: Engine
-        - gameState: GameState
-        - world: World
-        - debugRenderer: Box2DDebugRenderer
+
         + Playing(game: HeslingtonHustle)
-        + render(delta: float): void
-        + resize(width: int, height: int): void
-        + show(): void
-        + pause(): void
-        + resume(): void
-        + hide(): void
-        + dispose(): void
+
+
         - initTerrain(): void
         - initInteractionLocations(engine: Engine): Entity[]
         - initPlayerBody(): Fixture
@@ -44,19 +23,12 @@ package screens {
     class EndScreen {
         - MAX_DAY_SCORE: float
         - MIN_DAY_SCORE: float
-        - camera: Camera
-        - stage: Stage
+
 
         + EndScreen(game: HeslingtonHustle, endGameState: GameState)
         + getDayScore(studyCount: int, mealCount: int, recreationCount: int): float
         + calculateExamScore(days: List<GameState.Day>): float
-        + render(delta: float): void
-        + resize(width: int, height: int): void
-        + show(): void
-        + pause(): void
-        + resume(): void
-        + hide(): void
-        + dispose(): void
+
     }
 }
 @enduml

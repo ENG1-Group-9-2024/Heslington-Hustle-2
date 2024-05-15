@@ -106,7 +106,7 @@ public class HeslingtonHustle extends Game {
      * The end screen instance. A new one is required to be create each time the
      * player finishes a game.
      */
-    EndScreen endScreen = null;
+    public EndScreen endScreen = null;
 
     /**
      * The game's current state.

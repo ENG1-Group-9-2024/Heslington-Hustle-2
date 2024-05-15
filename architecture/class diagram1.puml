@@ -1,6 +1,13 @@
 @startuml
 scale 2.0
 
+'skinparam linetype polyline
+'skinparam ArrowColor black
+'skinparam ArrowThickness 2
+'skinparam nodesep 50
+''skinparam ranksep 50
+'left to right direction
+
 package game{
     class HeslingtonHustle{}
     }
@@ -8,152 +15,152 @@ package game{
 
 package screens{
     class MainMenu {
-        - game: HeslingtonHustle
-        - camera: Camera
-        - stage: Stage
-        - root: Table
-        + MainMenu(game: HeslingtonHustle)
-        + render(v: float): void
-        + show(): void
-        + resize(width: int, height: int): void
-        + pause(): void
-        + resume(): void
-        + hide(): void
-        + dispose(): void
+'        - game: HeslingtonHustle
+'        - camera: Camera
+'        - stage: Stage
+'        - root: Table
+'        + MainMenu(game: HeslingtonHustle)
+'        + render(v: float): void
+'        + show(): void
+'        + resize(width: int, height: int): void
+'        + pause(): void
+'        + resume(): void
+'        + hide(): void
+'        + dispose(): void
     }
 
     class Playing {
-        - game: HeslingtonHustle
-        - camera: OrthographicCamera
-        - viewport: Viewport
-        - stage: Stage
-        - counters: Table
-        - days: Container<Label>
-        - engine: Engine
-        - gameState: GameState
-        - world: World
-        - debugRenderer: Box2DDebugRenderer
-        + Playing(game: HeslingtonHustle)
-        + render(delta: float): void
-        + resize(width: int, height: int): void
-        + show(): void
-        + pause(): void
-        + resume(): void
-        + hide(): void
-        + dispose(): void
-        - initTerrain(): void
-        - initInteractionLocations(engine: Engine): Entity[]
-        - initPlayerBody(): Fixture
-        - initPlayerEntity(engine: Engine): Entity
+'        - game: HeslingtonHustle
+'        - camera: OrthographicCamera
+'        - viewport: Viewport
+'        - stage: Stage
+'        - counters: Table
+'        - days: Container<Label>
+'        - engine: Engine
+'        - gameState: GameState
+'        - world: World
+'        - debugRenderer: Box2DDebugRenderer
+'        + Playing(game: HeslingtonHustle)
+'        + render(delta: float): void
+'        + resize(width: int, height: int): void
+'        + show(): void
+'        + pause(): void
+'        + resume(): void
+'        + hide(): void
+'        + dispose(): void
+'        - initTerrain(): void
+'        - initInteractionLocations(engine: Engine): Entity[]
+'        - initPlayerBody(): Fixture
+'        - initPlayerEntity(engine: Engine): Entity
     }
 
     class EndScreen {
-        - MAX_DAY_SCORE: float
-        - MIN_DAY_SCORE: float
-        - camera: Camera
-        - stage: Stage
-
-        + EndScreen(game: HeslingtonHustle, endGameState: GameState)
-        + getDayScore(studyCount: int, mealCount: int, recreationCount: int): float
-        + calculateExamScore(days: List<GameState.Day>): float
-        + render(delta: float): void
-        + resize(width: int, height: int): void
-        + show(): void
-        + pause(): void
-        + resume(): void
-        + hide(): void
-        + dispose(): void
+'        - MAX_DAY_SCORE: float
+'        - MIN_DAY_SCORE: float
+'        - camera: Camera
+'        - stage: Stage
+'
+'        + EndScreen(game: HeslingtonHustle, endGameState: GameState)
+'        + getDayScore(studyCount: int, mealCount: int, recreationCount: int): float
+'        + calculateExamScore(days: List<GameState.Day>): float
+'        + render(delta: float): void
+'        + resize(width: int, height: int): void
+'        + show(): void
+'        + pause(): void
+'        + resume(): void
+'        + hide(): void
+'        + dispose(): void
     }
 }
 
 
 package models{
     class GameState {
-        - days: ArrayList<Day>
-        - currentDay: Day
-        - daysRemaining: int
-        - energyRemaining: int
-        - hoursRemaining: float
-        - interactionOverlay: InteractionOverlay
-        + advanceDay(): void
-        + doActivity(timeUsage: int, energyUsage: int, type: ActivityType, overlayText: String): boolean
+'        - days: ArrayList<Day>
+'        - currentDay: Day
+'        - daysRemaining: int
+'        - energyRemaining: int
+'        - hoursRemaining: float
+'        - interactionOverlay: InteractionOverlay
+'        + advanceDay(): void
+'        + doActivity(timeUsage: int, energyUsage: int, type: ActivityType, overlayText: String): boolean
     }
 
     class Day {
-        - activityStats: HashMap<ActivityType, Integer>
-        + statFor(type: ActivityType): int
+'        - activityStats: HashMap<ActivityType, Integer>
+'        + statFor(type: ActivityType): int
     }
 
     class InteractionOverlay {
-        - text: String
-        - displayFor: float
-        + InteractionOverlay(text: String, displayFor: float)
+'        - text: String
+'        - displayFor: float
+'        + InteractionOverlay(text: String, displayFor: float)
     }
 
     class PhysicsPolygon {
-        - name: String
-        - type: BodyDef.BodyType
-        - position: Vector2
-        - vertices: Vector2[]
-        + PhysicsPolygon()
-        + PhysicsPolygon(name: String, type: BodyDef.BodyType, position: Vector2, vertices: Vector2...)
-        + getName(): String
-        + getType(): BodyDef.BodyType
-        + getPosition(): Vector2
-        + getVertices(): Vector2[]
+'        - name: String
+'        - type: BodyDef.BodyType
+'        - position: Vector2
+'        - vertices: Vector2[]
+'        + PhysicsPolygon()
+'        + PhysicsPolygon(name: String, type: BodyDef.BodyType, position: Vector2, vertices: Vector2...)
+'        + getName(): String
+'        + getType(): BodyDef.BodyType
+'        + getPosition(): Vector2
+'        + getVertices(): Vector2[]
     }
 }
 
 package components{
     class AnimationComponent {
-        - spriteScale: float
-        - animations: IntMap<Animation<Sprite>>
-        - currentAnimation: int
-        - time: float
-        + AnimationComponent(spriteScale: float)
+'        - spriteScale: float
+'        - animations: IntMap<Animation<Sprite>>
+'        - currentAnimation: int
+'        - time: float
+'        + AnimationComponent(spriteScale: float)
     }
 
     class CounterComponent {
-        - label: Label
-        - valueResolver: CounterValueResolver
-        + CounterComponent(label: Label, valueResolver: CounterValueResolver)
+'        - label: Label
+'        - valueResolver: CounterValueResolver
+'        + CounterComponent(label: Label, valueResolver: CounterValueResolver)
     }
 
 
     class FixtureComponent {
-        - fixture: Fixture
-        + FixtureComponent(fixture: Fixture)
+'        - fixture: Fixture
+'        + FixtureComponent(fixture: Fixture)
     }
 
     class HitboxComponent {
-        - rects: Rectangle[]
-        - region: Rectangle
-        + HitboxComponent(rects: Rectangle...)
+'        - rects: Rectangle[]
+'        - region: Rectangle
+'        + HitboxComponent(rects: Rectangle...)
     }
 
     class InteractionComponent {
-        - interactable: Interactable
-        + InteractionComponent(interactable: Interactable)
+'        - interactable: Interactable
+'        + InteractionComponent(interactable: Interactable)
     }
 
     class PlayerComponent {
-        - isInteracting: boolean
+ '       - isInteracting: boolean
     }
 
     class PositionComponent {
-        - x: float
-        - y: float
-        + PositionComponent(x: float, y: float)
-        + PositionComponent()
+'        - x: float
+'        - y: float
+'        + PositionComponent(x: float, y: float)
+'        + PositionComponent()
     }
 
     class TextureComponent {
-        - region: TextureRegion
-        - scale: float
-        - visible: boolean
-        + TextureComponent(region: TextureRegion, scale: float)
-        + show(): TextureComponent
-        + hide(): TextureComponent
+'        - region: TextureRegion
+'        - scale: float
+'        - visible: boolean
+'        + TextureComponent(region: TextureRegion, scale: float)
+'        + show(): TextureComponent
+'        + hide(): TextureComponent
     }
 
     class TooltipComponent {
@@ -165,22 +172,22 @@ package components{
 
 package constants{
     class GameConstants {
-        {static} WORLD_WIDTH: int
-        {static} WORLD_HEIGHT: int
+'        {static} WORLD_WIDTH: int
+'        {static} WORLD_HEIGHT: int
     }
 
     class MoveDirection {
-        {static} STATIONARY: int
-        {static} UP: int
-        {static} DOWN: int
-        {static} LEFT: int
-        {static} RIGHT: int
+'        {static} STATIONARY: int
+'        {static} UP: int
+'        {static} DOWN: int
+'        {static} LEFT: int
+'        {static} RIGHT: int
     }
 
     class PlayerConstants {
-        {static} HITBOX_RADIUS: float
-        {static} PLAYER_SPEED: float
-        {static} START_POSITION: Vector2
+'        {static} HITBOX_RADIUS: float
+'        {static} PLAYER_SPEED: float
+'        {static} START_POSITION: Vector2
     }
 
     class ActivityType{}
@@ -192,96 +199,96 @@ package constants{
 
 package systems{
     class AnimationSystem {
-        - batch: SpriteBatch
-        - gameState: GameState
-        - am: ComponentMapper<AnimationComponent>
-        - fm: ComponentMapper<FixtureComponent>
-        - pm: ComponentMapper<PositionComponent>
-        + AnimationSystem(batch: SpriteBatch, gameState: GameState)
-        + update(deltaTime: float): void
-        - processEntity(entity: Entity, deltaTime: float): void
+'        - batch: SpriteBatch
+'        - gameState: GameState
+'        - am: ComponentMapper<AnimationComponent>
+'        - fm: ComponentMapper<FixtureComponent>
+'        - pm: ComponentMapper<PositionComponent>
+'        + AnimationSystem(batch: SpriteBatch, gameState: GameState)
+'        + update(deltaTime: float): void
+'        - processEntity(entity: Entity, deltaTime: float): void
     }
 
     class CounterUpdateSystem {
-        - gameState: GameState
-        - cm: ComponentMapper<CounterComponent>
-        + CounterUpdateSystem(gameState: GameState)
-        - processEntity(entity: Entity, deltaTime: float): void
+'        - gameState: GameState
+'        - cm: ComponentMapper<CounterComponent>
+'        + CounterUpdateSystem(gameState: GameState)
+'        - processEntity(entity: Entity, deltaTime: float): void
     }
 
     class DebugSystem {
-        - shapeDrawer: ShapeDrawer
-        - hm: ComponentMapper<HitboxComponent>
-        - fm: ComponentMapper<FixtureComponent>
-        - interactables: ImmutableArray<Entity>
-        - playerEntity: Entity
-        + DebugSystem(shapeDrawer: ShapeDrawer)
-        + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
+'        - shapeDrawer: ShapeDrawer
+'        - hm: ComponentMapper<HitboxComponent>
+'        - fm: ComponentMapper<FixtureComponent>
+'        - interactables: ImmutableArray<Entity>
+'        - playerEntity: Entity
+'        + DebugSystem(shapeDrawer: ShapeDrawer)
+'        + addedToEngine(engine: Engine): void
+'        + update(deltaTime: float): void
     }
 
     class InteractionOverlayRenderingSystem {
-        - batch: SpriteBatch
-        - font: BitmapFont
-        - shapeDrawer: ShapeDrawer
-        - gameState: GameState
-        - elapsed: float
-        + InteractionOverlayRenderingSystem(batch: SpriteBatch, font: BitmapFont, shapeDrawer: ShapeDrawer, gameState: GameState)
-        + update(deltaTime: float): void
+'        - batch: SpriteBatch
+'        - font: BitmapFont
+'        - shapeDrawer: ShapeDrawer
+'        - gameState: GameState
+'        - elapsed: float
+'        + InteractionOverlayRenderingSystem(batch: SpriteBatch, font: BitmapFont, shapeDrawer: ShapeDrawer, gameState: GameState)
+'        + update(deltaTime: float): void
     }
 
     class MapRenderingSystem {
-        - camera: OrthographicCamera
-        - renderer: OrthogonalTiledMapRenderer
-        + MapRenderingSystem(tiledMap: TiledMap, camera: OrthographicCamera)
-        + update(deltaTime: float): void
+'        - camera: OrthographicCamera
+'        - renderer: OrthogonalTiledMapRenderer
+'        + MapRenderingSystem(tiledMap: TiledMap, camera: OrthographicCamera)
+'        + update(deltaTime: float): void
     }
 
     class PlayerInputSystem {
-        - gameState: GameState
-        - playerEntity: Entity
-        - velocity: Vector2
-        - pm: ComponentMapper<PlayerComponent>
-        - fm: ComponentMapper<FixtureComponent>
-        - am: ComponentMapper<AnimationComponent>
-        + PlayerInputSystem(gameState: GameState)
-        + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
+'        - gameState: GameState
+'        - playerEntity: Entity
+'        - velocity: Vector2
+'        - pm: ComponentMapper<PlayerComponent>
+'        - fm: ComponentMapper<FixtureComponent>
+'        - am: ComponentMapper<AnimationComponent>
+'        + PlayerInputSystem(gameState: GameState)
+'        + addedToEngine(engine: Engine): void
+'        + update(deltaTime: float): void
     }
 
     class PlayerInteractionSystem {
-        - gameState: GameState
-        - playerEntity: Entity
-        - interactables: ImmutableArray<Entity>
-        - plm: ComponentMapper<PlayerComponent>
-        - am: ComponentMapper<AnimationComponent>
-        - im: ComponentMapper<InteractionComponent>
-        - hm: ComponentMapper<HitboxComponent>
-        - fm: ComponentMapper<FixtureComponent>
-        + PlayerInteractionSystem(gameState: GameState)
-        + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
+'        - gameState: GameState
+'        - playerEntity: Entity
+'        - interactables: ImmutableArray<Entity>
+'        - plm: ComponentMapper<PlayerComponent>
+'        - am: ComponentMapper<AnimationComponent>
+'        - im: ComponentMapper<InteractionComponent>
+'        - hm: ComponentMapper<HitboxComponent>
+'        - fm: ComponentMapper<FixtureComponent>
+'        + PlayerInteractionSystem(gameState: GameState)
+'        + addedToEngine(engine: Engine): void
+'        + update(deltaTime: float): void
     }
 
     class StaticRenderingSystem {
-        - batch: SpriteBatch
-        - tm: ComponentMapper<TextureComponent>
-        - pm: ComponentMapper<PositionComponent>
-        + StaticRenderingSystem(batch: SpriteBatch)
-        + processEntity(entity: Entity, deltaTime: float): void
+'        - batch: SpriteBatch
+'        - tm: ComponentMapper<TextureComponent>
+'        - pm: ComponentMapper<PositionComponent>
+'        + StaticRenderingSystem(batch: SpriteBatch)
+'        + processEntity(entity: Entity, deltaTime: float): void
     }
 
     class TooltipRenderingSystem {
-        - font: BitmapFont
-        - shapeDrawer: ShapeDrawer
-        - batch: SpriteBatch
-        - gameState: GameState
-        - hm: ComponentMapper<HitboxComponent>
-        - tm: ComponentMapper<TooltipComponent>
-        - fm: ComponentMapper<FixtureComponent>
-        + TooltipRenderingSystem(font: BitmapFont, shapeDrawer: ShapeDrawer, batch: SpriteBatch, gameState: GameState)
-        + addedToEngine(engine: Engine): void
-        + update(deltaTime: float): void
+'        - font: BitmapFont
+'        - shapeDrawer: ShapeDrawer
+'        - batch: SpriteBatch
+'        - gameState: GameState
+'        - hm: ComponentMapper<HitboxComponent>
+'        - tm: ComponentMapper<TooltipComponent>
+'        - fm: ComponentMapper<FixtureComponent>
+'        + TooltipRenderingSystem(font: BitmapFont, shapeDrawer: ShapeDrawer, batch: SpriteBatch, gameState: GameState)
+'        + addedToEngine(engine: Engine): void
+'        + update(deltaTime: float): void
     }
 }
 
@@ -326,7 +333,7 @@ PlayerInteractionSystem *-------PlayerComponent
 PlayerInteractionSystem *-------PlayerConstants
 
 StaticRenderingSystem *------- PositionComponent
-StaticRenderingSystem *------- TextureComponent
+'StaticRenderingSystem *------- TextureComponent
 
 TooltipRenderingSystem *------- FixtureComponent
 TooltipRenderingSystem *------- HitboxComponent
@@ -342,15 +349,15 @@ GameState *------- GameConstants
 
 
 
-Playing *------- AnimationComponent
-Playing *------- CounterComponent
-Playing *------- FixtureComponent
-Playing *------- HitboxComponent
-Playing *------- InteractionComponent
-Playing *------- PlayerComponent
-Playing *------- PositionComponent
-Playing *------- TextureComponent
-Playing *------- TooltipComponent
+Playing *--- AnimationComponent
+Playing *--- CounterComponent
+Playing *--- FixtureComponent
+Playing *--- HitboxComponent
+Playing *--- InteractionComponent
+Playing *--- PlayerComponent
+Playing *--- PositionComponent
+Playing *--- TextureComponent
+Playing *--- TooltipComponent
 
 
 
@@ -372,7 +379,7 @@ Playing *------- TooltipRenderingSystem
 EndScreen *------- GameState
 
 
-
+skinparam defaultFontSize 40
 
 
 @enduml
