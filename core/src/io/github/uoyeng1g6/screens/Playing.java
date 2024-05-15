@@ -46,7 +46,7 @@ import io.github.uoyeng1g6.systems.CounterUpdateSystem;
 import io.github.uoyeng1g6.systems.DebugSystem;
 import io.github.uoyeng1g6.systems.InteractionOverlayRenderingSystem;
 import io.github.uoyeng1g6.systems.MapRenderingSystem;
-import io.github.uoyeng1g6.systems.PlayerInputSystem;
+import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import io.github.uoyeng1g6.systems.PlayerInteractionSystem;
 import io.github.uoyeng1g6.systems.StaticRenderingSystem;
 import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
@@ -190,6 +190,8 @@ public class Playing implements Screen {
 
             initTerrain();
 
+
+            // Create entities
             engine.addEntity(initPlayerEntity(engine));
 
             for (var entity : initInteractionLocations(engine)) {
@@ -242,7 +244,7 @@ public class Playing implements Screen {
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(energyAmount, state -> String.valueOf(state.energyRemaining))));
 
-            engine.addSystem(new PlayerInputSystem(gameState));
+            engine.addSystem(new PlayerMovementSystem(gameState));
             engine.addSystem(new PlayerInteractionSystem(gameState));
             engine.addSystem(new MapRenderingSystem(game.tiledMap, camera));
             engine.addSystem(new StaticRenderingSystem(game.spriteBatch));

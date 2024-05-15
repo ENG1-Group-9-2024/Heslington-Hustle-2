@@ -19,7 +19,7 @@ import io.github.uoyeng1g6.models.GameState;
  * System to process the player's inputs and set the movement velocity, as well as set a flag
  * on the player component if they are attempting to interact with something.
  */
-public class PlayerInputSystem extends EntitySystem {
+public class PlayerMovementSystem extends EntitySystem {
     /**
      * The game state.
      */
@@ -37,7 +37,7 @@ public class PlayerInputSystem extends EntitySystem {
         return velocity;
     }
 
-    public PlayerInputSystem(GameState gameState) {
+    public PlayerMovementSystem(GameState gameState) {
         this.gameState = gameState;
     }
 

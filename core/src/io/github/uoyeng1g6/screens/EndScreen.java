@@ -38,6 +38,8 @@ public class EndScreen implements Screen {
 
     int bonus;
 
+    private Table inner;
+
     public EndScreen(HeslingtonHustle game, GameState endGameState) {
         camera = new OrthographicCamera();
         var viewport = new FitViewport(GameConstants.WORLD_WIDTH * 10, GameConstants.WORLD_HEIGHT * 10, camera);
@@ -55,7 +57,7 @@ public class EndScreen implements Screen {
         root.add("Game Over").getActor().setFontScale(2);
         root.row();
 
-        var inner = new Table(game.skin);
+        inner = new Table(game.skin);
 
         inner.add(String.format("Exam Score: %.2f / 100", calculateExamScore(endGameState.days)))
                 .padBottom(50);
@@ -68,77 +70,54 @@ public class EndScreen implements Screen {
         // The achievements are displayed if they were activated
 
         if (study2Bool) {
-            inner.add("Bookworm: Studied in the Piazza every day");
-            inner.row();
+            addToScreen("Bookworm: Studied in the Piazza every day");
         }
-
         if (study1Bool) {
-            inner.add("Overclocked CPU: Studied in the C.S Building every day");
-            inner.row();
+            addToScreen("Overclocked CPU: Studied in the C.S Building every day");
         }
-
         if (meal1Bool) {
-            inner.add("Money Saver: Ate at home every day");
-            inner.row();
+            addToScreen("Money Saver: Ate at home every day");
         }
-
         if (meal2Bool) {
-            inner.add("Eat out to help out: Ate in the Piazza every day");
-            inner.row();
+            addToScreen("Eat out to help out: Ate in the Piazza every day");
         }
-
         if (meal3Bool) {
-            inner.add("People Watcher: Ate a picnic every day");
-            inner.row();
+            addToScreen("People Watcher: Ate a picnic every day");
         }
-
         if (recreation1Bool) {
-            inner.add("Secret crush: Watched the builders every day");
-            inner.row();
+            addToScreen("Secret crush: Watched the builders every day");
         }
-
         if (recreation2Bool) {
-            inner.add("What the duck!: Fed the ducks every day");
-            inner.row();
+            addToScreen("What the duck!: Fed the ducks every day");
         }
-
         if (recreation3Bool) {
-            inner.add("Cold one: Went to the pub every day");
-            inner.row();
+            addToScreen("Cold one: Went to the pub every day");
         }
-
         if (recreation4Bool) {
-            inner.add("Unlucky: Played (and lost) at football every day");
-            inner.row();
+            addToScreen("Unlucky: Played (and lost) at football every day");
         }
-
         if (recreation5Bool) {
-            inner.add("Escapism: Went to town every day");
-            inner.row();
+            addToScreen("Escapism: Went to town every day");
         }
-
         if (recreation6Bool) {
-            inner.add("Active lifestyle: Played sports every day");
-            inner.row();
+            addToScreen("Active lifestyle: Played sports every day");
         }
 
-        inner.add("Times Studied: "
+        addToScreen("Times Studied: "
                 + (endGameState.getTotalActivityCount(ActivityType.STUDY1)
                         + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
-        inner.row();
-        inner.add("Meals Eaten: "
+
+        addToScreen("Meals Eaten: "
                 + (endGameState.getTotalActivityCount(ActivityType.MEAL1)
                         + endGameState.getTotalActivityCount(ActivityType.MEAL2)
                         + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
-        inner.row();
-        inner.add("Recreational Activities Done: "
+        addToScreen("Recreational Activities Done: "
                 + (endGameState.getTotalActivityCount(ActivityType.RECREATION1)
                         + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
                         + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
                         + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
                         + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
                         + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
-        inner.row();
 
         var mainMenuButton = new TextButton("Main Menu", game.skin);
         mainMenuButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.MAIN_MENU)));
@@ -148,6 +127,15 @@ public class EndScreen implements Screen {
                 .height(Value.percentHeight(0.1f, inner));
 
         root.add(inner).grow();
+    }
+
+    /** Helper method for adding streaks and info to the screen.
+     *
+     * @param text The text to add to the screen.
+     */
+    private void addToScreen(String text) {
+        inner.add(text);
+        inner.row();
     }
 
     /**
@@ -202,6 +190,7 @@ public class EndScreen implements Screen {
     int studyCount;
     int mealCount;
     int recreationCount;
+
     /**
      * Calculate the aggregate score of all the days.
      *
@@ -231,43 +220,33 @@ public class EndScreen implements Screen {
             if (study1Count == 0) {
                 study1Bool = false;
             }
-
             if (study2Count == 0) {
                 study2Bool = false;
             }
-
             if (meal1Count == 0) {
                 meal1Bool = false;
             }
-
             if (meal2Count == 0) {
                 meal2Bool = false;
             }
-
             if (meal3Count == 0) {
                 meal3Bool = false;
             }
-
             if (recreation1Count == 0) {
                 recreation1Bool = false;
             }
-
             if (recreation2Count == 0) {
                 recreation2Bool = false;
             }
-
             if (recreation3Count == 0) {
                 recreation3Bool = false;
             }
-
             if (recreation4Count == 0) {
                 recreation4Bool = false;
             }
-
             if (recreation5Count == 0) {
                 recreation5Bool = false;
             }
-
             if (recreation6Count == 0) {
                 recreation6Bool = false;
             }
@@ -293,43 +272,33 @@ public class EndScreen implements Screen {
         if (study1Bool) {
             bonus = bonus + 5;
         }
-
         if (study2Bool) {
             bonus = bonus + 5;
         }
-
         if (meal1Bool) {
             bonus = bonus + 5;
         }
-
         if (meal2Bool) {
             bonus = bonus + 5;
         }
-
         if (meal3Bool) {
             bonus = bonus + 5;
         }
-
         if (recreation1Bool) {
             bonus = bonus + 5;
         }
-
         if (recreation2Bool) {
             bonus = bonus + 5;
         }
-
         if (recreation3Bool) {
             bonus = bonus + 5;
         }
-
         if (recreation4Bool) {
             bonus = bonus + 5;
         }
-
         if (recreation5Bool) {
             bonus = bonus + 5;
         }
-
         if (recreation6Bool) {
             bonus = bonus + 5;
         }

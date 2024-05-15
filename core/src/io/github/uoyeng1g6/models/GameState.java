@@ -28,6 +28,7 @@ public class GameState {
             return activityStats.getOrDefault(type, 0);
         }
 
+        // The following indicate whether the corresponding activities have been performed
         public boolean study1Bool = true;
         public boolean study2Bool = true;
 
