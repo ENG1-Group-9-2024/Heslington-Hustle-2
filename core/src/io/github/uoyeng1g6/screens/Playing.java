@@ -88,6 +88,7 @@ public class Playing implements Screen {
      */
     Box2DDebugRenderer debugRenderer = null;
 
+    // Extracted to attribute for assessment 2
     public static String terrainAsset = "terrain.json";
 
     public Playing(HeslingtonHustle game, GameState gameState, boolean isTestMode) {
@@ -95,7 +96,7 @@ public class Playing implements Screen {
         this.gameState = gameState;
         this.isTestMode = isTestMode;
 
-        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing
+        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing. Added for assessment 2
         if (!isTestMode) {
             camera = new OrthographicCamera();
             camera.setToOrtho(false, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);

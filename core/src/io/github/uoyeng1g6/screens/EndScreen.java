@@ -67,8 +67,8 @@ public class EndScreen implements Screen {
         inner.add("Bonus: " + bonus);
         inner.row();
 
+        // Added for assessment 2
         // The achievements are displayed if they were activated
-
         if (study2Bool) {
             addToScreen("Bookworm: Studied in the Piazza every day");
         }
@@ -129,6 +129,7 @@ public class EndScreen implements Screen {
         root.add(inner).grow();
     }
 
+    // Added for assessment 2
     /** Helper method for adding streaks and info to the screen.
      *
      * @param text The text to add to the screen.
@@ -172,6 +173,7 @@ public class EndScreen implements Screen {
         return studyPoints * mealMultiplier * recreationMultiplier;
     }
 
+    // Added for assessment 2
     // booleans used to keep track on if the activity has been performed daily
     boolean study1Bool = true;
     boolean study2Bool = true;
@@ -200,6 +202,7 @@ public class EndScreen implements Screen {
     float calculateExamScore(List<GameState.Day> days) {
         float totalScore = 0;
 
+        // Extended for assessment 2 to include streaks
         for (var day : days) {
 
             // Finds if the activity has been performed for this day

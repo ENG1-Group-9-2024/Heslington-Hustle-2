@@ -85,6 +85,7 @@ project(":core") {
     }
 }
 
+// Added for assessment 2
 project(":tests") {
     apply plugin: "java"
     apply plugin: "jacoco"

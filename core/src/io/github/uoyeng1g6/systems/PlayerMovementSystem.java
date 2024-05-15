@@ -61,6 +61,7 @@ public class PlayerMovementSystem extends EntitySystem {
             return;
         }
 
+        // Added WASD support for assessment 2
         boolean leftKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
         boolean rightKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         boolean upKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || Gdx.input.isKeyPressed(Input.Keys.W);
@@ -83,6 +84,7 @@ public class PlayerMovementSystem extends EntitySystem {
         pm.get(playerEntity).isInteracting = Gdx.input.isKeyJustPressed(Input.Keys.E);
     }
 
+    // Extracted to new method for assessment 2
     /** Updates player velocity */
     public void movementUpdated(boolean moveLeft, boolean moveRight, boolean moveUp, boolean moveDown) {
 

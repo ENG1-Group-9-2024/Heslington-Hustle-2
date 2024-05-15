@@ -28,7 +28,7 @@ public class GameState {
             return activityStats.getOrDefault(type, 0);
         }
 
-        // The following indicate whether the corresponding activities have been performed
+        // The following indicate whether the corresponding activities have been performed. Extended for assessment 2.
         public boolean study1Bool = true;
         public boolean study2Bool = true;
 
@@ -140,6 +140,7 @@ public class GameState {
         return days.stream().mapToInt(day -> day.statFor(type)).sum() + currentDay.statFor(type);
     }
 
+    // Added the below getters and setters for assessment 2, to help with testing
     public int getDaysRemaining() {
         return daysRemaining;
     }
