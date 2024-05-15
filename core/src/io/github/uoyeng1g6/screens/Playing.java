@@ -46,8 +46,8 @@ import io.github.uoyeng1g6.systems.CounterUpdateSystem;
 import io.github.uoyeng1g6.systems.DebugSystem;
 import io.github.uoyeng1g6.systems.InteractionOverlayRenderingSystem;
 import io.github.uoyeng1g6.systems.MapRenderingSystem;
-import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import io.github.uoyeng1g6.systems.PlayerInteractionSystem;
+import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import io.github.uoyeng1g6.systems.StaticRenderingSystem;
 import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
 import java.util.Map;
@@ -96,7 +96,8 @@ public class Playing implements Screen {
         this.gameState = gameState;
         this.isTestMode = isTestMode;
 
-        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing. Added for assessment 2
+        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing. Added for
+        // assessment 2
         if (!isTestMode) {
             camera = new OrthographicCamera();
             camera.setToOrtho(false, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
@@ -190,7 +191,6 @@ public class Playing implements Screen {
             this.world = new World(new Vector2(), true);
 
             initTerrain();
-
 
             // Create entities
             engine.addEntity(initPlayerEntity(engine));
