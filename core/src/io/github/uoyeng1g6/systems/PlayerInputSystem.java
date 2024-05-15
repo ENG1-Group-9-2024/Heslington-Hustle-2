@@ -52,9 +52,6 @@ public class PlayerInputSystem extends EntitySystem {
     @Override
     public void update(float deltaTime) {
 
-        boolean leftKey, rightKey, upKey, downKey;
-        leftKey = rightKey = upKey = downKey = false;
-
         if (gameState.interactionOverlay != null) {
             // User input is disabled as an interaction is currently happening
             var fixture = fm.get(playerEntity).fixture;
@@ -64,22 +61,10 @@ public class PlayerInputSystem extends EntitySystem {
             return;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
-
-            leftKey = true;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
-
-            rightKey = true;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) {
-
-            upKey = true;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) {
-
-            downKey = true;
-        }
+        boolean leftKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
+        boolean rightKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || Gdx.input.isKeyPressed(Input.Keys.W);
+        boolean upKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || Gdx.input.isKeyPressed(Input.Keys.W);
+        boolean downKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
 
         movementUpdated(leftKey, rightKey, upKey, downKey);
 
@@ -98,28 +83,22 @@ public class PlayerInputSystem extends EntitySystem {
         pm.get(playerEntity).isInteracting = Gdx.input.isKeyJustPressed(Input.Keys.E);
     }
 
-    public void movementUpdated(boolean leftKey, boolean rightKey, boolean upKey, boolean downKey) {
+    /** Updates player velocity */
+    public void movementUpdated(boolean moveLeft, boolean moveRight, boolean moveUp, boolean moveDown) {
 
         velocity.set(0, 0);
 
-        boolean moveLeft, moveRight, moveUp, moveDown;
-        moveLeft = moveRight = moveUp = moveDown = false;
-
-        if (leftKey) {
+        if (moveLeft) {
             velocity.x = -PlayerConstants.PLAYER_SPEED;
-            moveLeft = true;
         }
-        if (rightKey) {
+        if (moveRight) {
             velocity.x = PlayerConstants.PLAYER_SPEED;
-            moveRight = true;
         }
-        if (upKey) {
+        if (moveUp) {
             velocity.y = PlayerConstants.PLAYER_SPEED;
-            moveUp = true;
         }
-        if (downKey) {
+        if (moveDown) {
             velocity.y = -PlayerConstants.PLAYER_SPEED;
-            moveDown = true;
         }
 
         if ((moveLeft && moveRight) || (!moveLeft && !moveRight)) {
