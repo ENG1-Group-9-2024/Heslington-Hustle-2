@@ -1,3 +1,6 @@
+/**
+ * The Options Class is an entirely new class added to the game to meet new requirements added in assessment 2
+ */
 package io.github.uoyeng1g6.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -24,15 +27,19 @@ public class Options implements Screen {
      * The {@code scene2d.ui} stage used to render this screen.
      */
     Stage stage;
-
-    private final TextField nameTextField;
     /**
      * Textfield variable used to make a text box which the user could enter their name into
+     */
+    private final TextField nameTextField;
+    /**
+     * Textbutton variable used to create the submit button
      */
     private final TextButton submitButton;
 
     /**
-     * Textbutton variable used to create the submit button
+     * code for options screen functionality below. Buttons and text box for name
+     * Submit button now takes the player to the start of the game,however it
+     * won't work unless the player has typed a name into the username text box.
      */
     public Options(HeslingtonHustle game) {
         camera = new OrthographicCamera();

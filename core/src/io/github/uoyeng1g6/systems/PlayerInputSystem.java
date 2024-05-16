@@ -65,9 +65,8 @@ public class PlayerInputSystem extends EntitySystem {
          *             moveRight = D;
          *             moveUp = W;
          *             moveDown = S;
-         *             interact = J;
+         *             interact = E;
          *         }
-         *
          *         current method is bad because of duplicated code
          *         wanted to do something like what is above but not sure how
          */

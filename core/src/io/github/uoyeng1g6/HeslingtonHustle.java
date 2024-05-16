@@ -214,6 +214,9 @@ public class HeslingtonHustle extends Game {
         super.render();
     }
 
+    /**
+     * options dispose added for new Options screen
+     */
     @Override
     public void dispose() {
         mainMenu.dispose();
