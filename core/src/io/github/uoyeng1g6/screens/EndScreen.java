@@ -40,7 +40,7 @@ public class EndScreen implements Screen {
 
     public EndScreen(HeslingtonHustle game, GameState endGameState, boolean isTestMode) {
 
-        if(!isTestMode) {
+        if (!isTestMode) {
             camera = new OrthographicCamera();
             var viewport = new FitViewport(GameConstants.WORLD_WIDTH * 10, GameConstants.WORLD_HEIGHT * 10, camera);
 
@@ -126,20 +126,20 @@ public class EndScreen implements Screen {
 
             inner.add("Times Studied: "
                     + (endGameState.getTotalActivityCount(ActivityType.STUDY1)
-                    + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
+                            + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
             inner.row();
             inner.add("Meals Eaten: "
                     + (endGameState.getTotalActivityCount(ActivityType.MEAL1)
-                    + endGameState.getTotalActivityCount(ActivityType.MEAL2)
-                    + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
+                            + endGameState.getTotalActivityCount(ActivityType.MEAL2)
+                            + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
             inner.row();
             inner.add("Recreational Activities Done: "
                     + (endGameState.getTotalActivityCount(ActivityType.RECREATION1)
-                    + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
-                    + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
-                    + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
-                    + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
-                    + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
             inner.row();
 
             var mainMenuButton = new TextButton("Main Menu", game.skin);
