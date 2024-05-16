@@ -1,5 +1,7 @@
 package io.github.uoyeng1g6.models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import java.util.ArrayList;
@@ -89,6 +91,8 @@ public class GameState {
      */
     public InteractionOverlay interactionOverlay = null;
 
+    Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("audio/wrongSound.mp3"));
+
     /**
      * End and store the current day and advance to a new one. Resets the current energy and hours remaining.
      * Shows an overlay to indicate that the player is "sleeping".
@@ -117,6 +121,7 @@ public class GameState {
      */
     public boolean doActivity(int timeUsage, int energyUsage, ActivityType type, String overlayText) {
         if (hoursRemaining < timeUsage || energyRemaining < energyUsage) {
+            wrongSound.play(1.0f);
             return false;
         }
 
