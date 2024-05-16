@@ -119,6 +119,30 @@ public class EndScreen implements Screen {
                         + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
                         + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
 
+        // create a dict for the leaderboard
+        // List<List<String>> leaderBoardEntries = new ArrayList<>();
+        String[][] leaderBoardEntries = {
+            {"Bob", "Alice", "John", "Goon", "idk", "fhuqiui", "Me", "You", "Him", "Reese"},
+            {"90", "82", "74", "63", "58", "49", "40", "28", "10", "1"}
+        };
+
+        // add the dict to the leaderboard
+        var leaderBoard = new Table(game.skin);
+        leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
+        leaderBoard.row();
+        for (int i = 0; i < leaderBoardEntries[0].length; i++) {
+            leaderBoard
+                    .add(leaderBoardEntries[0][i] + ": " + leaderBoardEntries[1][i])
+                    .padBottom(10)
+                    .row();
+        }
+
+        // Position the leaderboard on the right side of the screen
+        leaderBoard.setFillParent(true);
+        leaderBoard.pad(0.15f);
+        leaderBoard.right();
+        stage.addActor(leaderBoard);
+
         var mainMenuButton = new TextButton("Main Menu", game.skin);
         mainMenuButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.MAIN_MENU)));
         inner.add(mainMenuButton)

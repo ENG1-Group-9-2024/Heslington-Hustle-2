@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -91,6 +92,8 @@ public class Playing implements Screen {
     // Extracted to attribute for assessment 2
     public static String terrainAsset = "terrain.json";
 
+    public Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/gameMusic.mp3"));
+
     public Playing(HeslingtonHustle game, GameState gameState, boolean isTestMode) {
         this.game = game;
         this.gameState = gameState;
@@ -112,6 +115,11 @@ public class Playing implements Screen {
             uiTop.setDebug(game.debug);
             stage.addActor(uiTop);
             uiTop.center().top();
+
+            // Music added for assessment 2
+            gameMusic.setLooping(true);
+            gameMusic.setVolume(0.75f);
+            gameMusic.play();
 
             var daysLabel = new Label("Monday", labelStyle);
             daysLabel.setFontScale(0.17f);
@@ -464,5 +472,6 @@ public class Playing implements Screen {
     public void dispose() {
         stage.dispose();
         world.dispose();
+        gameMusic.dispose();
     }
 }

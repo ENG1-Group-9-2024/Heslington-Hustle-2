@@ -1,5 +1,7 @@
 package io.github.uoyeng1g6.systems;
 
+import static io.github.uoyeng1g6.components.PlayerComponent.keyboardControls;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -52,6 +54,8 @@ public class PlayerMovementSystem extends EntitySystem {
     @Override
     public void update(float deltaTime) {
 
+        boolean leftKey, rightKey, upKey, downKey;
+
         if (gameState.interactionOverlay != null) {
             // User input is disabled as an interaction is currently happening
             var fixture = fm.get(playerEntity).fixture;
@@ -61,11 +65,17 @@ public class PlayerMovementSystem extends EntitySystem {
             return;
         }
 
-        // Added WASD support for assessment 2
-        boolean leftKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
-        boolean rightKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || Gdx.input.isKeyPressed(Input.Keys.W);
-        boolean upKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || Gdx.input.isKeyPressed(Input.Keys.W);
-        boolean downKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
+        if (keyboardControls) {
+            leftKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT);
+            rightKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT);
+            upKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_UP);
+            downKey = Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN);
+        } else {
+            leftKey = Gdx.input.isKeyPressed(Input.Keys.A);
+            rightKey = Gdx.input.isKeyPressed(Input.Keys.D);
+            upKey = Gdx.input.isKeyPressed(Input.Keys.W);
+            downKey = Gdx.input.isKeyPressed(Input.Keys.S);
+        }
 
         movementUpdated(leftKey, rightKey, upKey, downKey);
 

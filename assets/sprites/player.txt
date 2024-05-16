@@ -1,264 +1,264 @@
 player.png
-size: 256, 240
+size: 832, 2944
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 stationary
   rotate: false
-  xy: 0, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 0, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 0
 walk_down
   rotate: false
-  xy: 32, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 0, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 0
 walk_down
   rotate: false
-  xy: 64, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 64, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 1
 walk_down
   rotate: false
-  xy: 96, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 128, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 2
 walk_down
   rotate: false
-  xy: 128, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 192, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 3
 walk_down
   rotate: false
-  xy: 160, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 256, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 4
 walk_down
   rotate: false
-  xy: 192, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 320, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 5
 walk_down
   rotate: false
-  xy: 224, 0
-  size: 32, 48
-  orig: 32, 48
+  xy: 384, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 6
 walk_down
   rotate: false
-  xy: 0, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 448, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 7
 walk_down
   rotate: false
-  xy: 32, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 512, 640
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 8
 walk_left
   rotate: false
-  xy: 64, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 0, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 0
 walk_left
   rotate: false
-  xy: 96, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 64, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 1
 walk_left
   rotate: false
-  xy: 128, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 128, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 2
 walk_left
   rotate: false
-  xy: 160, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 192, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 3
 walk_left
   rotate: false
-  xy: 192, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 256, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 4
 walk_left
   rotate: false
-  xy: 224, 48
-  size: 32, 48
-  orig: 32, 48
+  xy: 320, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 5
 walk_left
   rotate: false
-  xy: 0, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 384, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 6
 walk_left
   rotate: false
-  xy: 32, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 448, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 7
 walk_left
   rotate: false
-  xy: 64, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 512, 576
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 8
 walk_right
   rotate: false
-  xy: 96, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 0, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 0
 walk_right
   rotate: false
-  xy: 128, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 64, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 1
 walk_right
   rotate: false
-  xy: 160, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 128, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 2
 walk_right
   rotate: false
-  xy: 192, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 192, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 3
 walk_right
   rotate: false
-  xy: 224, 96
-  size: 32, 48
-  orig: 32, 48
+  xy: 256, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 4
 walk_right
   rotate: false
-  xy: 0, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 320, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 5
 walk_right
   rotate: false
-  xy: 32, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 384, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 6
 walk_right
   rotate: false
-  xy: 64, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 448, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 7
 walk_right
   rotate: false
-  xy: 96, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 512, 704
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 8
 walk_up
   rotate: false
-  xy: 128, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 0, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 0
 walk_up
   rotate: false
-  xy: 160, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 64, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 1
 walk_up
   rotate: false
-  xy: 192, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 128, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 2
 walk_up
   rotate: false
-  xy: 224, 144
-  size: 32, 48
-  orig: 32, 48
+  xy: 192, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 3
 walk_up
   rotate: false
-  xy: 0, 192
-  size: 32, 48
-  orig: 32, 48
+  xy: 256, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 4
 walk_up
   rotate: false
-  xy: 32, 192
-  size: 32, 48
-  orig: 32, 48
+  xy: 320, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 5
 walk_up
   rotate: false
-  xy: 64, 192
-  size: 32, 48
-  orig: 32, 48
+  xy: 384, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 6
 walk_up
   rotate: false
-  xy: 96, 192
-  size: 32, 48
-  orig: 32, 48
+  xy: 448, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 7
 walk_up
   rotate: false
-  xy: 128, 192
-  size: 32, 48
-  orig: 32, 48
+  xy: 512, 512
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 8

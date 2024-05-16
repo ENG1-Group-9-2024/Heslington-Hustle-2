@@ -40,9 +40,11 @@ public class MainMenu implements Screen {
         root.row();
 
         var inner = new Table(game.skin);
-
+        /**
+         * Changed Start button functionality so it takes you to the Options window instead
+         */
         var startButton = new TextButton("Start Game", game.skin);
-        startButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.PLAYING)));
+        startButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.OPTIONS)));
         inner.add(startButton).pad(10).width(Value.percentWidth(0.4f, inner)).height(Value.percentHeight(0.1f, inner));
 
         inner.row();
