@@ -32,6 +32,30 @@ public class AssetTests {
     }
 
     @Test
+    public void t_PlayerIconExists2() {
+
+        assertTrue(
+                "The asset for player exists",
+                Gdx.files.internal("../assets/" + HeslingtonHustle.playerAsset2).exists());
+    }
+
+    @Test
+    public void t_PlayerIconExists3() {
+
+        assertTrue(
+                "The asset for player exists",
+                Gdx.files.internal("../assets/" + HeslingtonHustle.playerAsset3).exists());
+    }
+
+    @Test
+    public void t_PlayerIconExists4() {
+
+        assertTrue(
+                "The asset for player exists",
+                Gdx.files.internal("../assets/" + HeslingtonHustle.playerAsset4).exists());
+    }
+
+    @Test
     public void t_UISkinsExists() {
         assertTrue(
                 "The asset for UIskin exists",
@@ -50,5 +74,11 @@ public class AssetTests {
         assertTrue(
                 "The asset for the terrain exists",
                 Gdx.files.internal("../assets/" + Playing.terrainAsset).exists());
+    }
+
+    @Test
+    public void t_MusicAssetExists() {
+        assertTrue(
+                "The asset for the music exists", Gdx.files.internal("../assets/audio/gameMusic.mp3").exists());
     }
 }

@@ -124,6 +124,12 @@ public class HeslingtonHustle extends Game {
 
     // Extracted asset locations to attributes for assessment 2
     public static String playerAsset = "sprites/player.txt";
+
+    public static String playerAsset2 = "sprites/player.txt";
+
+    public static String playerAsset3 = "sprites/player.txt";
+
+    public static String playerAsset4 = "sprites/player.txt";
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
     public static String mapAsset = "maps/campus-east-ver2.tmx";
