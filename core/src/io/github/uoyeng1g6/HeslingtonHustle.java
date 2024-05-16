@@ -116,7 +116,7 @@ public class HeslingtonHustle extends Game {
     public static String playerAsset = "sprites/player.txt";
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
-    public static String mapAsset = "maps/campus-east.tmx";
+    public static String mapAsset = "maps/campus-east-ver2.tmx";
     public static String whitePixelAsset = "white_pixel.png";
 
     public HeslingtonHustle() {

@@ -7,11 +7,11 @@ public class GameConstants {
     /**
      * The width of the game world in tiles.
      */
-    public static final int WORLD_WIDTH = 65;
+    public static final int WORLD_WIDTH = 130;
     /**
      * The height of the game world in tiles.
      */
-    public static final int WORLD_HEIGHT = 54;
+    public static final int WORLD_HEIGHT = 108;
     /**
      * The maximum amount of energy available to the player on a single day.
      */
