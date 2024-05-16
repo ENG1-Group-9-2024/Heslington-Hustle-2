@@ -42,10 +42,18 @@ public class MainMenu implements Screen {
         var inner = new Table(game.skin);
 
         var startButton = new TextButton("Start Game", game.skin);
-        startButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.PLAYING)));
+        startButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.OPTIONS)));
         inner.add(startButton).pad(10).width(Value.percentWidth(0.4f, inner)).height(Value.percentHeight(0.1f, inner));
 
         inner.row();
+
+        /**
+         *         var optionsButton = new TextButton("Options", game.skin);
+         *         optionsButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.OPTIONS)));
+         *         inner.add(optionsButton).pad(10).width(Value.percentWidth(0.4f, inner)).height(Value.percentHeight(0.1f, inner));
+         *
+         *         inner.row();
+         */
 
         var quitButton = new TextButton("Quit", game.skin);
         quitButton.addListener(ChangeListener.of((e, a) -> game.quit()));
