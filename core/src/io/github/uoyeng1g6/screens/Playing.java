@@ -114,6 +114,7 @@ public class Playing implements Screen {
             stage.addActor(uiTop);
             uiTop.center().top();
 
+            // Music added for assessment 2
             gameMusic.setLooping(true);
             gameMusic.setVolume(0.75f);
             gameMusic.play();

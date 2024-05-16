@@ -91,6 +91,9 @@ public class GameState {
      */
     public InteractionOverlay interactionOverlay = null;
 
+    /** Played when the user tries to perform an activity they don't have the time or energy for.
+     *  Added for assessment 2.
+     */
     Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("audio/wrongSound.mp3"));
 
     /**
