@@ -88,7 +88,7 @@ public class GameState {
      */
     public void advanceDay() {
         if (daysRemaining <= 0) {
-            throw new IllegalStateException("Can't have less that 0 days remaining");
+            throw new IllegalStateException("Can't have less than 0 days remaining");
         }
 
         daysRemaining--;
