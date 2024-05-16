@@ -15,6 +15,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+/**
+ * This class tests that the end screen activates when expected
+ */
 @RunWith(GdxTestRunner.class)
 public class PlayingTests {
     private static boolean initialized = false;

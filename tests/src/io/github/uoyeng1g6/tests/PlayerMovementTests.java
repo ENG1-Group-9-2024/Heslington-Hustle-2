@@ -7,6 +7,9 @@ import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * This class tests that the player movement system works as expected
+ */
 @RunWith(GdxTestRunner.class)
 public class PlayerMovementTests {
 
