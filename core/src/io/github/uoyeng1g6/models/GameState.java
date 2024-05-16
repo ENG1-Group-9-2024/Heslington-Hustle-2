@@ -95,6 +95,10 @@ public class GameState {
      * Shows an overlay to indicate that the player is "sleeping".
      */
     public void advanceDay() {
+        if (daysRemaining <= 0) {
+            throw new IllegalStateException("Can't have less that 0 days remaining");
+        }
+
         daysRemaining--;
         energyRemaining = GameConstants.MAX_ENERGY;
         hoursRemaining = GameConstants.MAX_HOURS;

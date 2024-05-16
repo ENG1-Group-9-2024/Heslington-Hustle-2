@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * This class tests that the game state works as expected.
+ */
 @RunWith(GdxTestRunner.class)
 public class GameStateTests {
 
@@ -48,8 +51,18 @@ public class GameStateTests {
 
     @Test
     public void T_SleepToNextDay() {
+        gameState.setDaysRemaining(7);
         gameState.advanceDay();
         assertEquals("Day remaining should be decremented by 1", 6, gameState.getDaysRemaining());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void T_NumDays() {
+        gameState.setDaysRemaining(7);
+        for (int i=7; i>0; i--) {
+            gameState.advanceDay();
+        }
+        gameState.advanceDay();
     }
 
     @Test
