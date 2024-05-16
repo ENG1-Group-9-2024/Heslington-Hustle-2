@@ -1,3 +1,5 @@
+name: Build and Test
+
 on:
   push:
     branches: [ "main" ]
@@ -5,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  build:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
@@ -21,6 +23,8 @@ jobs:
         run: ./gradlew spotlessCheck
       - name: Test
         run: ./gradlew clean build
+
+
       - if: matrix.os == 'ubuntu-latest'
         name: Upload test coverage report
         uses: actions/upload-artifact@v4.3.3
