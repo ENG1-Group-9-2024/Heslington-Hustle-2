@@ -2,9 +2,11 @@ package io.github.uoyeng1g6.tests;
 
 import static org.junit.Assert.*;
 
+import io.github.uoyeng1g6.HeslingtonHustle;
 import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.models.GameState;
+import io.github.uoyeng1g6.screens.EndScreen;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -90,5 +92,269 @@ public class GameStateTests {
         int initialSize = gameState.days.size();
         gameState.advanceDay();
         assertEquals("The day should be added to the array list", initialSize + 1, gameState.days.size());
+    }
+
+    @Test
+    public void T_Study1BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.STUDY1, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Study2BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.STUDY2, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Meal1BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.MEAL1, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Meal2BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.MEAL2, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Meal3BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.MEAL3, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Rec2BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.RECREATION2, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Rec3BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.RECREATION3, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Rec4BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.RECREATION4, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Rec5BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.RECREATION5, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Rec6BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.RECREATION6, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
+    }
+
+    @Test
+    public void T_Rec1BonusTest(){
+
+        gameState = new GameState();
+
+        gameState.setDaysRemaining(7);
+        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
+        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
+
+
+        for(int i = 0; i < 7; i++) {
+            gameState.doActivity(1, 1, ActivityType.RECREATION1, "Studying...");
+            gameState.advanceDay();
+        }
+
+        HeslingtonHustle game = new HeslingtonHustle();
+        EndScreen screen = new EndScreen(game, gameState, true);
+        screen.calculateExamScore(gameState.days);
+
+        assertEquals("The bonus is correct", 5, screen.bonus);
+
+
     }
 }

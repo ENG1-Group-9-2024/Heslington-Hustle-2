@@ -154,7 +154,7 @@ public class HeslingtonHustle extends Game {
                 if (endScreen != null) {
                     endScreen.dispose();
                 }
-                endScreen = new EndScreen(this, playing.getGameState());
+                endScreen = new EndScreen(this, playing.getGameState(), false);
                 this.setScreen(endScreen);
                 break;
         }
@@ -173,7 +173,7 @@ public class HeslingtonHustle extends Game {
         tiledMap = new TmxMapLoader().load(mapAsset);
 
         tooltipFont = new BitmapFont();
-        tooltipFont.getData().setScale(0.07f);
+        tooltipFont.getData().setScale(0.17f);
         tooltipFont.setUseIntegerPositions(false);
         tooltipFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         tooltipFont.setColor(Color.BLACK);
