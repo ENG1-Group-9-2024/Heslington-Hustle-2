@@ -47,8 +47,8 @@ import io.github.uoyeng1g6.systems.CounterUpdateSystem;
 import io.github.uoyeng1g6.systems.DebugSystem;
 import io.github.uoyeng1g6.systems.InteractionOverlayRenderingSystem;
 import io.github.uoyeng1g6.systems.MapRenderingSystem;
-import io.github.uoyeng1g6.systems.PlayerInputSystem;
 import io.github.uoyeng1g6.systems.PlayerInteractionSystem;
+import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import io.github.uoyeng1g6.systems.StaticRenderingSystem;
 import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
 import java.util.Map;
@@ -89,6 +89,7 @@ public class Playing implements Screen {
      */
     Box2DDebugRenderer debugRenderer = null;
 
+    // Extracted to attribute for assessment 2
     public static String terrainAsset = "terrain.json";
 
     public Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/gameMusic.mp3"));
@@ -98,7 +99,8 @@ public class Playing implements Screen {
         this.gameState = gameState;
         this.isTestMode = isTestMode;
 
-        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing
+        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing. Added for
+        // assessment 2
         if (!isTestMode) {
             camera = new OrthographicCamera();
             camera.setToOrtho(false, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
@@ -198,6 +200,7 @@ public class Playing implements Screen {
 
             initTerrain();
 
+            // Create entities
             engine.addEntity(initPlayerEntity(engine));
 
             for (var entity : initInteractionLocations(engine)) {
@@ -250,7 +253,7 @@ public class Playing implements Screen {
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(energyAmount, state -> String.valueOf(state.energyRemaining))));
 
-            engine.addSystem(new PlayerInputSystem(gameState));
+            engine.addSystem(new PlayerMovementSystem(gameState));
             engine.addSystem(new PlayerInteractionSystem(gameState));
             engine.addSystem(new MapRenderingSystem(game.tiledMap, camera));
             engine.addSystem(new StaticRenderingSystem(game.spriteBatch));

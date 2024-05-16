@@ -122,6 +122,7 @@ public class HeslingtonHustle extends Game {
      */
     private State currentState = State.MAIN_MENU;
 
+    // Extracted asset locations to attributes for assessment 2
     public static String playerAsset = "sprites/player.txt";
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
