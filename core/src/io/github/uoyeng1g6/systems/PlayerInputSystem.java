@@ -1,5 +1,7 @@
 package io.github.uoyeng1g6.systems;
 
+import static io.github.uoyeng1g6.components.PlayerComponent.keyboardControls;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -14,11 +16,6 @@ import io.github.uoyeng1g6.components.PlayerComponent;
 import io.github.uoyeng1g6.constants.MoveDirection;
 import io.github.uoyeng1g6.constants.PlayerConstants;
 import io.github.uoyeng1g6.models.GameState;
-import io.github.uoyeng1g6.screens.Options;
-
-import static com.badlogic.gdx.Input.Keys.DPAD_LEFT;
-import static io.github.uoyeng1g6.components.PlayerComponent.getUserName;
-import static io.github.uoyeng1g6.components.PlayerComponent.keyboardControls;
 
 /**
  * System to process the player's inputs and set the movement velocity, as well as set a flag
@@ -53,6 +50,7 @@ public class PlayerInputSystem extends EntitySystem {
                                 .get())
                 .first();
     }
+
     @Override
     public void update(float deltaTime) {
         /**

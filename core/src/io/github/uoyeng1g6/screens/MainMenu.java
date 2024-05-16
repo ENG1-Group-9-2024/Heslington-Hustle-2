@@ -54,7 +54,6 @@ public class MainMenu implements Screen {
          *
          *         inner.row();
          */
-
         var quitButton = new TextButton("Quit", game.skin);
         quitButton.addListener(ChangeListener.of((e, a) -> game.quit()));
         inner.add(quitButton).pad(10).width(Value.percentWidth(0.4f, inner)).height(Value.percentHeight(0.1f, inner));

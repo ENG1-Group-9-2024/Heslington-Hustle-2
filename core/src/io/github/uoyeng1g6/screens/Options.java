@@ -1,23 +1,18 @@
 package io.github.uoyeng1g6.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.uoyeng1g6.HeslingtonHustle;
 import io.github.uoyeng1g6.components.PlayerComponent;
-import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.utils.ChangeListener;
 
 /**
@@ -39,8 +34,6 @@ public class Options implements Screen {
     /**
      * Textbutton variable used to create the submit button
      */
-
-
     public Options(HeslingtonHustle game) {
         camera = new OrthographicCamera();
         var viewport = new ScreenViewport(camera);
@@ -82,14 +75,12 @@ public class Options implements Screen {
         table.row();
         table.add(submitButton).width(100).height(40).pad(10);
 
-
-
         stage.addActor(table);
 
         submitButton.addListener(event -> {
             if (submitButton.isPressed()) {
                 PlayerComponent.setUserName(nameTextField.getText());
-                if (!PlayerComponent.getUserName().isEmpty()){
+                if (!PlayerComponent.getUserName().isEmpty()) {
                     System.out.println("Username entered " + PlayerComponent.getUserName());
                     game.setState(HeslingtonHustle.State.PLAYING);
                 }
@@ -99,15 +90,11 @@ public class Options implements Screen {
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
-
     }
-
 
     @Override
-    public void show() {
+    public void show() {}
 
-    }
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
@@ -117,27 +104,17 @@ public class Options implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
+    public void resize(int width, int height) {}
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-
-    }
+    public void hide() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }
