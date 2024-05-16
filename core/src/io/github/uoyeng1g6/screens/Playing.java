@@ -90,7 +90,7 @@ public class Playing implements Screen {
     Box2DDebugRenderer debugRenderer = null;
 
     // Extracted to attribute for assessment 2
-    public static String terrainAsset = "maps/terrain.json";
+    public static String terrainAsset = "maps/terrainV2.json";
 
     public Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/gameMusic.mp3"));
 
