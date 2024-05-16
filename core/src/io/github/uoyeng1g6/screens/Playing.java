@@ -46,8 +46,8 @@ import io.github.uoyeng1g6.systems.CounterUpdateSystem;
 import io.github.uoyeng1g6.systems.DebugSystem;
 import io.github.uoyeng1g6.systems.InteractionOverlayRenderingSystem;
 import io.github.uoyeng1g6.systems.MapRenderingSystem;
-import io.github.uoyeng1g6.systems.PlayerInputSystem;
 import io.github.uoyeng1g6.systems.PlayerInteractionSystem;
+import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import io.github.uoyeng1g6.systems.StaticRenderingSystem;
 import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
 import java.util.Map;
@@ -88,14 +88,18 @@ public class Playing implements Screen {
      */
     Box2DDebugRenderer debugRenderer = null;
 
+    // Extracted to attribute for assessment 2
     public static String terrainAsset = "maps/terrain.json";
+
+    public Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/gameMusic.mp3"));
 
     public Playing(HeslingtonHustle game, GameState gameState, boolean isTestMode) {
         this.game = game;
         this.gameState = gameState;
         this.isTestMode = isTestMode;
 
-        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing
+        // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing. Added for
+        // assessment 2
         if (!isTestMode) {
 
             // Camera set up
@@ -113,6 +117,11 @@ public class Playing implements Screen {
             uiTop.setDebug(game.debug);
             stage.addActor(uiTop);
             uiTop.center().top();
+
+            // Music added for assessment 2
+            gameMusic.setLooping(true);
+            gameMusic.setVolume(0.75f);
+            gameMusic.play();
 
             // Sets up the labels for the day and the clock
             var daysLabel = new Label("Monday", labelStyle);
@@ -198,6 +207,7 @@ public class Playing implements Screen {
             // adds colliders to map
             initTerrain();
 
+            // Create entities
             engine.addEntity(initPlayerEntity(engine));
 
             for (var entity : initInteractionLocations(engine)) {
@@ -274,7 +284,8 @@ public class Playing implements Screen {
                     .add(new CounterComponent(energyAmount, state -> String.valueOf(state.energyRemaining))));
 
             // Initialises the game systems
-            engine.addSystem(new PlayerInputSystem(gameState));
+
+            engine.addSystem(new PlayerMovementSystem(gameState));
             engine.addSystem(new PlayerInteractionSystem(gameState));
             engine.addSystem(new MapRenderingSystem(game.tiledMap, camera));
             engine.addSystem(new StaticRenderingSystem(game.spriteBatch));

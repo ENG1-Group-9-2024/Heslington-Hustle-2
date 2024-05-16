@@ -8,6 +8,9 @@ import io.github.uoyeng1g6.screens.Playing;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * This class tests that the assets needed exist.
+ */
 @RunWith(GdxTestRunner.class)
 public class AssetTests {
     @Test

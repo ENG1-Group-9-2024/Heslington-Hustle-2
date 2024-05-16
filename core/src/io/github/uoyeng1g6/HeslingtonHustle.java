@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import io.github.uoyeng1g6.screens.EndScreen;
 import io.github.uoyeng1g6.screens.MainMenu;
+import io.github.uoyeng1g6.screens.Options;
 import io.github.uoyeng1g6.screens.Playing;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -34,6 +35,10 @@ public class HeslingtonHustle extends Game {
          * The game is currently being played.
          */
         PLAYING,
+        /**
+         * The game is currently on the options screen
+         */
+        OPTIONS,
         /**
          * The game is currently on the game over screen.
          */
@@ -103,6 +108,10 @@ public class HeslingtonHustle extends Game {
      */
     Playing playing = null;
     /**
+     * The options screen instance
+     */
+    Options options = null;
+    /**
      * The end screen instance. A new one is required to be create each time the
      * player finishes a game.
      */
@@ -113,6 +122,7 @@ public class HeslingtonHustle extends Game {
      */
     private State currentState = State.MAIN_MENU;
 
+    // Extracted asset locations to attributes for assessment 2
     public static String playerAsset = "sprites/player.txt";
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
@@ -149,6 +159,13 @@ public class HeslingtonHustle extends Game {
                 }
                 playing = new Playing(this);
                 this.setScreen(playing);
+                break;
+            case OPTIONS:
+                if (options != null) {
+                    options.dispose();
+                }
+                options = new Options(this);
+                this.setScreen(options);
                 break;
             case END_SCREEN:
                 if (endScreen != null) {
@@ -198,12 +215,18 @@ public class HeslingtonHustle extends Game {
         super.render();
     }
 
+    /**
+     * options dispose added for new Options screen
+     */
     @Override
     public void dispose() {
         mainMenu.dispose();
 
         if (playing != null) {
             playing.dispose();
+        }
+        if (options != null) {
+            options.dispose();
         }
         if (endScreen != null) {
             endScreen.dispose();

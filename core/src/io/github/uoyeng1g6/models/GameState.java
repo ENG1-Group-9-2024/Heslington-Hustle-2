@@ -1,5 +1,7 @@
 package io.github.uoyeng1g6.models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import java.util.ArrayList;
@@ -27,20 +29,6 @@ public class GameState {
         public int statFor(ActivityType type) {
             return activityStats.getOrDefault(type, 0);
         }
-
-        public boolean study1Bool = true;
-        public boolean study2Bool = true;
-
-        public boolean meal1Bool = true;
-        public boolean meal2Bool = true;
-        public boolean meal3Bool = true;
-
-        public boolean recreation1Bool = true;
-        public boolean recreation2Bool = true;
-        public boolean recreation3Bool = true;
-        public boolean recreation4Bool = true;
-        public boolean recreation5Bool = true;
-        public boolean recreation6Bool = true;
     }
 
     /**
@@ -89,11 +77,20 @@ public class GameState {
      */
     public InteractionOverlay interactionOverlay = null;
 
+    /** Played when the user tries to perform an activity they don't have the time or energy for.
+     *  Added for assessment 2.
+     */
+    Sound wrongSound = Gdx.audio.newSound(Gdx.files.internal("audio/wrongSound.mp3"));
+
     /**
      * End and store the current day and advance to a new one. Resets the current energy and hours remaining.
      * Shows an overlay to indicate that the player is "sleeping".
      */
     public void advanceDay() {
+        if (daysRemaining <= 0) {
+            throw new IllegalStateException("Can't have less than 0 days remaining");
+        }
+
         daysRemaining--;
         energyRemaining = GameConstants.MAX_ENERGY;
         hoursRemaining = GameConstants.MAX_HOURS;
@@ -117,6 +114,7 @@ public class GameState {
      */
     public boolean doActivity(int timeUsage, int energyUsage, ActivityType type, String overlayText) {
         if (hoursRemaining < timeUsage || energyRemaining < energyUsage) {
+            wrongSound.play(1.0f);
             return false;
         }
 
@@ -139,6 +137,7 @@ public class GameState {
         return days.stream().mapToInt(day -> day.statFor(type)).sum() + currentDay.statFor(type);
     }
 
+    // Added the below getters and setters for assessment 2, to help with testing
     public int getDaysRemaining() {
         return daysRemaining;
     }
