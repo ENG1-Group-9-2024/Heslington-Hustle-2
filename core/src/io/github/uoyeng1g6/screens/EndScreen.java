@@ -59,7 +59,7 @@ public class EndScreen implements Screen {
             root.add("Game Over").getActor().setFontScale(2);
             root.row();
 
-        inner = new Table(game.skin);
+            inner = new Table(game.skin);
 
             inner.add(String.format("Exam Score: %.2f / 100", calculateExamScore(endGameState.days)))
                     .padBottom(50);
@@ -69,81 +69,81 @@ public class EndScreen implements Screen {
             inner.add("Bonus: " + bonus);
             inner.row();
 
-        // Added for assessment 2
-        // The achievements are displayed if they were activated
-        if (study2Bool) {
-            addToScreen("Bookworm: Studied in the Piazza every day");
-        }
-        if (study1Bool) {
-            addToScreen("Overclocked CPU: Studied in the C.S Building every day");
-        }
-        if (meal1Bool) {
-            addToScreen("Money Saver: Ate at home every day");
-        }
-        if (meal2Bool) {
-            addToScreen("Eat out to help out: Ate in the Piazza every day");
-        }
-        if (meal3Bool) {
-            addToScreen("People Watcher: Ate a picnic every day");
-        }
-        if (recreation1Bool) {
-            addToScreen("Secret crush: Watched the builders every day");
-        }
-        if (recreation2Bool) {
-            addToScreen("What the duck!: Fed the ducks every day");
-        }
-        if (recreation3Bool) {
-            addToScreen("Cold one: Went to the pub every day");
-        }
-        if (recreation4Bool) {
-            addToScreen("Unlucky: Played (and lost) at football every day");
-        }
-        if (recreation5Bool) {
-            addToScreen("Escapism: Went to town every day");
-        }
-        if (recreation6Bool) {
-            addToScreen("Active lifestyle: Played sports every day");
-        }
+            // Added for assessment 2
+            // The achievements are displayed if they were activated
+            if (study2Bool) {
+                addToScreen("Bookworm: Studied in the Piazza every day");
+            }
+            if (study1Bool) {
+                addToScreen("Overclocked CPU: Studied in the C.S Building every day");
+            }
+            if (meal1Bool) {
+                addToScreen("Money Saver: Ate at home every day");
+            }
+            if (meal2Bool) {
+                addToScreen("Eat out to help out: Ate in the Piazza every day");
+            }
+            if (meal3Bool) {
+                addToScreen("People Watcher: Ate a picnic every day");
+            }
+            if (recreation1Bool) {
+                addToScreen("Secret crush: Watched the builders every day");
+            }
+            if (recreation2Bool) {
+                addToScreen("What the duck!: Fed the ducks every day");
+            }
+            if (recreation3Bool) {
+                addToScreen("Cold one: Went to the pub every day");
+            }
+            if (recreation4Bool) {
+                addToScreen("Unlucky: Played (and lost) at football every day");
+            }
+            if (recreation5Bool) {
+                addToScreen("Escapism: Went to town every day");
+            }
+            if (recreation6Bool) {
+                addToScreen("Active lifestyle: Played sports every day");
+            }
 
-        addToScreen("Times Studied: "
-                + (endGameState.getTotalActivityCount(ActivityType.STUDY1)
-                        + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
+            addToScreen("Times Studied: "
+                    + (endGameState.getTotalActivityCount(ActivityType.STUDY1)
+                            + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
 
-        addToScreen("Meals Eaten: "
-                + (endGameState.getTotalActivityCount(ActivityType.MEAL1)
-                        + endGameState.getTotalActivityCount(ActivityType.MEAL2)
-                        + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
-        addToScreen("Recreational Activities Done: "
-                + (endGameState.getTotalActivityCount(ActivityType.RECREATION1)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
-                        + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
+            addToScreen("Meals Eaten: "
+                    + (endGameState.getTotalActivityCount(ActivityType.MEAL1)
+                            + endGameState.getTotalActivityCount(ActivityType.MEAL2)
+                            + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
+            addToScreen("Recreational Activities Done: "
+                    + (endGameState.getTotalActivityCount(ActivityType.RECREATION1)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
+                            + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
 
-        // create a dict for the leaderboard
-        // List<List<String>> leaderBoardEntries = new ArrayList<>();
-        String[][] leaderBoardEntries = {
-            {"Bob", "Alice", "John", "Goon", "idk", "fhuqiui", "Me", "You", "Him", "Reese"},
-            {"90", "82", "74", "63", "58", "49", "40", "28", "10", "1"}
-        };
+            // create a dict for the leaderboard
+            // List<List<String>> leaderBoardEntries = new ArrayList<>();
+            String[][] leaderBoardEntries = {
+                {"Bob", "Alice", "John", "Goon", "idk", "fhuqiui", "Me", "You", "Him", "Reese"},
+                {"90", "82", "74", "63", "58", "49", "40", "28", "10", "1"}
+            };
 
-        // add the dict to the leaderboard
-        var leaderBoard = new Table(game.skin);
-        leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
-        leaderBoard.row();
-        for (int i = 0; i < leaderBoardEntries[0].length; i++) {
-            leaderBoard
-                    .add(leaderBoardEntries[0][i] + ": " + leaderBoardEntries[1][i])
-                    .padBottom(10)
-                    .row();
-        }
+            // add the dict to the leaderboard
+            var leaderBoard = new Table(game.skin);
+            leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
+            leaderBoard.row();
+            for (int i = 0; i < leaderBoardEntries[0].length; i++) {
+                leaderBoard
+                        .add(leaderBoardEntries[0][i] + ": " + leaderBoardEntries[1][i])
+                        .padBottom(10)
+                        .row();
+            }
 
-        // Position the leaderboard on the right side of the screen
-        leaderBoard.setFillParent(true);
-        leaderBoard.pad(0.15f);
-        leaderBoard.right();
-        stage.addActor(leaderBoard);
+            // Position the leaderboard on the right side of the screen
+            leaderBoard.setFillParent(true);
+            leaderBoard.pad(0.15f);
+            leaderBoard.right();
+            stage.addActor(leaderBoard);
 
             var mainMenuButton = new TextButton("Main Menu", game.skin);
             mainMenuButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.MAIN_MENU)));
