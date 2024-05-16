@@ -27,21 +27,6 @@ public class GameState {
         public int statFor(ActivityType type) {
             return activityStats.getOrDefault(type, 0);
         }
-
-        // The following indicate whether the corresponding activities have been performed. Extended for assessment 2.
-        public boolean study1Bool = true;
-        public boolean study2Bool = true;
-
-        public boolean meal1Bool = true;
-        public boolean meal2Bool = true;
-        public boolean meal3Bool = true;
-
-        public boolean recreation1Bool = true;
-        public boolean recreation2Bool = true;
-        public boolean recreation3Bool = true;
-        public boolean recreation4Bool = true;
-        public boolean recreation5Bool = true;
-        public boolean recreation6Bool = true;
     }
 
     /**
