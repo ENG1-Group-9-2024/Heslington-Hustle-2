@@ -106,13 +106,14 @@ public class GameState {
      * an overlay. If there are not enough hours left in the day, or the player does not have enough energy
      * then returns {@code false}.
      *
-     * @param timeUsage   the amount of time the activity requires.
-     * @param energyUsage the amount of energy the activity requires.
      * @param type        the type of activity being done.
      * @param overlayText the text to show on the overlay while doing the interaction.
      * @return boolean indicating whether the activity could be performed.
      */
-    public boolean doActivity(int timeUsage, int energyUsage, ActivitySubType type, String overlayText) {
+    public boolean doActivity(ActivitySubType type, String overlayText) {
+        int timeUsage = GameConstants.getActivityTime(type);
+        int energyUsage = GameConstants.getActivityEnergy(type);
+
         if (hoursRemaining < timeUsage || energyRemaining < energyUsage) {
             wrongSound.play(1.0f);
             return false;

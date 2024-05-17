@@ -378,7 +378,7 @@ public class Playing implements Screen {
                 .add(new HitboxComponent(new Rectangle(
                         x, y, icon.getRegionWidth() * iconSize, icon.getRegionHeight() * iconSize)))
                 .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(time, energy, activitySubType, overlayText)) {
+                    if (!state.doActivity(activitySubType, overlayText)) {
                         // Notify insufficient time/energy
                     }
                 }))

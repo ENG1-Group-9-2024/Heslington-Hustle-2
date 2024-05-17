@@ -58,12 +58,30 @@ public final class GameConstants {
             entry(ActivitySubType.RECREATION6, 10)
     );
 
+    private static final Map<ActivitySubType, Integer> activityBonuses = Map.ofEntries(
+            entry(ActivitySubType.STUDY1, 5),
+            entry(ActivitySubType.STUDY2, 5),
+            entry(ActivitySubType.MEAL1, 5),
+            entry(ActivitySubType.MEAL2, 5),
+            entry(ActivitySubType.MEAL3, 5),
+            entry(ActivitySubType.RECREATION1, 5),
+            entry( ActivitySubType.RECREATION2, 5),
+            entry(ActivitySubType.RECREATION3, 5),
+            entry(ActivitySubType.RECREATION4, 5),
+            entry( ActivitySubType.RECREATION5, 5),
+            entry(ActivitySubType.RECREATION6, 5)
+    );
+
     public static int getActivityTime(ActivitySubType activity) {
         return activityTimes.get(activity);
     }
 
     public static int getActivityEnergy(ActivitySubType activity) {
         return activityEnergies.get(activity);
+    }
+
+    public static int getActivityBonus(ActivitySubType activity) {
+        return activityBonuses.get(activity);
     }
 
 }

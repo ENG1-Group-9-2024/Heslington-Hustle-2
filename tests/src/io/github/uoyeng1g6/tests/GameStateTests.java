@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import io.github.uoyeng1g6.HeslingtonHustle;
 import io.github.uoyeng1g6.constants.ActivitySubType;
+import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.screens.EndScreen;
@@ -31,7 +32,7 @@ public class GameStateTests {
     @Test
     public void T_16HoursInDay1() {
         // Testing when there is enough time and energy
-        boolean result = gameState.doActivity(1, 10, ActivitySubType.STUDY1, "Studying...");
+        boolean result = gameState.doActivity(ActivitySubType.STUDY1, "Studying...");
         assertTrue("Activity should be performed when there is enough time and energy", result);
     }
 
@@ -39,7 +40,7 @@ public class GameStateTests {
     public void T_16HoursInDay2() {
         // Testing when there is not enough time
         gameState.setHoursRemaining(0);
-        boolean result = gameState.doActivity(1, 10, ActivitySubType.STUDY1, "Studying...");
+        boolean result = gameState.doActivity(ActivitySubType.STUDY1, "Studying...");
         assertFalse("Activity should not be performed when there is not enough time", result);
     }
 
@@ -47,7 +48,7 @@ public class GameStateTests {
     public void T_16HoursInDay3() {
         // Testing when there is not enough energy
         gameState.setEnergyRemaining(5);
-        boolean result = gameState.doActivity(1, 10, ActivitySubType.STUDY1, "Studying...");
+        boolean result = gameState.doActivity(ActivitySubType.STUDY1, "Studying...");
         assertFalse("Activity should not be performed when there is not enough energy", result);
     }
 
@@ -73,7 +74,7 @@ public class GameStateTests {
         gameState.setHoursRemaining(1);
         gameState.setEnergyRemaining(10);
 
-        boolean result = gameState.doActivity(1, 10, ActivitySubType.STUDY1, "Studying...");
+        boolean result = gameState.doActivity(ActivitySubType.STUDY1, "Studying...");
         assertTrue("Activity should be performed when there is exactly enough time and energy", result);
 
         assertEquals("No hours should remain after activity", 0, gameState.getHoursRemaining());
@@ -84,7 +85,7 @@ public class GameStateTests {
     public void T_EnergyIsUsed() {
         gameState.setHoursRemaining(8);
         gameState.setEnergyRemaining(100);
-        boolean result = gameState.doActivity(2, 30, ActivitySubType.STUDY1, "Studying...");
+        boolean result = gameState.doActivity(ActivitySubType.STUDY1, "Studying...");
         assertTrue("Activity should be performed when there is enough time and energy", result);
         assertEquals(
                 "Hours remaining should decrease by the time used for the activity", 6, gameState.getHoursRemaining());
@@ -93,7 +94,7 @@ public class GameStateTests {
 
     @Test
     public void T_activityInDayIncreased() {
-        gameState.doActivity(1, 10, ActivitySubType.STUDY1, "Studying...");
+        gameState.doActivity(ActivitySubType.STUDY1, "Studying...");
         assertEquals(
                 "The activityStats of the activity type should be incremented",
                 1,
@@ -107,8 +108,8 @@ public class GameStateTests {
         assertEquals("The day should be added to the array list", initialSize + 1, gameState.days.size());
     }
 
-    @Test
-    public void T_Study1BonusTest(){
+
+    public int bonusTestHelper(ActivitySubType type) {
 
         gameState = new GameState();
 
@@ -116,258 +117,115 @@ public class GameStateTests {
         gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
         gameState.setHoursRemaining(GameConstants.MAX_HOURS);
 
-
         for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.STUDY1, "Studying...");
+            gameState.doActivity(type, "");
             gameState.advanceDay();
         }
 
         HeslingtonHustle game = new HeslingtonHustle();
         EndScreen screen = new EndScreen(game, gameState, true);
         screen.calculateExamScore(gameState.days);
+        return screen.bonus;
+    }
 
-        assertEquals("The bonus is correct", 5, screen.bonus);
+    @Test
+    public void T_Study1BonusTest(){
+        ActivitySubType type = ActivitySubType.STUDY1;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
 
-
+        assertEquals("The bonus is correct", expected, actual);
     }
 
     @Test
     public void T_Study2BonusTest(){
+        ActivitySubType type = ActivitySubType.STUDY2;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
 
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.STUDY2, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
+        assertEquals("The bonus is correct", expected, actual);
     }
 
     @Test
     public void T_Meal1BonusTest(){
+        ActivitySubType type = ActivitySubType.MEAL1;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
 
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.MEAL1, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
+        assertEquals("The bonus is correct", expected, actual);
     }
 
     @Test
     public void T_Meal2BonusTest(){
+        ActivitySubType type = ActivitySubType.MEAL2;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
 
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.MEAL2, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
+        assertEquals("The bonus is correct", expected, actual);
     }
 
     @Test
     public void T_Meal3BonusTest(){
+        ActivitySubType type = ActivitySubType.MEAL3;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
 
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.MEAL3, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
-    }
-
-    @Test
-    public void T_Rec2BonusTest(){
-
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.RECREATION2, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
-    }
-
-    @Test
-    public void T_Rec3BonusTest(){
-
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.RECREATION3, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
-    }
-
-    @Test
-    public void T_Rec4BonusTest(){
-
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.RECREATION4, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
-    }
-
-    @Test
-    public void T_Rec5BonusTest(){
-
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.RECREATION5, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
-    }
-
-    @Test
-    public void T_Rec6BonusTest(){
-
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.RECREATION6, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
+        assertEquals("The bonus is correct", expected, actual);
     }
 
     @Test
     public void T_Rec1BonusTest(){
+        ActivitySubType type = ActivitySubType.RECREATION1;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
 
-        gameState = new GameState();
-
-        gameState.setDaysRemaining(7);
-        gameState.setEnergyRemaining(GameConstants.MAX_ENERGY);
-        gameState.setHoursRemaining(GameConstants.MAX_HOURS);
-
-
-        for(int i = 0; i < 7; i++) {
-            gameState.doActivity(1, 1, ActivitySubType.RECREATION1, "Studying...");
-            gameState.advanceDay();
-        }
-
-        HeslingtonHustle game = new HeslingtonHustle();
-        EndScreen screen = new EndScreen(game, gameState, true);
-        screen.calculateExamScore(gameState.days);
-
-        assertEquals("The bonus is correct", 5, screen.bonus);
-
-
+        assertEquals("The bonus is correct", expected, actual);
     }
+
+    @Test
+    public void T_Rec2BonusTest(){
+        ActivitySubType type = ActivitySubType.RECREATION2;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
+
+        assertEquals("The bonus is correct", expected, actual);
+    }
+
+    @Test
+    public void T_Rec3BonusTest(){
+        ActivitySubType type = ActivitySubType.RECREATION3;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
+
+        assertEquals("The bonus is correct", expected, actual);
+    }
+
+    @Test
+    public void T_Rec4BonusTest(){
+        ActivitySubType type = ActivitySubType.RECREATION4;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
+
+        assertEquals("The bonus is correct", expected, actual);
+    }
+
+    @Test
+    public void T_Rec5BonusTest(){
+        ActivitySubType type = ActivitySubType.RECREATION5;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
+
+        assertEquals("The bonus is correct", expected, actual);
+    }
+
+    @Test
+    public void T_Rec6BonusTest(){
+        ActivitySubType type = ActivitySubType.RECREATION6;
+        int expected = GameConstants.getActivityBonus(type);
+        int actual = bonusTestHelper(type);
+
+        assertEquals("The bonus is correct", expected, actual);
+    }
+
+
 }
