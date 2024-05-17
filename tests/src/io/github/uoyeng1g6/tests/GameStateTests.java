@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import io.github.uoyeng1g6.HeslingtonHustle;
 import io.github.uoyeng1g6.constants.ActivitySubType;
-import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.screens.EndScreen;
