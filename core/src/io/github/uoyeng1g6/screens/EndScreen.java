@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import io.github.uoyeng1g6.HeslingtonHustle;
-import io.github.uoyeng1g6.constants.ActivityType;
+import io.github.uoyeng1g6.constants.ActivitySubType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.utils.ChangeListener;
@@ -106,20 +106,20 @@ public class EndScreen implements Screen {
             }
 
             addToScreen("Times Studied: "
-                    + (endGameState.getTotalActivityCount(ActivityType.STUDY1)
-                            + endGameState.getTotalActivityCount(ActivityType.STUDY2)));
+                    + (endGameState.getTotalActivityCount(ActivitySubType.STUDY1)
+                            + endGameState.getTotalActivityCount(ActivitySubType.STUDY2)));
 
             addToScreen("Meals Eaten: "
-                    + (endGameState.getTotalActivityCount(ActivityType.MEAL1)
-                            + endGameState.getTotalActivityCount(ActivityType.MEAL2)
-                            + endGameState.getTotalActivityCount(ActivityType.MEAL3)));
+                    + (endGameState.getTotalActivityCount(ActivitySubType.MEAL1)
+                            + endGameState.getTotalActivityCount(ActivitySubType.MEAL2)
+                            + endGameState.getTotalActivityCount(ActivitySubType.MEAL3)));
             addToScreen("Recreational Activities Done: "
-                    + (endGameState.getTotalActivityCount(ActivityType.RECREATION1)
-                            + endGameState.getTotalActivityCount(ActivityType.RECREATION2)
-                            + endGameState.getTotalActivityCount(ActivityType.RECREATION3)
-                            + endGameState.getTotalActivityCount(ActivityType.RECREATION4)
-                            + endGameState.getTotalActivityCount(ActivityType.RECREATION5)
-                            + endGameState.getTotalActivityCount(ActivityType.RECREATION6)));
+                    + (endGameState.getTotalActivityCount(ActivitySubType.RECREATION1)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION2)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION3)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION4)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION5)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION6)));
 
             // create a dict for the leaderboard
             // List<List<String>> leaderBoardEntries = new ArrayList<>();
@@ -233,19 +233,19 @@ public class EndScreen implements Screen {
         for (var day : days) {
 
             // Finds if the activity has been performed for this day
-            int study1Count = day.statFor(ActivityType.STUDY1);
-            int study2Count = day.statFor(ActivityType.STUDY2);
+            int study1Count = day.statFor(ActivitySubType.STUDY1);
+            int study2Count = day.statFor(ActivitySubType.STUDY2);
 
-            int meal1Count = day.statFor(ActivityType.MEAL1);
-            int meal2Count = day.statFor(ActivityType.MEAL2);
-            int meal3Count = day.statFor(ActivityType.MEAL3);
+            int meal1Count = day.statFor(ActivitySubType.MEAL1);
+            int meal2Count = day.statFor(ActivitySubType.MEAL2);
+            int meal3Count = day.statFor(ActivitySubType.MEAL3);
 
-            int recreation1Count = day.statFor(ActivityType.RECREATION1);
-            int recreation2Count = day.statFor(ActivityType.RECREATION2);
-            int recreation3Count = day.statFor(ActivityType.RECREATION3);
-            int recreation4Count = day.statFor(ActivityType.RECREATION4);
-            int recreation5Count = day.statFor(ActivityType.RECREATION5);
-            int recreation6Count = day.statFor(ActivityType.RECREATION6);
+            int recreation1Count = day.statFor(ActivitySubType.RECREATION1);
+            int recreation2Count = day.statFor(ActivitySubType.RECREATION2);
+            int recreation3Count = day.statFor(ActivitySubType.RECREATION3);
+            int recreation4Count = day.statFor(ActivitySubType.RECREATION4);
+            int recreation5Count = day.statFor(ActivitySubType.RECREATION5);
+            int recreation6Count = day.statFor(ActivitySubType.RECREATION6);
 
             if (study1Count == 0) {
                 study1Bool = false;
