@@ -341,6 +341,8 @@ public class Playing implements Screen {
         }
     }
 
+    /** Creates an entity for an individual interaction location.
+     * Added for assessment 2. */
     private Entity initInteractionLocation(
             Engine engine, int x, int y, ActivitySubType activitySubType, String toolTip) {
 
@@ -386,7 +388,8 @@ public class Playing implements Screen {
     }
 
     /**
-     * Initialise the entities for the interaction locations on the map
+     * Initialise the entities for the interaction locations on the map.
+     * Extended and refactored for assessment 2.
      *
      * @param engine the engine to create the entities for.
      * @return the created entities.

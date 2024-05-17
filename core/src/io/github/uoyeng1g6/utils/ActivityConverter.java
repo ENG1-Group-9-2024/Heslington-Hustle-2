@@ -6,6 +6,8 @@ import io.github.uoyeng1g6.constants.ActivitySubType;
 import io.github.uoyeng1g6.constants.ActivityType;
 import java.util.Map;
 
+/** Provides a method for mapping activity subtypes to types.
+ * Added for assessment 2. */
 public final class ActivityConverter {
 
     private static final Map<ActivitySubType, ActivityType> subTypeToType = Map.ofEntries(
@@ -21,6 +23,7 @@ public final class ActivityConverter {
             entry(ActivitySubType.RECREATION5, ActivityType.RECREATION),
             entry(ActivitySubType.RECREATION6, ActivityType.RECREATION));
 
+    /** Returns the ActivityType which corresponds to the given ActivitySubType */
     public static ActivityType convertActivity(ActivitySubType activitySubType) {
         return subTypeToType.get(activitySubType);
     }

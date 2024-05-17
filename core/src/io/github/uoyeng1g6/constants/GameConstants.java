@@ -29,6 +29,7 @@ public final class GameConstants {
      */
     public static final int OVERLAY_SECONDS_PER_HOUR = 2;
 
+    // The below were added for assessment 2
     private static final Map<ActivitySubType, Integer> activityTimes = Map.ofEntries(
             entry(ActivitySubType.STUDY1, 1),
             entry(ActivitySubType.STUDY2, 3),
@@ -68,14 +69,17 @@ public final class GameConstants {
             entry(ActivitySubType.RECREATION5, 5),
             entry(ActivitySubType.RECREATION6, 5));
 
+    /** Returns the time that the specified activity takes */
     public static int getActivityTime(ActivitySubType activity) {
         return activityTimes.get(activity);
     }
 
+    /** Returns the energy that the specified activity requires */
     public static int getActivityEnergy(ActivitySubType activity) {
         return activityEnergies.get(activity);
     }
 
+    /** Returns the bonus applied for completing the specified activity every day */
     public static int getActivityBonus(ActivitySubType activity) {
         return activityBonuses.get(activity);
     }
