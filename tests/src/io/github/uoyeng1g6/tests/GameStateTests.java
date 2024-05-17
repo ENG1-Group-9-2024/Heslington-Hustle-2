@@ -88,8 +88,10 @@ public class GameStateTests {
         boolean result = gameState.doActivity(ActivitySubType.STUDY1, "Studying...");
         assertTrue("Activity should be performed when there is enough time and energy", result);
         assertEquals(
-                "Hours remaining should decrease by the time used for the activity", 6, gameState.getHoursRemaining());
-        assertEquals("Energy should decrease by the energy used for the activity", 70, gameState.getEnergyRemaining());
+                "Hours remaining should decrease by the time used for the activity",
+                8 - GameConstants.getActivityTime(ActivitySubType.STUDY1), gameState.getHoursRemaining());
+        assertEquals("Energy should decrease by the energy used for the activity",
+                100 - GameConstants.getActivityEnergy(ActivitySubType.STUDY1), gameState.getEnergyRemaining());
     }
 
     @Test
