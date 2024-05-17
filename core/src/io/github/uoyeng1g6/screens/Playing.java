@@ -50,7 +50,6 @@ import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import io.github.uoyeng1g6.systems.StaticRenderingSystem;
 import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
 import io.github.uoyeng1g6.utils.ActivityConverter;
-
 import java.util.Map;
 
 /**
@@ -342,8 +341,8 @@ public class Playing implements Screen {
         }
     }
 
-    private Entity initInteractionLocation(Engine engine, int x, int y,
-                                           ActivitySubType activitySubType, String toolTip) {
+    private Entity initInteractionLocation(
+            Engine engine, int x, int y, ActivitySubType activitySubType, String toolTip) {
 
         var studyIcon = game.interactionIconsTextureAtlas.findRegion("book_icon");
         var foodIcon = game.interactionIconsTextureAtlas.findRegion("food_icon");
@@ -375,15 +374,15 @@ public class Playing implements Screen {
         return engine.createEntity()
                 .add(new TextureComponent(icon, iconSize).show())
                 .add(new PositionComponent(x, y))
-                .add(new HitboxComponent(new Rectangle(
-                        x, y, icon.getRegionWidth() * iconSize, icon.getRegionHeight() * iconSize)))
+                .add(new HitboxComponent(
+                        new Rectangle(x, y, icon.getRegionWidth() * iconSize, icon.getRegionHeight() * iconSize)))
                 .add(new InteractionComponent(state -> {
                     if (!state.doActivity(activitySubType, overlayText)) {
                         // Notify insufficient time/energy
                     }
                 }))
-                .add(new TooltipComponent(game.tooltipFont,
-                        "Press [E] " + toolTip + "\nTime: -" + time + "h\nEnergy: -" + energy));
+                .add(new TooltipComponent(
+                        game.tooltipFont, "Press [E] " + toolTip + "\nTime: -" + time + "h\nEnergy: -" + energy));
     }
 
     /**
@@ -394,31 +393,22 @@ public class Playing implements Screen {
      */
     Entity[] initInteractionLocations(Engine engine) {
 
-        var study = initInteractionLocation(engine, 30, 9, ActivitySubType.STUDY1,
-                                            "Study for exams");
-        var study2 = initInteractionLocation(engine, 83, 43, ActivitySubType.STUDY2,
-                                            "Study for exams at Piazza");
+        var study = initInteractionLocation(engine, 30, 9, ActivitySubType.STUDY1, "Study for exams");
+        var study2 = initInteractionLocation(engine, 83, 43, ActivitySubType.STUDY2, "Study for exams at Piazza");
 
-        var food = initInteractionLocation(engine, 92, 16, ActivitySubType.MEAL1,
-                                            "Eat at Piazza");
-        var food2 = initInteractionLocation(engine, 11, 83, ActivitySubType.MEAL2,
-                                            "Eat at home");
-        var food3 = initInteractionLocation(engine, 62, 69, ActivitySubType.MEAL3,
-                                            "Have a picnic");
+        var food = initInteractionLocation(engine, 92, 16, ActivitySubType.MEAL1, "Eat at Piazza");
+        var food2 = initInteractionLocation(engine, 11, 83, ActivitySubType.MEAL2, "Eat at home");
+        var food3 = initInteractionLocation(engine, 62, 69, ActivitySubType.MEAL3, "Have a picnic");
 
-        var recreation = initInteractionLocation(engine, 44, 40, ActivitySubType.RECREATION1,
-                                                "Watch the builders at Ron Cooke");
-        var recreation2 = initInteractionLocation(engine, 63, 18, ActivitySubType.RECREATION2,
-                                                "Feed the ducks");
-        var recreation3 = initInteractionLocation(engine, 122, 63, ActivitySubType.RECREATION3,
-                                                "Go to the pub");
-        var recreation4 = initInteractionLocation(engine, 133, 40, ActivitySubType.RECREATION4,
-                                                "Play a game of footie");
-        var recreation5 = initInteractionLocation(engine, 102, 96, ActivitySubType.RECREATION5,
-                                                "Go to town with mates");
-        var recreation6 = initInteractionLocation(engine, 31, 50, ActivitySubType.RECREATION6,
-                                                "Play some sports");
-
+        var recreation =
+                initInteractionLocation(engine, 44, 40, ActivitySubType.RECREATION1, "Watch the builders at Ron Cooke");
+        var recreation2 = initInteractionLocation(engine, 63, 18, ActivitySubType.RECREATION2, "Feed the ducks");
+        var recreation3 = initInteractionLocation(engine, 122, 63, ActivitySubType.RECREATION3, "Go to the pub");
+        var recreation4 =
+                initInteractionLocation(engine, 133, 40, ActivitySubType.RECREATION4, "Play a game of footie");
+        var recreation5 =
+                initInteractionLocation(engine, 102, 96, ActivitySubType.RECREATION5, "Go to town with mates");
+        var recreation6 = initInteractionLocation(engine, 31, 50, ActivitySubType.RECREATION6, "Play some sports");
 
         // Adds the sleep activity
         var sleepIcon = game.interactionIconsTextureAtlas.findRegion("bed_icon");

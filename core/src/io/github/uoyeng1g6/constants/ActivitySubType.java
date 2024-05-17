@@ -27,4 +27,3 @@ public enum ActivitySubType {
 
     RECREATION6
 }
-

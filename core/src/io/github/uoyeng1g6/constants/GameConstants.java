@@ -1,8 +1,8 @@
 package io.github.uoyeng1g6.constants;
 
-import java.util.Map;
-
 import static java.util.Map.entry;
+
+import java.util.Map;
 
 /**
  * Constants used throughout the game
@@ -29,7 +29,6 @@ public final class GameConstants {
      */
     public static final int OVERLAY_SECONDS_PER_HOUR = 2;
 
-
     private static final Map<ActivitySubType, Integer> activityTimes = Map.ofEntries(
             entry(ActivitySubType.STUDY1, 1),
             entry(ActivitySubType.STUDY2, 3),
@@ -37,12 +36,11 @@ public final class GameConstants {
             entry(ActivitySubType.MEAL2, 2),
             entry(ActivitySubType.MEAL3, 3),
             entry(ActivitySubType.RECREATION1, 1),
-            entry( ActivitySubType.RECREATION2, 1),
+            entry(ActivitySubType.RECREATION2, 1),
             entry(ActivitySubType.RECREATION3, 4),
             entry(ActivitySubType.RECREATION4, 2),
-            entry( ActivitySubType.RECREATION5, 4),
-            entry(ActivitySubType.RECREATION6, 1)
-    );
+            entry(ActivitySubType.RECREATION5, 4),
+            entry(ActivitySubType.RECREATION6, 1));
 
     private static final Map<ActivitySubType, Integer> activityEnergies = Map.ofEntries(
             entry(ActivitySubType.STUDY1, 10),
@@ -51,12 +49,11 @@ public final class GameConstants {
             entry(ActivitySubType.MEAL2, 10),
             entry(ActivitySubType.MEAL3, 10),
             entry(ActivitySubType.RECREATION1, 10),
-            entry( ActivitySubType.RECREATION2, 15),
+            entry(ActivitySubType.RECREATION2, 15),
             entry(ActivitySubType.RECREATION3, 20),
             entry(ActivitySubType.RECREATION4, 30),
-            entry( ActivitySubType.RECREATION5, 20),
-            entry(ActivitySubType.RECREATION6, 10)
-    );
+            entry(ActivitySubType.RECREATION5, 20),
+            entry(ActivitySubType.RECREATION6, 10));
 
     private static final Map<ActivitySubType, Integer> activityBonuses = Map.ofEntries(
             entry(ActivitySubType.STUDY1, 5),
@@ -65,12 +62,11 @@ public final class GameConstants {
             entry(ActivitySubType.MEAL2, 5),
             entry(ActivitySubType.MEAL3, 5),
             entry(ActivitySubType.RECREATION1, 5),
-            entry( ActivitySubType.RECREATION2, 5),
+            entry(ActivitySubType.RECREATION2, 5),
             entry(ActivitySubType.RECREATION3, 5),
             entry(ActivitySubType.RECREATION4, 5),
-            entry( ActivitySubType.RECREATION5, 5),
-            entry(ActivitySubType.RECREATION6, 5)
-    );
+            entry(ActivitySubType.RECREATION5, 5),
+            entry(ActivitySubType.RECREATION6, 5));
 
     public static int getActivityTime(ActivitySubType activity) {
         return activityTimes.get(activity);
@@ -83,5 +79,4 @@ public final class GameConstants {
     public static int getActivityBonus(ActivitySubType activity) {
         return activityBonuses.get(activity);
     }
-
 }
