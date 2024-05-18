@@ -29,7 +29,7 @@ public class AssetTests {
 
         assertTrue(
                 "The asset for player exists",
-                Gdx.files.internal("../assets/" + Options.playerTextureAtlas).exists());
+                Gdx.files.internal("../assets/" + HeslingtonHustle.playerAsset).exists());
     }
 
     @Test

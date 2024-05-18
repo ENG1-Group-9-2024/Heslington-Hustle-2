@@ -170,25 +170,25 @@ public class Options implements Screen {
 
         playerModel1Button.addListener(event -> {
             if (playerModel1Button.isPressed()) {
-                playerTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.txt"));
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset));
             }
             return true;
         });
         playerModel2Button.addListener(event -> {
             if (playerModel2Button.isPressed()) {
-                playerTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/player2.txt"));
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset2));
             }
             return true;
         });
         playerModel3Button.addListener(event -> {
             if (playerModel3Button.isPressed()) {
-                playerTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/player3.txt"));
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset3));
             }
             return true;
         });
         playerModel4Button.addListener(event -> {
             if (playerModel4Button.isPressed()) {
-                playerTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/player4.txt"));
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset4));
             }
             return true;
         });
