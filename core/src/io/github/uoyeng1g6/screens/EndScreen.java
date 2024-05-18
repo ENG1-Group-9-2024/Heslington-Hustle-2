@@ -63,8 +63,7 @@ public class EndScreen implements Screen {
 
             inner = new Table(game.skin);
 
-            inner.add(String.format("Exam Score: %.2f / 100", score))
-                    .padBottom(50);
+            inner.add(String.format("Exam Score: %.2f / 100", score)).padBottom(50);
             inner.row();
 
             // Bonus is displayed here
@@ -73,7 +72,6 @@ public class EndScreen implements Screen {
 
             inner.add("Total Score: " + (score + bonus));
             inner.row();
-
 
             // Added for assessment 2
             // The achievements are displayed if they were activated
