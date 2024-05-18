@@ -1,4 +1,4 @@
-package io.github.uoyeng1g6.systems;
+package io.github.uoyeng1g6.screens.systems;
 
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.graphics.Color;

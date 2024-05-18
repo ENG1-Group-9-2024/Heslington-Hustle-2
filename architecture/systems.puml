@@ -47,7 +47,7 @@ package systems {
         + update(deltaTime: float): void
     }
 
-    class PlayerInputSystem {
+    class PlayerMovementSystem {
         - gameState: GameState
         - playerEntity: Entity
         - velocity: Vector2
