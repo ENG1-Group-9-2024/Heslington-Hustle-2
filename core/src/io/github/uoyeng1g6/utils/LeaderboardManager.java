@@ -64,7 +64,7 @@ public class LeaderboardManager {
                 return;
             }
         }
-    
+
         try (Scanner scanner = new Scanner(scoreFile)) {
             while (scanner.hasNextLine()) {
                 String[] data = scanner.nextLine().split(",");
@@ -78,7 +78,7 @@ public class LeaderboardManager {
                 }
             }
         } catch (FileNotFoundException e) {
-            // この例外は発生しないはずだが、念のためログを出力
+            // This exception should not occur, but just to be sure, output the log
             System.err.println("Unexpected error: Score file not found after creation.");
         }
     }

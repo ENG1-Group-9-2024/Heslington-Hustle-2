@@ -11,11 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import io.github.uoyeng1g6.HeslingtonHustle;
+import io.github.uoyeng1g6.components.PlayerComponent;
 import io.github.uoyeng1g6.constants.ActivitySubType;
-import io.github.uoyeng1g6.constants.ActivityType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.utils.ChangeListener;
+import io.github.uoyeng1g6.utils.LeaderboardManager;
+import io.github.uoyeng1g6.utils.PlayerScore;
 import java.util.List;
 
 /**
@@ -141,23 +143,27 @@ public class EndScreen implements Screen {
                         + endGameState.getTotalActivityCount(ActivitySubType.RECREATION6)));
         inner.row();
 
-        // create a dict for the leaderboard
-        // List<List<String>> leaderBoardEntries = new ArrayList<>();
-        String[][] leaderBoardEntries = {
+        // Saves player's score to leaderboard if in the top 10
+        String playerName = PlayerComponent.getUserName();
+        float finalScore = calculateExamScore(endGameState.days);
+        PlayerScore playerScore = new PlayerScore(playerName, finalScore);
+        LeaderboardManager.getInstance().addScore(playerScore);
+        LeaderboardManager.getInstance().saveScoresToFile();
 
-        };
-
-        // add the dict to the leaderboard
+        // Extract current top 10 scores from leaderboard.csv
+        List<PlayerScore> leaderboardEntries = LeaderboardManager.getInstance().getTopTenScores();
         var leaderBoard = new Table(game.skin);
         leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
         leaderBoard.row();
-        for (int i = 0; i < leaderBoardEntries[0].length; i++) {
+
+        // Add player names and scores to Leaderboard actor
+        for (int i = 0; i < leaderboardEntries.size(); i++) {
             leaderBoard
-                    .add(leaderBoardEntries[0][i] + ": " + leaderBoardEntries[1][i])
+                    .add(leaderboardEntries.get(i).getName() + ": "
+                            + leaderboardEntries.get(i).getScore())
                     .padBottom(10)
                     .row();
         }
-
         // Position the leaderboard on the right side of the screen
         leaderBoard.setFillParent(true);
         leaderBoard.pad(0.15f);
@@ -359,7 +365,8 @@ public class EndScreen implements Screen {
         }
 
         // Clamp total score from 0-100, adds bonus
-        return Math.min(100, Math.max(0, (totalScore + bonus)));
+
+        return (float) Math.round(Math.min(100, Math.max(0, (totalScore + bonus))));
     }
 
     @Override
