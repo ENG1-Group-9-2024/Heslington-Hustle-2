@@ -98,4 +98,10 @@ public class LeaderboardManager {
             System.err.println("Unexpected error: Score file not found after creation.");
         }
     }
+
+    public static void clearScores() {
+        File file = new File("leaderboard.csv");
+        file.delete();
+        instance = null;
+    }
 }
