@@ -43,6 +43,8 @@ public class EndScreen implements Screen {
     public EndScreen(HeslingtonHustle game, GameState endGameState, boolean isTestMode) {
 
         if (!isTestMode) {
+
+            float score = calculateExamScore(endGameState.days);
             camera = new OrthographicCamera();
             var viewport = new FitViewport(GameConstants.WORLD_WIDTH * 10, GameConstants.WORLD_HEIGHT * 10, camera);
 
@@ -61,12 +63,14 @@ public class EndScreen implements Screen {
 
             inner = new Table(game.skin);
 
-            inner.add(String.format("Exam Score: %.2f / 100", calculateExamScore(endGameState.days)))
-                    .padBottom(50);
+            inner.add(String.format("Exam Score: %.2f / 100", score)).padBottom(50);
             inner.row();
 
             // Bonus is displayed here
             inner.add("Bonus: " + bonus);
+            inner.row();
+
+            inner.add("Total Score: " + (score + bonus));
             inner.row();
 
             // Added for assessment 2
@@ -77,10 +81,10 @@ public class EndScreen implements Screen {
             if (study1Bool) {
                 addToScreen("Overclocked CPU: Studied in the C.S Building every day");
             }
-            if (meal1Bool) {
+            if (meal2Bool) {
                 addToScreen("Money Saver: Ate at home every day");
             }
-            if (meal2Bool) {
+            if (meal1Bool) {
                 addToScreen("Eat out to help out: Ate in the Piazza every day");
             }
             if (meal3Bool) {
@@ -334,7 +338,7 @@ public class EndScreen implements Screen {
         }
 
         // Clamp total score from 0-100, adds bonus
-        return Math.min(100, Math.max(0, (totalScore + bonus)));
+        return Math.min(100, Math.max(0, (totalScore)));
     }
 
     @Override
