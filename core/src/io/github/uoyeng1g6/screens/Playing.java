@@ -468,19 +468,20 @@ public class Playing implements Screen {
         var playerAnimations = new AnimationComponent(0.05f);
         playerAnimations.animations.put(
                 MoveDirection.STATIONARY,
-                new Animation<>(1f, game.playerTextureAtlas.createSprites("stationary"), Animation.PlayMode.LOOP));
+                new Animation<>(1f, Options.playerTextureAtlas.createSprites("stationary"), Animation.PlayMode.LOOP));
         playerAnimations.animations.put(
                 MoveDirection.UP,
-                new Animation<>(0.12f, game.playerTextureAtlas.createSprites("walk_up"), Animation.PlayMode.LOOP));
+                new Animation<>(0.12f, Options.playerTextureAtlas.createSprites("walk_up"), Animation.PlayMode.LOOP));
         playerAnimations.animations.put(
                 MoveDirection.DOWN,
-                new Animation<>(0.12f, game.playerTextureAtlas.createSprites("walk_down"), Animation.PlayMode.LOOP));
+                new Animation<>(0.12f, Options.playerTextureAtlas.createSprites("walk_down"), Animation.PlayMode.LOOP));
         playerAnimations.animations.put(
                 MoveDirection.LEFT,
-                new Animation<>(0.12f, game.playerTextureAtlas.createSprites("walk_left"), Animation.PlayMode.LOOP));
+                new Animation<>(0.12f, Options.playerTextureAtlas.createSprites("walk_left"), Animation.PlayMode.LOOP));
         playerAnimations.animations.put(
                 MoveDirection.RIGHT,
-                new Animation<>(0.12f, game.playerTextureAtlas.createSprites("walk_right"), Animation.PlayMode.LOOP));
+                new Animation<>(
+                        0.12f, Options.playerTextureAtlas.createSprites("walk_right"), Animation.PlayMode.LOOP));
 
         return engine.createEntity()
                 .add(new PlayerComponent())

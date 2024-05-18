@@ -1,5 +1,11 @@
 package io.github.uoyeng1g6;
-
+/**
+ * removed player sprite loading functionality from this class as this class
+ * is loaded on startup so was preventing ability to change the sprite in the
+ * options window.
+ * Player sprite is loaded into "playerTextureAtlas" in Options window now along
+ * with functionality for switching between different player sprites
+ */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -124,12 +130,11 @@ public class HeslingtonHustle extends Game {
 
     // Extracted asset locations to attributes for assessment 2
     public static String playerAsset = "sprites/player.txt";
+    public static String playerAsset2 = "sprites/player2.txt";
+    public static String playerAsset3 = "sprites/player3.txt";
+    public static String playerAsset4 = "sprites/player4.txt";
 
-    public static String playerAsset2 = "sprites/player.txt";
-
-    public static String playerAsset3 = "sprites/player.txt";
-
-    public static String playerAsset4 = "sprites/player.txt";
+    // Extracted asset locations to attributes for assessment 2
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
     public static String mapAsset = "maps/campus-east-ver2.tmx";
@@ -240,7 +245,6 @@ public class HeslingtonHustle extends Game {
 
         skin.dispose();
 
-        playerTextureAtlas.dispose();
         interactionIconsTextureAtlas.dispose();
         whitePixel.dispose();
 
