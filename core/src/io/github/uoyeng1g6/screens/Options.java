@@ -141,39 +141,61 @@ public class Options implements Screen {
         outer.setFillParent(true);
         outer.left();
         outer.row();
-        outer.add(playerModel1Button).width(Value.percentWidth(0.12f, outer)).height(Value.percentWidth(0.12f, outer)).pad(10);
-        outer.add(model1Image).width(Value.percentWidth(0.1f, outer)).height(Value.percentWidth(0.1f, outer)).pad(10);
+        outer.add(playerModel1Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model1Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
         outer.row();
-        outer.add(playerModel2Button).width(Value.percentWidth(0.12f, outer)).height(Value.percentWidth(0.12f, outer)).pad(10);
-        outer.add(model2Image).width(Value.percentWidth(0.1f, outer)).height(Value.percentWidth(0.1f, outer)).pad(10);
+        outer.add(playerModel2Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model2Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
         outer.row();
-        outer.add(playerModel3Button).width(Value.percentWidth(0.12f, outer)).height(Value.percentWidth(0.12f, outer)).pad(10);
-        outer.add(model3Image).width(Value.percentWidth(0.1f, outer)).height(Value.percentWidth(0.1f, outer)).pad(10);
+        outer.add(playerModel3Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model3Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
         outer.row();
-        outer.add(playerModel4Button).width(Value.percentWidth(0.12f, outer)).height(Value.percentWidth(0.12f, outer)).pad(10);
-        outer.add(model4Image).width(Value.percentWidth(0.1f, outer)).height(Value.percentWidth(0.1f, outer)).pad(10);
+        outer.add(playerModel4Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model4Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
 
         /*
         manually adding the sprite icons next to the buttons because adding them
         using libGDX table formatting was causing problems
          */
 
-
-/**
- *         model1Image.setPosition(110, 380);
- *         model1Image.setSize(100, 100);
- *         stage.addActor(model1Image);
- *         model2Image.setPosition(110, 260);
- *         model2Image.setSize(100, 100);
- *         stage.addActor(model2Image);
- *         model3Image.setPosition(110, 140);
- *         model3Image.setSize(100, 100);
- *         stage.addActor(model3Image);
- *         model4Image.setPosition(110, 20);
- *         model4Image.setSize(100, 100);
- *         stage.addActor(model4Image);
- */
-
+        /**
+         *         model1Image.setPosition(110, 380);
+         *         model1Image.setSize(100, 100);
+         *         stage.addActor(model1Image);
+         *         model2Image.setPosition(110, 260);
+         *         model2Image.setSize(100, 100);
+         *         stage.addActor(model2Image);
+         *         model3Image.setPosition(110, 140);
+         *         model3Image.setSize(100, 100);
+         *         stage.addActor(model3Image);
+         *         model4Image.setPosition(110, 20);
+         *         model4Image.setSize(100, 100);
+         *         stage.addActor(model4Image);
+         */
         stage.addActor(outer);
 
         playerModel1Button.addListener(event -> {
