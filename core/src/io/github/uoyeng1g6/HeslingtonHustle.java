@@ -124,9 +124,15 @@ public class HeslingtonHustle extends Game {
 
     // Extracted asset locations to attributes for assessment 2
     public static String playerAsset = "sprites/player.txt";
+
+    public static String playerAsset2 = "sprites/player.txt";
+
+    public static String playerAsset3 = "sprites/player.txt";
+
+    public static String playerAsset4 = "sprites/player.txt";
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
-    public static String mapAsset = "maps/campus-east.tmx";
+    public static String mapAsset = "maps/campus-east-ver2.tmx";
     public static String whitePixelAsset = "white_pixel.png";
 
     public HeslingtonHustle() {
@@ -171,7 +177,7 @@ public class HeslingtonHustle extends Game {
                 if (endScreen != null) {
                     endScreen.dispose();
                 }
-                endScreen = new EndScreen(this, playing.getGameState());
+                endScreen = new EndScreen(this, playing.getGameState(), false);
                 this.setScreen(endScreen);
                 break;
         }
@@ -190,7 +196,7 @@ public class HeslingtonHustle extends Game {
         tiledMap = new TmxMapLoader().load(mapAsset);
 
         tooltipFont = new BitmapFont();
-        tooltipFont.getData().setScale(0.07f);
+        tooltipFont.getData().setScale(0.17f);
         tooltipFont.setUseIntegerPositions(false);
         tooltipFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         tooltipFont.setColor(Color.BLACK);
