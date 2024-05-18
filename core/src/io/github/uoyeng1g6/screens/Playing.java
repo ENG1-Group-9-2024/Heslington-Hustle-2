@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -36,10 +37,7 @@ import io.github.uoyeng1g6.components.PlayerComponent;
 import io.github.uoyeng1g6.components.PositionComponent;
 import io.github.uoyeng1g6.components.TextureComponent;
 import io.github.uoyeng1g6.components.TooltipComponent;
-import io.github.uoyeng1g6.constants.ActivityType;
-import io.github.uoyeng1g6.constants.GameConstants;
-import io.github.uoyeng1g6.constants.MoveDirection;
-import io.github.uoyeng1g6.constants.PlayerConstants;
+import io.github.uoyeng1g6.constants.*;
 import io.github.uoyeng1g6.models.GameState;
 import io.github.uoyeng1g6.models.PhysicsPolygon;
 import io.github.uoyeng1g6.systems.AnimationSystem;
@@ -51,6 +49,7 @@ import io.github.uoyeng1g6.systems.PlayerInteractionSystem;
 import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import io.github.uoyeng1g6.systems.StaticRenderingSystem;
 import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
+import io.github.uoyeng1g6.utils.ActivityConverter;
 import java.util.Map;
 
 /**
@@ -89,8 +88,9 @@ public class Playing implements Screen {
      */
     Box2DDebugRenderer debugRenderer = null;
 
-    // Extracted to attribute for assessment 2
-    public static String terrainAsset = "terrain.json";
+    // Extracted to attributes for assessment 2
+    public static String terrainAsset = "maps/terrainV2.json";
+    final float iconSize = 3 / 64f;
 
     public Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/gameMusic.mp3"));
 
@@ -102,6 +102,8 @@ public class Playing implements Screen {
         // Test mode does not allow LibGDX graphics-related components to be loaded during unit testing. Added for
         // assessment 2
         if (!isTestMode) {
+
+            // Camera set up
             camera = new OrthographicCamera();
             camera.setToOrtho(false, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
             viewport = new FitViewport(GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT, camera);
@@ -110,6 +112,7 @@ public class Playing implements Screen {
 
             var labelStyle = new Label.LabelStyle(game.tooltipFont, Color.BLACK);
 
+            // Sets up the UI
             var uiTop = new Table();
             uiTop.setFillParent(true);
             uiTop.setDebug(game.debug);
@@ -121,6 +124,7 @@ public class Playing implements Screen {
             gameMusic.setVolume(0.75f);
             gameMusic.play();
 
+            // Sets up the labels for the day and the clock
             var daysLabel = new Label("Monday", labelStyle);
             daysLabel.setFontScale(0.17f);
             uiTop.add(daysLabel);
@@ -135,6 +139,7 @@ public class Playing implements Screen {
             counters.setDebug(game.debug);
             stage.addActor(counters);
 
+            // Loads the icons used for the activities
             var studyIcon = game.interactionIconsTextureAtlas.findRegion("book_icon");
             var eatIcon = game.interactionIconsTextureAtlas.findRegion("food_icon");
             var recreationIcon = game.interactionIconsTextureAtlas.findRegion("popcorn_icon");
@@ -142,6 +147,7 @@ public class Playing implements Screen {
             var eatImage = new Image(eatIcon);
             var recreationImage = new Image(recreationIcon);
 
+            // The counter in the top left corner
             var todayLabel = new Label("Today:", labelStyle);
             todayLabel.setFontScale(0.08f);
             var totalLabel = new Label("Total:", labelStyle);
@@ -179,6 +185,7 @@ public class Playing implements Screen {
             counters.add(dayRecreationLabel);
             counters.add(totalRecreationLabel);
 
+            // the energy in top right
             var energy = new Table(game.skin);
             energy.setFillParent(true);
             energy.pad(1);
@@ -198,6 +205,7 @@ public class Playing implements Screen {
             this.engine = new PooledEngine();
             this.world = new World(new Vector2(), true);
 
+            // adds colliders to map
             initTerrain();
 
             // Create entities
@@ -207,6 +215,7 @@ public class Playing implements Screen {
                 engine.addEntity(entity);
             }
 
+            // The day names
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(daysLabel, new CounterComponent.CounterValueResolver() {
                         // spotless:off
@@ -222,36 +231,60 @@ public class Playing implements Screen {
                             return dayNameMap.get(gameState.daysRemaining);
                         }
                     })));
+            // The clock display
             engine.addEntity(engine.createEntity().add(new CounterComponent(timeLabel, state -> {
                 var newHour = 7 + (GameConstants.MAX_HOURS - state.hoursRemaining);
                 return String.format("%s%d:00", newHour < 10 ? "0" : "", newHour);
             })));
 
+            // The counters get updated here
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
-                            dayStudyLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.STUDY1)))));
+                            dayStudyLabel,
+                            state -> String.valueOf(state.currentDay.statFor(ActivitySubType.STUDY1)
+                                    + state.currentDay.statFor(ActivitySubType.STUDY2)))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
-                            dayEatLabel, state -> String.valueOf(state.currentDay.statFor(ActivityType.MEAL1)))));
+                            dayEatLabel,
+                            state -> String.valueOf(state.currentDay.statFor(ActivitySubType.MEAL1)
+                                    + state.currentDay.statFor(ActivitySubType.MEAL2)
+                                    + state.currentDay.statFor(ActivitySubType.MEAL3)))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
                             dayRecreationLabel,
-                            state -> String.valueOf(state.currentDay.statFor(ActivityType.RECREATION1)))));
+                            state -> String.valueOf(state.currentDay.statFor(ActivitySubType.RECREATION1)
+                                    + state.currentDay.statFor(ActivitySubType.RECREATION2)
+                                    + state.currentDay.statFor(ActivitySubType.RECREATION3)
+                                    + state.currentDay.statFor(ActivitySubType.RECREATION4)
+                                    + state.currentDay.statFor(ActivitySubType.RECREATION5)
+                                    + state.currentDay.statFor(ActivitySubType.RECREATION6)))));
 
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
                             totalStudyLabel,
-                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.STUDY1)))));
+                            state -> String.valueOf(String.valueOf(state.getTotalActivityCount(ActivitySubType.STUDY1)
+                                    + state.getTotalActivityCount(ActivitySubType.STUDY2))))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
-                            totalEatLabel, state -> String.valueOf(state.getTotalActivityCount(ActivityType.MEAL1)))));
+                            totalEatLabel,
+                            state -> String.valueOf(state.getTotalActivityCount(ActivitySubType.MEAL1)
+                                    + state.getTotalActivityCount(ActivitySubType.MEAL2)
+                                    + state.getTotalActivityCount(ActivitySubType.MEAL3)))));
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(
                             totalRecreationLabel,
-                            state -> String.valueOf(state.getTotalActivityCount(ActivityType.RECREATION1)))));
+                            state -> String.valueOf(state.getTotalActivityCount(ActivitySubType.RECREATION1)
+                                    + state.getTotalActivityCount(ActivitySubType.RECREATION2)
+                                    + state.getTotalActivityCount(ActivitySubType.RECREATION3)
+                                    + state.getTotalActivityCount(ActivitySubType.RECREATION4)
+                                    + state.getTotalActivityCount(ActivitySubType.RECREATION5)
+                                    + state.getTotalActivityCount(ActivitySubType.RECREATION6)))));
 
+            // the energy gets updated here
             engine.addEntity(engine.createEntity()
                     .add(new CounterComponent(energyAmount, state -> String.valueOf(state.energyRemaining))));
+
+            // Initialises the game systems
 
             engine.addSystem(new PlayerMovementSystem(gameState));
             engine.addSystem(new PlayerInteractionSystem(gameState));
@@ -308,67 +341,102 @@ public class Playing implements Screen {
         }
     }
 
+    /** Creates an entity for an individual interaction location.
+     * Added for assessment 2. */
+    private Entity initInteractionLocation(
+            Engine engine, int x, int y, ActivitySubType activitySubType, String toolTip) {
+
+        var studyIcon = game.interactionIconsTextureAtlas.findRegion("book_icon");
+        var foodIcon = game.interactionIconsTextureAtlas.findRegion("food_icon");
+        var popcornIcon = game.interactionIconsTextureAtlas.findRegion("popcorn_icon");
+
+        int time = GameConstants.getActivityTime(activitySubType);
+        int energy = GameConstants.getActivityEnergy(activitySubType);
+        ActivityType activityType = ActivityConverter.convertActivity(activitySubType);
+        TextureAtlas.AtlasRegion icon;
+        String overlayText;
+
+        switch (activityType) {
+            case STUDY:
+                icon = studyIcon;
+                overlayText = "Studying...";
+                break;
+            case MEAL:
+                icon = foodIcon;
+                overlayText = "Eating...";
+                break;
+            case RECREATION:
+                icon = popcornIcon;
+                overlayText = "Relaxing...";
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown activity type");
+        }
+
+        return engine.createEntity()
+                .add(new TextureComponent(icon, iconSize).show())
+                .add(new PositionComponent(x, y))
+                .add(new HitboxComponent(
+                        new Rectangle(x, y, icon.getRegionWidth() * iconSize, icon.getRegionHeight() * iconSize)))
+                .add(new InteractionComponent(state -> {
+                    if (!state.doActivity(activitySubType, overlayText)) {
+                        // Notify insufficient time/energy
+                    }
+                }))
+                .add(new TooltipComponent(
+                        game.tooltipFont, "Press [E] " + toolTip + "\nTime: -" + time + "h\nEnergy: -" + energy));
+    }
+
     /**
-     * Initialise the entities for the interaction locations on the map
+     * Initialise the entities for the interaction locations on the map.
+     * Extended and refactored for assessment 2.
      *
      * @param engine the engine to create the entities for.
      * @return the created entities.
      */
     Entity[] initInteractionLocations(Engine engine) {
-        final var iconSize = 2 / 64f;
 
-        var studyIcon = game.interactionIconsTextureAtlas.findRegion("book_icon");
-        var study = engine.createEntity()
-                .add(new TextureComponent(studyIcon, iconSize).show())
-                .add(new PositionComponent(25, 14))
-                .add(new HitboxComponent(new Rectangle(
-                        25, 14, studyIcon.getRegionWidth() * iconSize, studyIcon.getRegionHeight() * iconSize)))
-                .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(1, 10, ActivityType.STUDY1, "Studying...")) {
-                        // Notify insufficient time/energy
-                    }
-                }))
-                .add(new TooltipComponent(game.tooltipFont, "[E] Study for exams\nTime: -1h\nEnergy: -10"));
+        var study = initInteractionLocation(engine, 30, 9, ActivitySubType.STUDY1, "Study for exams");
+        var study2 = initInteractionLocation(engine, 83, 43, ActivitySubType.STUDY2, "Study for exams at Piazza");
 
-        var foodIcon = game.interactionIconsTextureAtlas.findRegion("food_icon");
-        var food = engine.createEntity()
-                .add(new TextureComponent(foodIcon, iconSize).show())
-                .add(new PositionComponent(54, 2.5f))
-                .add(new HitboxComponent(new Rectangle(
-                        54, 2.5f, foodIcon.getRegionWidth() * iconSize, foodIcon.getRegionHeight() * iconSize)))
-                .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(1, 5, ActivityType.MEAL1, "Eating...")) {
-                        // Notify insufficient time/energy
-                    }
-                }))
-                .add(new TooltipComponent(game.tooltipFont, "[E] Eat at Piazza\nTime: -1h\nEnergy: -5"));
+        var food = initInteractionLocation(engine, 92, 16, ActivitySubType.MEAL1, "Eat at Piazza");
+        var food2 = initInteractionLocation(engine, 11, 83, ActivitySubType.MEAL2, "Eat at home");
+        var food3 = initInteractionLocation(engine, 62, 69, ActivitySubType.MEAL3, "Have a picnic");
 
-        var popcornIcon = game.interactionIconsTextureAtlas.findRegion("popcorn_icon");
-        var recreation = engine.createEntity()
-                .add(new TextureComponent(popcornIcon, iconSize).show())
-                .add(new PositionComponent(53.5f, 26.5f))
-                .add(new HitboxComponent(new Rectangle(
-                        53.5f,
-                        26.5f,
-                        popcornIcon.getRegionWidth() * iconSize,
-                        popcornIcon.getRegionHeight() * iconSize)))
-                .add(new InteractionComponent(state -> {
-                    if (!state.doActivity(1, 10, ActivityType.RECREATION1, "Watching films...")) {
-                        // Notify insufficient time/energy
-                    }
-                }))
-                .add(new TooltipComponent(game.tooltipFont, "[E] Watch films with mates\nTime: -1h\nEnergy: -10"));
+        var recreation =
+                initInteractionLocation(engine, 44, 40, ActivitySubType.RECREATION1, "Watch the builders at Ron Cooke");
+        var recreation2 = initInteractionLocation(engine, 63, 18, ActivitySubType.RECREATION2, "Feed the ducks");
+        var recreation3 = initInteractionLocation(engine, 122, 63, ActivitySubType.RECREATION3, "Go to the pub");
+        var recreation4 =
+                initInteractionLocation(engine, 133, 40, ActivitySubType.RECREATION4, "Play a game of footie");
+        var recreation5 =
+                initInteractionLocation(engine, 102, 96, ActivitySubType.RECREATION5, "Go to town with mates");
+        var recreation6 = initInteractionLocation(engine, 31, 50, ActivitySubType.RECREATION6, "Play some sports");
 
+        // Adds the sleep activity
         var sleepIcon = game.interactionIconsTextureAtlas.findRegion("bed_icon");
         var sleep = engine.createEntity()
                 .add(new TextureComponent(sleepIcon, iconSize).show())
-                .add(new PositionComponent(3.5f, 26.5f))
+                .add(new PositionComponent(19, 83))
                 .add(new HitboxComponent(new Rectangle(
-                        3.5f, 26.5f, sleepIcon.getRegionWidth() * iconSize, sleepIcon.getRegionHeight() * iconSize)))
+                        19, 83, sleepIcon.getRegionWidth() * iconSize, sleepIcon.getRegionHeight() * iconSize)))
                 .add(new InteractionComponent(GameState::advanceDay))
-                .add(new TooltipComponent(game.tooltipFont, "[E] Go to sleep\nEnds the current day"));
+                .add(new TooltipComponent(game.tooltipFont, "Press [E] Go to sleep\nEnds the current day"));
 
-        return new Entity[] {study, food, recreation, sleep};
+        return new Entity[] {
+            study,
+            study2,
+            food,
+            food2,
+            food3,
+            recreation,
+            recreation2,
+            recreation3,
+            recreation4,
+            recreation5,
+            recreation6,
+            sleep
+        };
     }
 
     /**
@@ -473,6 +541,5 @@ public class Playing implements Screen {
     public void dispose() {
         stage.dispose();
         world.dispose();
-        gameMusic.dispose();
     }
 }

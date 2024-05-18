@@ -68,6 +68,11 @@ public class HeslingtonHustle extends Game {
     public Skin skin;
 
     /**
+     * Texture atlas containing all images for the player's sprite.
+     */
+    public TextureAtlas playerTextureAtlas;
+
+    /**
      * Texture atlas containing all icons used to mark interaction locations on the map.
      */
     public TextureAtlas interactionIconsTextureAtlas;
@@ -123,6 +128,7 @@ public class HeslingtonHustle extends Game {
      */
     private State currentState = State.MAIN_MENU;
 
+    // Extracted asset locations to attributes for assessment 2
     public static String playerAsset = "sprites/player.txt";
     public static String playerAsset2 = "sprites/player2.txt";
     public static String playerAsset3 = "sprites/player3.txt";
@@ -131,7 +137,7 @@ public class HeslingtonHustle extends Game {
     // Extracted asset locations to attributes for assessment 2
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
-    public static String mapAsset = "maps/campus-east.tmx";
+    public static String mapAsset = "maps/campus-east-ver2.tmx";
     public static String whitePixelAsset = "white_pixel.png";
 
     public HeslingtonHustle() {
@@ -176,7 +182,7 @@ public class HeslingtonHustle extends Game {
                 if (endScreen != null) {
                     endScreen.dispose();
                 }
-                endScreen = new EndScreen(this, playing.getGameState());
+                endScreen = new EndScreen(this, playing.getGameState(), false);
                 this.setScreen(endScreen);
                 break;
         }
@@ -185,17 +191,17 @@ public class HeslingtonHustle extends Game {
 
     @Override
     public void create() {
-
         Box2D.init();
 
         skin = new Skin(Gdx.files.internal(UISkinAsset));
 
+        playerTextureAtlas = new TextureAtlas(Gdx.files.internal(playerAsset));
         interactionIconsTextureAtlas = new TextureAtlas(Gdx.files.internal(interactionAsset));
 
         tiledMap = new TmxMapLoader().load(mapAsset);
 
         tooltipFont = new BitmapFont();
-        tooltipFont.getData().setScale(0.07f);
+        tooltipFont.getData().setScale(0.17f);
         tooltipFont.setUseIntegerPositions(false);
         tooltipFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         tooltipFont.setColor(Color.BLACK);
