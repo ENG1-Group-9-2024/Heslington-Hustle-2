@@ -1,10 +1,11 @@
 @startuml
 
 package screens {
-    class MainMenu {
+    class Options {
         - game: HeslingtonHustle
 
-        + MainMenu(game: HeslingtonHustle)
+        + Op
+        tions(HeslingtonHustle)
 
     }
 

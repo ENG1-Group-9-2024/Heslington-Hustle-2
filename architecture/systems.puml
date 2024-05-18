@@ -42,7 +42,7 @@ package systems {
         + MapRenderingSystem(tiledMap: TiledMap, camera: OrthographicCamera)
     }
 
-    class PlayerInputSystem {
+    class PlayerMovementSystem {
         - gameState: GameState
         - playerEntity: Entity
         - velocity: Vector2

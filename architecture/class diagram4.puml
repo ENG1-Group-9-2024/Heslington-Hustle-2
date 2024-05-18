@@ -7,12 +7,12 @@ package game{
 
 
 package screens{
-    class MainMenu {
+    class Options {
         '- game: HeslingtonHustle
         '- camera: Camera
         '- stage: Stage
         '- root: Table
-        '+ MainMenu(game: HeslingtonHustle)
+        '+ Options(game: HeslingtonHustle)
         '+ render(v: float): void
         '+ show(): void
         '+ resize(width: int, height: int): void
@@ -245,14 +245,14 @@ package constants{
 '        '+ update(deltaTime: float): void
 '    }
 '
-'    class PlayerInputSystem {
+'    class PlayerMovementSystem {
 '        '- gameState: GameState
 '        '- playerEntity: Entity
 '        '- velocity: Vector2
 '        '- pm: ComponentMapper<PlayerComponent>
 '        '- fm: ComponentMapper<FixtureComponent>
 '        '- am: ComponentMapper<AnimationComponent>
-'        '+ PlayerInputSystem(gameState: GameState)
+'        '+ PlayerMovementSystem(gameState: GameState)
 '        '+ addedToEngine(engine: Engine): void
 '        '+ update(deltaTime: float): void
 '    }
@@ -309,7 +309,7 @@ package constants{
 
 HeslingtonHustle *----- EndScreen
 HeslingtonHustle *----- Playing
-HeslingtonHustle *- MainMenu
+HeslingtonHustle *- Options
 
 'AnimationSystem *----- AnimationComponent
 'AnimationSystem *----- FixtureComponent
@@ -320,6 +320,7 @@ HeslingtonHustle *- MainMenu
 'DebugSystem *----- AnimationComponent
 'DebugSystem *----- FixtureComponent
 'DebugSystem *----- HitboxComponent
+
 'DebugSystem *----- InteractionComponent
 'DebugSystem *----- PlayerComponent
 'DebugSystem *----- PlayerConstants
@@ -328,11 +329,11 @@ HeslingtonHustle *- MainMenu
 
 
 
-'PlayerInputSystem *-----AnimationComponent
-'PlayerInputSystem *-----FixtureComponent
-'PlayerInputSystem *-----PlayerComponent
-'PlayerInputSystem *-----MoveDirection
-'PlayerInputSystem *-----PlayerConstants
+'PlayerMovementSystem *-----AnimationComponent
+'PlayerMovementSystem *-----FixtureComponent
+'PlayerMovementSystem *-----PlayerComponent
+'PlayerMovementSystem *-----MoveDirection
+'PlayerMovementSystem *-----PlayerConstants
 '
 'PlayerInteractionSystem *-----FixtureComponent
 'PlayerInteractionSystem *-----HitboxComponent
@@ -379,7 +380,7 @@ Playing *----- PhysicsPolygon
 'Playing *----- DebugSystem
 'Playing *----- InteractionOverlayRenderingSystem
 'Playing *----- MapRenderingSystem
-'Playing *----- PlayerInputSystem
+'Playing *----- PlayerMovementSystem
 'Playing *----- PlayerInteractionSystem
 'Playing *----- StaticRenderingSystem
 'Playing *----- TooltipRenderingSystem

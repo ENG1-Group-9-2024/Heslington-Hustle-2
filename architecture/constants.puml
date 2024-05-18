@@ -21,5 +21,7 @@ package constants {
     }
 
     class ActivityType{}
+
+    class ActivitySubType{}
 }
 @enduml

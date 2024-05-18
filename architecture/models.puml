@@ -30,10 +30,6 @@ package models {
         - vertices: Vector2[]
         + PhysicsPolygon()
         + PhysicsPolygon(name: String, type: BodyDef.BodyType, position: Vector2, vertices: Vector2...)
-        + getName(): String
-        + getType(): BodyDef.BodyType
-        + getPosition(): Vector2
-        + getVertices(): Vector2[]
     }
 }
 @enduml

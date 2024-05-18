@@ -16,12 +16,12 @@ left to right direction
 '
 '
 'package screens{
-'    class MainMenu {
+'    class Options {
 '        - game: HeslingtonHustle
 '        - camera: Camera
 '        - stage: Stage
 '        - root: Table
-'        + MainMenu(game: HeslingtonHustle)
+'        + Options(game: HeslingtonHustle)
 '        + render(v: float): void
 '        + show(): void
 '        + resize(width: int, height: int): void
@@ -249,14 +249,14 @@ package systems{
 '        + update(deltaTime: float): void
     }
 
-    class PlayerInputSystem {
+    class PlayerMovementSystem {
 '            - gameState: GameState
 '            - playerEntity: Entity
 '            - velocity: Vector2
 '            - pm: ComponentMapper<PlayerComponent>
 '            - fm: ComponentMapper<FixtureComponent>
 '            - am: ComponentMapper<AnimationComponent>
-'            + PlayerInputSystem(gameState: GameState)
+'            + PlayerMovementSystem(gameState: GameState)
 '            + addedToEngine(engine: Engine): void
 '            + update(deltaTime: float): void
             }
@@ -308,7 +308,8 @@ package systems{
 
 'HeslingtonHustle *------- EndScreen
 'HeslingtonHustle *------- Playing
-'HeslingtonHustle *- MainMenu
+'HeslingtonHustle *- Options
+
 
 AnimationSystem *------- AnimationComponent #orange
 AnimationSystem *------- FixtureComponent #orange
@@ -327,11 +328,11 @@ InteractionOverlayRenderingSystem *------- GameConstants #cyan
 
 
 
-PlayerInputSystem *-------AnimationComponent #Lime
-PlayerInputSystem *-------FixtureComponent #Lime
-PlayerInputSystem *-------PlayerComponent #Lime
-PlayerInputSystem *-------MoveDirection #Lime
-PlayerInputSystem *-------PlayerConstants #Lime
+PlayerMovementSystem *-------AnimationComponent #Lime
+PlayerMovementSystem *-------FixtureComponent #Lime
+PlayerMovementSystem *-------PlayerComponent #Lime
+PlayerMovementSystem *-------MoveDirection #Lime
+PlayerMovementSystem *-------PlayerConstants #Lime
 
 PlayerInteractionSystem *-------FixtureComponent #blue
 PlayerInteractionSystem *-------HitboxComponent #blue
@@ -378,7 +379,7 @@ TooltipRenderingSystem *------- PlayerConstants #red
 'Playing *--- DebugSystem
 'Playing *--- InteractionOverlayRenderingSystem
 'Playing *--- MapRenderingSystem
-'Playing *--- PlayerInputSystem
+'Playing *--- PlayerMovementSystem
 'Playing *--- PlayerInteractionSystem
 'Playing *--- StaticRenderingSystem
 'Playing *--- TooltipRenderingSystem
