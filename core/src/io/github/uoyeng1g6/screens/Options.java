@@ -43,6 +43,7 @@ public class Options implements Screen {
      * Textbutton variables for each of the buttons used to switch between the different character models
      */
     private final TextButton playerModel1Button;
+
     private final TextButton playerModel2Button;
     private final TextButton playerModel3Button;
     private final TextButton playerModel4Button;
