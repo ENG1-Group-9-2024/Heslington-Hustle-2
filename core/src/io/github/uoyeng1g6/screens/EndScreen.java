@@ -39,145 +39,150 @@ public class EndScreen implements Screen {
      */
     Stage stage;
 
-    int bonus;
+    public int bonus;
 
     public EndScreen(HeslingtonHustle game, GameState endGameState, boolean isTestMode) {
-        camera = new OrthographicCamera();
-        var viewport = new FitViewport(GameConstants.WORLD_WIDTH * 10, GameConstants.WORLD_HEIGHT * 10, camera);
 
-        stage = new Stage(viewport);
-        Gdx.input.setInputProcessor(stage);
+        if (!isTestMode) {
+            camera = new OrthographicCamera();
+            var viewport = new FitViewport(GameConstants.WORLD_WIDTH * 10, GameConstants.WORLD_HEIGHT * 10, camera);
 
-        var root = new Table(game.skin);
-        root.setFillParent(true);
-        root.pad(0.25f);
+            stage = new Stage(viewport);
+            Gdx.input.setInputProcessor(stage);
 
-        root.setDebug(game.debug);
-        stage.addActor(root);
+            var root = new Table(game.skin);
+            root.setFillParent(true);
+            root.pad(0.25f);
 
-        root.add("Game Over").getActor().setFontScale(2);
-        root.row();
+            root.setDebug(game.debug);
+            stage.addActor(root);
 
-        var inner = new Table(game.skin);
+            root.add("Game Over").getActor().setFontScale(2);
+            root.row();
 
-        inner.add(String.format("Exam Score: %.2f / 100", calculateExamScore(endGameState.days)))
-                .padBottom(50);
-        inner.row();
+            var inner = new Table(game.skin);
 
-        // Bonus is displayed here
-        inner.add("Bonus: " + bonus);
-        inner.row();
-
-        // The achievements are displayed if they were activated
-
-        if (study2Bool) {
-            inner.add("Bookworm: Studied in the Piazza every day");
+            inner.add(String.format("Exam Score: %.2f / 100", calculateExamScore(endGameState.days)))
+                    .padBottom(50);
             inner.row();
-        }
 
-        if (study1Bool) {
-            inner.add("Overclocked CPU: Studied in the C.S Building every day");
+            // Bonus is displayed here
+            inner.add("Bonus: " + bonus);
             inner.row();
-        }
 
-        if (meal1Bool) {
-            inner.add("Money Saver: Ate at home every day");
+            // The achievements are displayed if they were activated
+
+            if (study2Bool) {
+                inner.add("Bookworm: Studied in the Piazza every day");
+                inner.row();
+            }
+
+            if (study1Bool) {
+                inner.add("Overclocked CPU: Studied in the C.S Building every day");
+                inner.row();
+            }
+
+            if (meal1Bool) {
+                inner.add("Money Saver: Ate at home every day");
+                inner.row();
+            }
+
+            if (meal2Bool) {
+                inner.add("Eat out to help out: Ate in the Piazza every day");
+                inner.row();
+            }
+
+            if (meal3Bool) {
+                inner.add("People Watcher: Ate a picnic every day");
+                inner.row();
+            }
+
+            if (recreation1Bool) {
+                inner.add("Secret crush: Watched the builders every day");
+                inner.row();
+            }
+
+            if (recreation2Bool) {
+                inner.add("What the duck!: Fed the ducks every day");
+                inner.row();
+            }
+
+            if (recreation3Bool) {
+                inner.add("Cold one: Went to the pub every day");
+                inner.row();
+            }
+
+            if (recreation4Bool) {
+                inner.add("Unlucky: Played (and lost) at football every day");
+                inner.row();
+            }
+
+            if (recreation5Bool) {
+                inner.add("Escapism: Went to town every day");
+                inner.row();
+            }
+
+            if (recreation6Bool) {
+                inner.add("Active lifestyle: Played sports every day");
+                inner.row();
+            }
+
+            inner.add("Times Studied: "
+                    + (endGameState.getTotalActivityCount(ActivitySubType.STUDY1)
+                    + endGameState.getTotalActivityCount(ActivitySubType.STUDY2)));
             inner.row();
-        }
-
-        if (meal2Bool) {
-            inner.add("Eat out to help out: Ate in the Piazza every day");
+            inner.add("Meals Eaten: "
+                    + (endGameState.getTotalActivityCount(ActivitySubType.MEAL1)
+                    + endGameState.getTotalActivityCount(ActivitySubType.MEAL2)
+                    + endGameState.getTotalActivityCount(ActivitySubType.MEAL3)));
             inner.row();
-        }
-
-        if (meal3Bool) {
-            inner.add("People Watcher: Ate a picnic every day");
+            inner.add("Recreational Activities Done: "
+                    + (endGameState.getTotalActivityCount(ActivitySubType.RECREATION1)
+                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION2)
+                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION3)
+                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION4)
+                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION5)
+                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION6)));
             inner.row();
+
+
+            //Added for assessment 2
+            // Saves player's score to leaderboard if in the top 10
+            String playerName = PlayerComponent.getUserName();
+            float finalScore = calculateExamScore(endGameState.days);
+            PlayerScore playerScore = new PlayerScore(playerName, finalScore);
+            LeaderboardManager.getInstance().addScore(playerScore);
+            LeaderboardManager.getInstance().saveScoresToFile();
+
+            // Extract current top 10 scores from leaderboard.csv
+            List<PlayerScore> leaderboardEntries = LeaderboardManager.getInstance().getTopTenScores();
+            var leaderBoard = new Table(game.skin);
+            leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
+            leaderBoard.row();
+
+            // Add player names and scores to Leaderboard actor
+            for (int i = 0; i < leaderboardEntries.size(); i++) {
+                leaderBoard
+                        .add(leaderboardEntries.get(i).getName() + ": "
+                                + leaderboardEntries.get(i).getScore())
+                        .padBottom(10)
+                        .row();
+            }
+            // Position the leaderboard on the right side of the screen
+            leaderBoard.setFillParent(true);
+            leaderBoard.pad(0.15f);
+            leaderBoard.right();
+            stage.addActor(leaderBoard);
+
+            var mainMenuButton = new TextButton("Main Menu", game.skin);
+            mainMenuButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.MAIN_MENU)));
+            inner.add(mainMenuButton)
+                    .padTop(50)
+                    .width(Value.percentWidth(0.4f, inner))
+                    .height(Value.percentHeight(0.1f, inner));
+
+            root.add(inner).grow();
         }
-
-        if (recreation1Bool) {
-            inner.add("Secret crush: Watched the builders every day");
-            inner.row();
-        }
-
-        if (recreation2Bool) {
-            inner.add("What the duck!: Fed the ducks every day");
-            inner.row();
-        }
-
-        if (recreation3Bool) {
-            inner.add("Cold one: Went to the pub every day");
-            inner.row();
-        }
-
-        if (recreation4Bool) {
-            inner.add("Unlucky: Played (and lost) at football every day");
-            inner.row();
-        }
-
-        if (recreation5Bool) {
-            inner.add("Escapism: Went to town every day");
-            inner.row();
-        }
-
-        if (recreation6Bool) {
-            inner.add("Active lifestyle: Played sports every day");
-            inner.row();
-        }
-
-        inner.add("Times Studied: "
-                + (endGameState.getTotalActivityCount(ActivitySubType.STUDY1)
-                        + endGameState.getTotalActivityCount(ActivitySubType.STUDY2)));
-        inner.row();
-        inner.add("Meals Eaten: "
-                + (endGameState.getTotalActivityCount(ActivitySubType.MEAL1)
-                        + endGameState.getTotalActivityCount(ActivitySubType.MEAL2)
-                        + endGameState.getTotalActivityCount(ActivitySubType.MEAL3)));
-        inner.row();
-        inner.add("Recreational Activities Done: "
-                + (endGameState.getTotalActivityCount(ActivitySubType.RECREATION1)
-                        + endGameState.getTotalActivityCount(ActivitySubType.RECREATION2)
-                        + endGameState.getTotalActivityCount(ActivitySubType.RECREATION3)
-                        + endGameState.getTotalActivityCount(ActivitySubType.RECREATION4)
-                        + endGameState.getTotalActivityCount(ActivitySubType.RECREATION5)
-                        + endGameState.getTotalActivityCount(ActivitySubType.RECREATION6)));
-        inner.row();
-
-        // Saves player's score to leaderboard if in the top 10
-        String playerName = PlayerComponent.getUserName();
-        float finalScore = calculateExamScore(endGameState.days);
-        PlayerScore playerScore = new PlayerScore(playerName, finalScore);
-        LeaderboardManager.getInstance().addScore(playerScore);
-        LeaderboardManager.getInstance().saveScoresToFile();
-
-        // Extract current top 10 scores from leaderboard.csv
-        List<PlayerScore> leaderboardEntries = LeaderboardManager.getInstance().getTopTenScores();
-        var leaderBoard = new Table(game.skin);
-        leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
-        leaderBoard.row();
-
-        // Add player names and scores to Leaderboard actor
-        for (int i = 0; i < leaderboardEntries.size(); i++) {
-            leaderBoard
-                    .add(leaderboardEntries.get(i).getName() + ": "
-                            + leaderboardEntries.get(i).getScore())
-                    .padBottom(10)
-                    .row();
-        }
-        // Position the leaderboard on the right side of the screen
-        leaderBoard.setFillParent(true);
-        leaderBoard.pad(0.15f);
-        leaderBoard.right();
-        stage.addActor(leaderBoard);
-
-        var mainMenuButton = new TextButton("Main Menu", game.skin);
-        mainMenuButton.addListener(ChangeListener.of((e, a) -> game.setState(HeslingtonHustle.State.MAIN_MENU)));
-        inner.add(mainMenuButton)
-                .padTop(50)
-                .width(Value.percentWidth(0.4f, inner))
-                .height(Value.percentHeight(0.1f, inner));
-
-        root.add(inner).grow();
     }
 
     /**
@@ -238,7 +243,7 @@ public class EndScreen implements Screen {
      * @param days the days to calculate the score for.
      * @return the computed game score.
      */
-    float calculateExamScore(List<GameState.Day> days) {
+    public float calculateExamScore(List<GameState.Day> days) {
         float totalScore = 0;
 
         for (var day : days) {

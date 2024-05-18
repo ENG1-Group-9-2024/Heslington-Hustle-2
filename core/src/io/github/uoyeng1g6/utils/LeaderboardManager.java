@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+//Added for assessment 2
+/**
+ * This class holds the information about the leaderboard and the
+ * methods that control its content
+ */
 public class LeaderboardManager {
 
     private static LeaderboardManager instance;
@@ -28,6 +33,11 @@ public class LeaderboardManager {
         return addScore(new PlayerScore(name, score));
     }
 
+    /**
+     *
+     * @param playerScore which contains the name and score of the current player
+     * @return true if successful
+     */
     public boolean addScore(PlayerScore playerScore) {
         scores.add(playerScore);
         scores.sort((s1, s2) -> Double.compare(s2.getScore(), s1.getScore()));
@@ -44,6 +54,9 @@ public class LeaderboardManager {
         return new ArrayList<>(scores);
     }
 
+    /**
+     * Saves the current score to the leaderboard.csv file
+     */
     public void saveScoresToFile() {
         try (PrintWriter out = new PrintWriter(new FileWriter(FILEPATH))) {
             for (PlayerScore score : scores) {
@@ -54,6 +67,9 @@ public class LeaderboardManager {
         }
     }
 
+    /**
+     * Loads the current scores from the leaderboard.csv file
+     */
     private void loadScores() {
         File scoreFile = new File(FILEPATH);
         if (!scoreFile.exists()) {
