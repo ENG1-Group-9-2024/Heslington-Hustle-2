@@ -78,7 +78,7 @@ public class Options implements Screen {
         inner.add(WASD).pad(10).width(Value.percentWidth(0.15f, inner)).height(Value.percentHeight(0.15f, inner));
 
         var arrowKeys = new TextButton("Arrow keys", game.skin);
-        arrowKeys.addListener(ChangeListener.of((e, a) -> System.out.println(PlayerComponent.getUserName())));
+        arrowKeys.addListener(ChangeListener.of((e, a) -> PlayerComponent.setKeyboardControls(true)));
         inner.add(arrowKeys).pad(10).width(Value.percentWidth(0.15f, inner)).height(Value.percentHeight(0.15f, inner));
 
         root.add(inner).padBottom(150).grow();
