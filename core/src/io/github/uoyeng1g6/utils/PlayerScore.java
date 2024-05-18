@@ -3,17 +3,17 @@ package io.github.uoyeng1g6.utils;
 public class PlayerScore {
 
     private final String name;
-    private final float finalScore;
+    private final double finalScore;
 
     public String getName() {
         return name;
     }
 
-    public float getScore() {
+    public double getScore() {
         return finalScore;
     }
 
-    public PlayerScore(String name, float finalScore) {
+    public PlayerScore(String name, double finalScore) {
         this.name = name;
         this.finalScore = finalScore;
     }

@@ -52,6 +52,8 @@ import io.github.uoyeng1g6.systems.TooltipRenderingSystem;
 import io.github.uoyeng1g6.utils.ActivityConverter;
 import io.github.uoyeng1g6.utils.LeaderboardManager;
 import io.github.uoyeng1g6.utils.PlayerScore;
+
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -499,14 +501,15 @@ public class Playing implements Screen {
             game.setState(HeslingtonHustle.State.END_SCREEN);
 
             // Write score to file
-            EndScreen endScreen = new EndScreen(game, gameState);
+            EndScreen endScreen = new EndScreen(game, gameState, false);
             String playerName = JOptionPane.showInputDialog("Please enter your name:");
             float finalScore = endScreen.calculateExamScore(gameState.days);
 
             PlayerScore playerScore = new PlayerScore(playerName, finalScore);
             LeaderboardManager.getInstance().addScore(playerScore);
-
             LeaderboardManager.getInstance().saveScoresToFile();
+
+            updateLeaderboardDisplay();
 
             return;
         }
@@ -534,7 +537,25 @@ public class Playing implements Screen {
         }
     }
 
-
+    public void updateLeaderboardDisplay() {
+        stage.clear();  // 既存のUIコンポーネントをクリア
+    
+        var leaderBoard = new Table(game.skin);
+        leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
+        leaderBoard.row();
+    
+        List<PlayerScore> topScores = LeaderboardManager.getInstance().getTopTenScores();
+        for (PlayerScore score : topScores) {
+            leaderBoard.add(score.getName() + ": " + score.getScore())
+                       .padBottom(10)
+                       .row();
+        }
+    
+        leaderBoard.setFillParent(true);
+        leaderBoard.pad(0.15f);
+        leaderBoard.right();
+        stage.addActor(leaderBoard);
+    }
 
     @Override
     public void resize(int width, int height) {

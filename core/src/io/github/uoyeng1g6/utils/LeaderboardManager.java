@@ -30,7 +30,7 @@ public class LeaderboardManager {
 
     public boolean addScore(PlayerScore playerScore) {
         scores.add(playerScore);
-        scores.sort((s1, s2) -> s2.getScore() - s1.getScore());
+        scores.sort((s1, s2) -> Double.compare(s2.getScore(), s1.getScore()));
         if (scores.size() > 10) {
             scores = scores.subList(0, 10);
         }
@@ -55,15 +55,31 @@ public class LeaderboardManager {
     }
 
     private void loadScores() {
-        try (Scanner scanner = new Scanner(new File(FILEPATH))) {
+        File scoreFile = new File(FILEPATH);
+        if (!scoreFile.exists()) {
+            try {
+                scoreFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+    
+        try (Scanner scanner = new Scanner(scoreFile)) {
             while (scanner.hasNextLine()) {
                 String[] data = scanner.nextLine().split(",");
-                if (data.length == 2) {
-                    addScore(data[0], Integer.parseInt(data[1]));
+                try {
+                    if (data.length == 2) {
+                        double score = Double.parseDouble(data[1]);
+                        addScore(new PlayerScore(data[0], score));
+                    }
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid score format in leaderboard file.");
                 }
             }
         } catch (FileNotFoundException e) {
-            System.err.println("No existing score file fould.");
+            // この例外は発生しないはずだが、念のためログを出力
+            System.err.println("Unexpected error: Score file not found after creation.");
         }
     }
 }
