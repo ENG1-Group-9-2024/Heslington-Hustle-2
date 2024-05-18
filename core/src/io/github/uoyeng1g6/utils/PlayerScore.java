@@ -1,5 +1,6 @@
 package io.github.uoyeng1g6.utils;
 
+// Added for assessment 2
 public class PlayerScore {
 
     private final String name;
