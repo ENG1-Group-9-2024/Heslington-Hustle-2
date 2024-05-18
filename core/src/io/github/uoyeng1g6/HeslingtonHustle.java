@@ -1,5 +1,11 @@
 package io.github.uoyeng1g6;
-
+/**
+ * removed player sprite loading functionality from this class as this class
+ * is loaded on startup so was preventing ability to change the sprite in the
+ * options window.
+ * Player sprite is loaded into "playerTextureAtlas" in Options window now along
+ * with functionality for switching between different player sprites
+ */
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -62,11 +68,6 @@ public class HeslingtonHustle extends Game {
     public Skin skin;
 
     /**
-     * Texture atlas containing all images for the player's sprite.
-     */
-    public TextureAtlas playerTextureAtlas;
-
-    /**
      * Texture atlas containing all icons used to mark interaction locations on the map.
      */
     public TextureAtlas interactionIconsTextureAtlas;
@@ -123,7 +124,6 @@ public class HeslingtonHustle extends Game {
     private State currentState = State.MAIN_MENU;
 
     // Extracted asset locations to attributes for assessment 2
-    public static String playerAsset = "sprites/player.txt";
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
     public static String mapAsset = "maps/campus-east.tmx";
@@ -180,11 +180,11 @@ public class HeslingtonHustle extends Game {
 
     @Override
     public void create() {
+
         Box2D.init();
 
         skin = new Skin(Gdx.files.internal(UISkinAsset));
 
-        playerTextureAtlas = new TextureAtlas(Gdx.files.internal(playerAsset));
         interactionIconsTextureAtlas = new TextureAtlas(Gdx.files.internal(interactionAsset));
 
         tiledMap = new TmxMapLoader().load(mapAsset);
@@ -234,7 +234,6 @@ public class HeslingtonHustle extends Game {
 
         skin.dispose();
 
-        playerTextureAtlas.dispose();
         interactionIconsTextureAtlas.dispose();
         whitePixel.dispose();
 

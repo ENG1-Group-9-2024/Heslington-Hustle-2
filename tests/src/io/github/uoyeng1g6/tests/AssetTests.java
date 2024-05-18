@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.badlogic.gdx.Gdx;
 import io.github.uoyeng1g6.HeslingtonHustle;
+import io.github.uoyeng1g6.screens.Options;
 import io.github.uoyeng1g6.screens.Playing;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +29,7 @@ public class AssetTests {
 
         assertTrue(
                 "The asset for player exists",
-                Gdx.files.internal("../assets/" + HeslingtonHustle.playerAsset).exists());
+                Gdx.files.internal("../assets/" + Options.playerTextureAtlas).exists());
     }
 
     @Test
