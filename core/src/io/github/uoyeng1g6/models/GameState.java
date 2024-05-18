@@ -2,7 +2,7 @@ package io.github.uoyeng1g6.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import io.github.uoyeng1g6.constants.ActivityType;
+import io.github.uoyeng1g6.constants.ActivitySubType;
 import io.github.uoyeng1g6.constants.GameConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class GameState {
         /**
          * Map of activity type to number of activities completed of that type.
          */
-        public final HashMap<ActivityType, Integer> activityStats = new HashMap<>();
+        public final HashMap<ActivitySubType, Integer> activityStats = new HashMap<>();
 
         /**
          * Get the number of times an activity of a specific type has been done.
@@ -26,7 +26,7 @@ public class GameState {
          * @param type the type of activity.
          * @return the number of times an activity of the given type has been done.
          */
-        public int statFor(ActivityType type) {
+        public int statFor(ActivitySubType type) {
             return activityStats.getOrDefault(type, 0);
         }
     }
@@ -106,13 +106,14 @@ public class GameState {
      * an overlay. If there are not enough hours left in the day, or the player does not have enough energy
      * then returns {@code false}.
      *
-     * @param timeUsage   the amount of time the activity requires.
-     * @param energyUsage the amount of energy the activity requires.
      * @param type        the type of activity being done.
      * @param overlayText the text to show on the overlay while doing the interaction.
      * @return boolean indicating whether the activity could be performed.
      */
-    public boolean doActivity(int timeUsage, int energyUsage, ActivityType type, String overlayText) {
+    public boolean doActivity(ActivitySubType type, String overlayText) {
+        int timeUsage = GameConstants.getActivityTime(type);
+        int energyUsage = GameConstants.getActivityEnergy(type);
+
         if (hoursRemaining < timeUsage || energyRemaining < energyUsage) {
             wrongSound.play(1.0f);
             return false;
@@ -133,7 +134,7 @@ public class GameState {
      * @param type the type of activity to get the total for.
      * @return the total number of activities of that type done.
      */
-    public int getTotalActivityCount(ActivityType type) {
+    public int getTotalActivityCount(ActivitySubType type) {
         return days.stream().mapToInt(day -> day.statFor(type)).sum() + currentDay.statFor(type);
     }
 

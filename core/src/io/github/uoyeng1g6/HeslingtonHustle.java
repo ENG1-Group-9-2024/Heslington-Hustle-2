@@ -131,7 +131,7 @@ public class HeslingtonHustle extends Game {
     // Extracted asset locations to attributes for assessment 2
     public static String interactionAsset = "sprites/interaction_icons.txt";
     public static String UISkinAsset = "skins/default/uiskin.json";
-    public static String mapAsset = "maps/campus-east.tmx";
+    public static String mapAsset = "maps/campus-east-ver2.tmx";
     public static String whitePixelAsset = "white_pixel.png";
 
     public HeslingtonHustle() {
@@ -185,7 +185,6 @@ public class HeslingtonHustle extends Game {
 
     @Override
     public void create() {
-
         Box2D.init();
 
         skin = new Skin(Gdx.files.internal(UISkinAsset));
@@ -195,7 +194,7 @@ public class HeslingtonHustle extends Game {
         tiledMap = new TmxMapLoader().load(mapAsset);
 
         tooltipFont = new BitmapFont();
-        tooltipFont.getData().setScale(0.07f);
+        tooltipFont.getData().setScale(0.17f);
         tooltipFont.setUseIntegerPositions(false);
         tooltipFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         tooltipFont.setColor(Color.BLACK);
