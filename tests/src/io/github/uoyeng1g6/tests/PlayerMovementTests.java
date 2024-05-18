@@ -3,15 +3,18 @@ package io.github.uoyeng1g6.tests;
 import static org.junit.Assert.assertTrue;
 
 import io.github.uoyeng1g6.models.GameState;
-import io.github.uoyeng1g6.systems.PlayerInputSystem;
+import io.github.uoyeng1g6.systems.PlayerMovementSystem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * This class tests that the player movement system works as expected
+ */
 @RunWith(GdxTestRunner.class)
 public class PlayerMovementTests {
 
     GameState game = new GameState();
-    PlayerInputSystem test = new PlayerInputSystem(game);
+    PlayerMovementSystem test = new PlayerMovementSystem(game);
 
     @Test
     public void t_LeftMovement() {
