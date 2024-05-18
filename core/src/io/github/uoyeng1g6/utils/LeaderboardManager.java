@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//Added for assessment 2
+// Added for assessment 2
 /**
  * This class holds the information about the leaderboard and the
  * methods that control its content

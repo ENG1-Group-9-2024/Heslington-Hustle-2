@@ -129,24 +129,23 @@ public class EndScreen implements Screen {
 
             inner.add("Times Studied: "
                     + (endGameState.getTotalActivityCount(ActivitySubType.STUDY1)
-                    + endGameState.getTotalActivityCount(ActivitySubType.STUDY2)));
+                            + endGameState.getTotalActivityCount(ActivitySubType.STUDY2)));
             inner.row();
             inner.add("Meals Eaten: "
                     + (endGameState.getTotalActivityCount(ActivitySubType.MEAL1)
-                    + endGameState.getTotalActivityCount(ActivitySubType.MEAL2)
-                    + endGameState.getTotalActivityCount(ActivitySubType.MEAL3)));
+                            + endGameState.getTotalActivityCount(ActivitySubType.MEAL2)
+                            + endGameState.getTotalActivityCount(ActivitySubType.MEAL3)));
             inner.row();
             inner.add("Recreational Activities Done: "
                     + (endGameState.getTotalActivityCount(ActivitySubType.RECREATION1)
-                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION2)
-                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION3)
-                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION4)
-                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION5)
-                    + endGameState.getTotalActivityCount(ActivitySubType.RECREATION6)));
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION2)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION3)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION4)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION5)
+                            + endGameState.getTotalActivityCount(ActivitySubType.RECREATION6)));
             inner.row();
 
-
-            //Added for assessment 2
+            // Added for assessment 2
             // Saves player's score to leaderboard if in the top 10
             String playerName = PlayerComponent.getUserName();
             float finalScore = calculateExamScore(endGameState.days);
@@ -155,7 +154,8 @@ public class EndScreen implements Screen {
             LeaderboardManager.getInstance().saveScoresToFile();
 
             // Extract current top 10 scores from leaderboard.csv
-            List<PlayerScore> leaderboardEntries = LeaderboardManager.getInstance().getTopTenScores();
+            List<PlayerScore> leaderboardEntries =
+                    LeaderboardManager.getInstance().getTopTenScores();
             var leaderBoard = new Table(game.skin);
             leaderBoard.add("Leaderboard").getActor().setFontScale(1.5f);
             leaderBoard.row();
