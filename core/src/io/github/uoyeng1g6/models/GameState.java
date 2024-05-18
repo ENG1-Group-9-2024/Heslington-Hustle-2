@@ -162,4 +162,12 @@ public class GameState {
     public void setHoursRemaining(int hours) {
         this.hoursRemaining = hours;
     }
+
+    public void setInteractionOverlay(InteractionOverlay overlay) {
+        this.interactionOverlay = overlay;
+    }
+
+    public InteractionOverlay getInteractionOverlay() {
+        return interactionOverlay;
+    }
 }
