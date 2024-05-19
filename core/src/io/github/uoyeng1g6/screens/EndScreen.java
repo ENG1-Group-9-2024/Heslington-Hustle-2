@@ -44,6 +44,9 @@ public class EndScreen implements Screen {
     public EndScreen(HeslingtonHustle game, GameState endGameState, boolean isTestMode) {
 
         if (!isTestMode) {
+
+            float finalScore = calculateExamScore(endGameState.days);
+
             camera = new OrthographicCamera();
             var viewport = new FitViewport(GameConstants.WORLD_WIDTH * 10, GameConstants.WORLD_HEIGHT * 10, camera);
 
@@ -62,12 +65,11 @@ public class EndScreen implements Screen {
 
             var inner = new Table(game.skin);
 
-            inner.add(String.format("Exam Score: %.2f / 100", calculateExamScore(endGameState.days)))
-                    .padBottom(50);
+            inner.add(String.format("Exam Score: %.2f / 100", finalScore)).padBottom(50);
             inner.row();
 
             // Bonus is displayed here
-            inner.add("Bonus: " + bonus);
+            inner.add("Includes a Bonus of: " + bonus);
             inner.row();
 
             // The achievements are displayed if they were activated
@@ -82,18 +84,18 @@ public class EndScreen implements Screen {
                 inner.row();
             }
 
-            if (meal1Bool) {
+            if (meal2Bool) {
                 inner.add("Money Saver: Ate at home every day");
                 inner.row();
             }
 
-            if (meal2Bool) {
+            if (meal1Bool) {
                 inner.add("Eat out to help out: Ate in the Piazza every day");
                 inner.row();
             }
 
             if (meal3Bool) {
-                inner.add("People Watcher: Ate a picnic every day");
+                inner.add("People Watcher: Had a picnic every day");
                 inner.row();
             }
 
@@ -108,7 +110,7 @@ public class EndScreen implements Screen {
             }
 
             if (recreation3Bool) {
-                inner.add("Cold one: Went to the pub every day");
+                inner.add("Questionable work ethic: Went to the pub every day");
                 inner.row();
             }
 
@@ -148,8 +150,8 @@ public class EndScreen implements Screen {
             // Added for assessment 2
             // Saves player's score to leaderboard if in the top 10
             String playerName = PlayerComponent.getUserName();
-            float finalScore = calculateExamScore(endGameState.days);
-            PlayerScore playerScore = new PlayerScore(playerName, finalScore);
+
+            PlayerScore playerScore = new PlayerScore(playerName, (finalScore));
             LeaderboardManager.getInstance().addScore(playerScore);
             LeaderboardManager.getInstance().saveScoresToFile();
 
