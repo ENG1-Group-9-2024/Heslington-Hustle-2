@@ -203,7 +203,7 @@ public class Options implements Screen {
             return true;
         });
         if (playerTextureAtlas == null) {
-            playerTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.txt"));
+            playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset));
         }
 
         stage.act(Gdx.graphics.getDeltaTime());
@@ -235,6 +235,5 @@ public class Options implements Screen {
 
     @Override
     public void dispose() {
-        playerTextureAtlas.dispose();
     }
 }
