@@ -37,7 +37,7 @@ spotless {
 allprojects {
     apply plugin: "eclipse"
 
-    version = '0.0.16'
+    version = '0.0.17'
     ext {
         appName = "assessment1"
         gdxVersion = '1.12.1'
