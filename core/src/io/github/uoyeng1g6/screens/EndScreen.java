@@ -220,7 +220,7 @@ public class EndScreen implements Screen {
     }
 
     // booleans used to keep track on if the activity has been performed daily
-    public static boolean study1Bool = true;
+    boolean study1Bool = true;
     boolean study2Bool = true;
 
     boolean meal1Bool = true;
