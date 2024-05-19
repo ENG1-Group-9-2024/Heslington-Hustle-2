@@ -7,11 +7,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.uoyeng1g6.HeslingtonHustle;
@@ -28,6 +28,10 @@ public class Options implements Screen {
      */
     Stage stage;
     /**
+     * Texture atlas variable used to contain the player sprite information.
+     */
+    public static TextureAtlas playerTextureAtlas;
+    /**
      * Textfield variable used to make a text box which the user could enter their name into
      */
     private final TextField nameTextField;
@@ -35,6 +39,14 @@ public class Options implements Screen {
      * Textbutton variable used to create the submit button
      */
     private final TextButton submitButton;
+    /**
+     * Textbutton variables for each of the buttons used to switch between the different character models
+     */
+    private final TextButton playerModel1Button;
+
+    private final TextButton playerModel2Button;
+    private final TextButton playerModel3Button;
+    private final TextButton playerModel4Button;
 
     /**
      * code for options screen functionality below. Buttons and text box for name
@@ -59,13 +71,14 @@ public class Options implements Screen {
         root.row();
 
         var inner = new Table(game.skin);
+        inner.top();
 
         var WASD = new TextButton("WASD", game.skin);
         WASD.addListener(ChangeListener.of((e, a) -> PlayerComponent.setKeyboardControls(false)));
         inner.add(WASD).pad(10).width(Value.percentWidth(0.15f, inner)).height(Value.percentHeight(0.15f, inner));
 
         var arrowKeys = new TextButton("Arrow keys", game.skin);
-        arrowKeys.addListener(ChangeListener.of((e, a) -> System.out.println(PlayerComponent.getUserName())));
+        arrowKeys.addListener(ChangeListener.of((e, a) -> PlayerComponent.setKeyboardControls(true)));
         inner.add(arrowKeys).pad(10).width(Value.percentWidth(0.15f, inner)).height(Value.percentHeight(0.15f, inner));
 
         root.add(inner).padBottom(150).grow();
@@ -95,6 +108,124 @@ public class Options implements Screen {
             return true;
         });
 
+        int modelWidth = 64;
+        int modelHeight = 64;
+        int xCo = 0;
+        int yCo = 128;
+        /*
+         * loading png of player models for the options window so the player can
+         * see what models they are switching between
+         */
+        Texture model1 = new Texture(Gdx.files.internal("sprites/player.png"));
+        TextureRegion model1Region = new TextureRegion(model1, xCo, yCo, modelWidth, modelHeight);
+        Image model1Image = new Image(model1Region);
+
+        Texture model2 = new Texture(Gdx.files.internal("sprites/player2.png"));
+        TextureRegion model2Region = new TextureRegion(model2, xCo, yCo, modelWidth, modelHeight);
+        Image model2Image = new Image(model2Region);
+
+        Texture model3 = new Texture(Gdx.files.internal("sprites/player3.png"));
+        TextureRegion model3Region = new TextureRegion(model3, xCo, yCo, modelWidth, modelHeight);
+        Image model3Image = new Image(model3Region);
+
+        Texture model4 = new Texture(Gdx.files.internal("sprites/player4.png"));
+        TextureRegion model4Region = new TextureRegion(model4, xCo, yCo, modelWidth, modelHeight);
+        Image model4Image = new Image(model4Region);
+
+        playerModel1Button = new TextButton("Model 1", game.skin);
+        playerModel2Button = new TextButton("Model 2", game.skin);
+        playerModel3Button = new TextButton("Model 3", game.skin);
+        playerModel4Button = new TextButton("Model 4", game.skin);
+
+        Table outer = new Table(game.skin);
+        outer.setFillParent(true);
+        outer.left();
+        outer.row();
+        outer.add(playerModel1Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model1Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
+        outer.row();
+        outer.add(playerModel2Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model2Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
+        outer.row();
+        outer.add(playerModel3Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model3Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
+        outer.row();
+        outer.add(playerModel4Button)
+                .width(Value.percentWidth(0.12f, outer))
+                .height(Value.percentWidth(0.12f, outer))
+                .pad(10);
+        outer.add(model4Image)
+                .width(Value.percentWidth(0.1f, outer))
+                .height(Value.percentWidth(0.1f, outer))
+                .pad(10);
+
+        /*
+        manually adding the sprite icons next to the buttons because adding them
+        using libGDX table formatting was causing problems
+         */
+
+        /**
+         *         model1Image.setPosition(110, 380);
+         *         model1Image.setSize(100, 100);
+         *         stage.addActor(model1Image);
+         *         model2Image.setPosition(110, 260);
+         *         model2Image.setSize(100, 100);
+         *         stage.addActor(model2Image);
+         *         model3Image.setPosition(110, 140);
+         *         model3Image.setSize(100, 100);
+         *         stage.addActor(model3Image);
+         *         model4Image.setPosition(110, 20);
+         *         model4Image.setSize(100, 100);
+         *         stage.addActor(model4Image);
+         */
+        stage.addActor(outer);
+
+        playerModel1Button.addListener(event -> {
+            if (playerModel1Button.isPressed()) {
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset));
+            }
+            return true;
+        });
+        playerModel2Button.addListener(event -> {
+            if (playerModel2Button.isPressed()) {
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset2));
+            }
+            return true;
+        });
+        playerModel3Button.addListener(event -> {
+            if (playerModel3Button.isPressed()) {
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset3));
+            }
+            return true;
+        });
+        playerModel4Button.addListener(event -> {
+            if (playerModel4Button.isPressed()) {
+                playerTextureAtlas = new TextureAtlas(Gdx.files.internal(HeslingtonHustle.playerAsset4));
+            }
+            return true;
+        });
+        if (playerTextureAtlas == null) {
+            playerTextureAtlas = new TextureAtlas(Gdx.files.internal("sprites/player.txt"));
+        }
+
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
@@ -123,5 +254,7 @@ public class Options implements Screen {
     public void hide() {}
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        playerTextureAtlas.dispose();
+    }
 }
