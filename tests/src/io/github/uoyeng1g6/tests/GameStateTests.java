@@ -138,6 +138,8 @@ public class GameStateTests {
         assertEquals("The bonus is correct", expected, actual);
     }
 
+
+
     @Test
     public void T_Study2BonusTest(){
         ActivitySubType type = ActivitySubType.STUDY2;

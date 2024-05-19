@@ -539,6 +539,7 @@ public class Playing implements Screen {
 
     @Override
     public void dispose() {
+        gameMusic.dispose();
         stage.dispose();
         world.dispose();
     }
