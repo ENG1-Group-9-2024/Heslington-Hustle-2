@@ -234,6 +234,5 @@ public class Options implements Screen {
     public void hide() {}
 
     @Override
-    public void dispose() {
-    }
+    public void dispose() {}
 }
