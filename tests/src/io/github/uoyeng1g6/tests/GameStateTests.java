@@ -135,17 +135,9 @@ public class GameStateTests {
         int expected = GameConstants.getActivityBonus(type);
         int actual = bonusTestHelper(type);
 
-        assertTrue("The bonus is correct", expected == actual);
-    }
-
-    @Test
-    public void T_Study21BonusTest(){
-        ActivitySubType type = ActivitySubType.STUDY1;
-        int expected = GameConstants.getActivityBonus(type);
-        int actual = bonusTestHelper(type);
-
         assertEquals("The bonus is correct", expected, actual);
     }
+
 
 
     @Test
