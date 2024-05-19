@@ -65,8 +65,7 @@ public class EndScreen implements Screen {
 
             var inner = new Table(game.skin);
 
-            inner.add(String.format("Exam Score: %.2f / 100", finalScore))
-                    .padBottom(50);
+            inner.add(String.format("Exam Score: %.2f / 100", finalScore)).padBottom(50);
             inner.row();
 
             // Bonus is displayed here
